@@ -1,0 +1,1 @@
+{"version":3,"file":"running.js","sourceRoot":"","sources":["../../../src/gasoline/dev/running.ts"],"names":[],"mappings":"AAGA,MAAM;IAGF,YAAY,SAAmB;QAC5B,IAAI,CAAC,SAAS,GAAG,SAAS,CAAA;IAC7B,CAAC;IAEM,MAAM;QACT,IAAI,CAAC,SAAS,CAAC,UAAU,GAAG,EAAE,CAAA;QAC9B,IAAI,CAAC,SAAS,CAAC,SAAS,GAAG,CAAC,EAAE,CAAA;IAClC,CAAC;CACJ"}
