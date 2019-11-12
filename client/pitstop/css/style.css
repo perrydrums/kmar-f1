@@ -1,0 +1,227 @@
+@font-face {
+  src: url('../font/digits.ttf');
+  font-family: 'Digits';
+}
+
+@font-face {
+  src: url('../font/f1.ttf');
+  font-family: 'F1';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: gray;
+}
+
+.road {
+  width: 400px;
+  height: 100vh;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+
+  background-color: #414141;
+}
+
+.car {
+  background-image: url('../img/car.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 300px;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+
+  top: -300px;
+}
+
+#tirerack {
+  background-color: red;
+  width: 200px;
+  height: 100px;
+
+  position: absolute;
+  left: 200px;
+  bottom: 200px;
+
+  display: flex;
+  align-content: space-between;
+  align-items: center;
+}
+
+.tire {
+  background-image: url('../img/tire.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 40px;
+  height: 40px;
+
+  flex: 1;
+}
+
+.player {
+  width: 70px;
+  height: 70px;
+  background-image: url('../img/player.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  position: absolute;
+}
+
+.has-tire {
+  background-image: url('../img/player-tire.png');
+}
+
+.has-gasoline:before {
+  content: '•';
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+}
+
+#gasoline {
+  width: 50px;
+  height: 70px;
+  clip-path: polygon(70% 0, 100% 28%, 100% 100%, 0 100%, 0 0);
+
+  background-color: brown;
+
+  position: absolute;
+  right: 200px;
+  bottom: 200px;
+}
+
+#game-gasmeter {
+  width: 50px;
+  height: 500px;
+
+  background-color: black;
+
+  position: absolute;
+  right: 200px;
+  top: 50px;
+}
+
+#game-gasmeter > #game-gasmeter-inner {
+  margin: 10px;
+  width: 30px;
+  height: 480px;
+  max-height: 480px;
+  background-color: red;
+
+  position: absolute;
+  bottom: 0;
+}
+
+.car-gasmeter {
+  width: 5px;
+  height: 50px;
+
+  background-color: black;
+
+  position: absolute;
+  top: 0;
+}
+
+.car-gasmeter > .car-gasmeter-inner {
+  width: 5px;
+  height: 0;
+
+  background-color: red;
+
+  position: absolute;
+  bottom: 0;
+}
+
+#timer {
+  width: 300px;
+  height: 110px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 2;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+
+  font-family: Digits, Courier, monospace;
+  font-size: 60px;
+  color: greenyellow;
+  text-align: center;
+  line-height: 70px;
+}
+
+#timer > p {
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.dialog {
+  width: 800px;
+  height: 500px;
+
+  z-index: 4;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  margin-left: -400px;
+  margin-top: -250px;
+
+  background-color: aqua;
+
+  padding: 50px;
+  box-sizing: border-box;
+
+  font-family: 'F1';
+
+  text-align: center;
+}
+
+.dialog h1 {
+  font-size: 40px;
+  text-align: center;
+  border-bottom: 2px solid black;
+  margin-bottom: 50px;
+  line-height: 60px;
+}
+
+.dialog p {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dialog button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  background: #0069ed;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 3;
+
+  position: absolute;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}

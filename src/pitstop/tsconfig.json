@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "sourceMap":  false,
+        "removeComments": true,
+        "target":"es6",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "outDir": "../../client/pitstop/js/"
+    },
+    "include": [
+        "**/*"
+    ]
+}

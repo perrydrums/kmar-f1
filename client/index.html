@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  </head>
+  <body>
+    <a href="/pitstop">PITSTOP</a>
+    <script>
+        const socket = io();
+        const uuid = Cookies.get('uuid');
+
+        socket.emit('client:start', { uuid });
+        
+        socket.on('server:save_uuid', data => {
+          Cookies.set('uuid', data.uuid);
+        });
+    </script>
+  </body>
+</html>
+
