@@ -10,4 +10,3 @@ export class Brain extends Food {
         this.game.addScore(25);
     }
 }
-//# sourceMappingURL=brain.js.map

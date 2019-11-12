@@ -18,4 +18,3 @@ export class DeleteNotifier {
         }
     }
 }
-//# sourceMappingURL=deleteNotifier.js.map

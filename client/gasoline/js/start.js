@@ -35,4 +35,3 @@ export class Start {
         document.body.removeChild(this.start);
     }
 }
-//# sourceMappingURL=start.js.map

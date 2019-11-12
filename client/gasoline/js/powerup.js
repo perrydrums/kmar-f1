@@ -24,4 +24,3 @@ export class Powerup {
         setTimeout(() => { this.element.classList.remove("powerupLoading"); this.now = true; }, 30000);
     }
 }
-//# sourceMappingURL=powerup.js.map

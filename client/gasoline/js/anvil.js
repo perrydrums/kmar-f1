@@ -18,4 +18,3 @@ export class Anvil extends Food {
         this.game.food.slice(this.game.food.indexOf(this), 1);
     }
 }
-//# sourceMappingURL=anvil.js.map

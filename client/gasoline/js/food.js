@@ -29,4 +29,3 @@ export class Food {
     }
     action() { }
 }
-//# sourceMappingURL=food.js.map

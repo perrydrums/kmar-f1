@@ -1,1 +1,0 @@
-{"version":3,"file":"walking.js","sourceRoot":"","sources":["../../../src/gasoline/dev/walking.ts"],"names":[],"mappings":"AAGA,MAAM;IAGF,YAAY,SAAmB;QAC5B,IAAI,CAAC,SAAS,GAAG,SAAS,CAAA;IAC7B,CAAC;IAED,MAAM;QACF,IAAI,CAAC,SAAS,CAAC,UAAU,GAAG,CAAC,CAAA;QAC7B,IAAI,CAAC,SAAS,CAAC,SAAS,GAAG,CAAC,CAAC,CAAA;IACjC,CAAC;CACJ"}

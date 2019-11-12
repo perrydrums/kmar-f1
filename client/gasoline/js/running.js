@@ -7,4 +7,3 @@ export class Running {
         this.character.speedLeft = -20;
     }
 }
-//# sourceMappingURL=running.js.map

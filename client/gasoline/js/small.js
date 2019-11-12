@@ -10,4 +10,3 @@ export class Small extends Food {
         this.game.addScore(5);
     }
 }
-//# sourceMappingURL=small.js.map

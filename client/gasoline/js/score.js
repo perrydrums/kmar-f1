@@ -9,4 +9,3 @@ export class Score {
         this._element.innerText = "Score: " + this.totalScore;
     }
 }
-//# sourceMappingURL=score.js.map

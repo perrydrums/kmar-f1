@@ -82,4 +82,3 @@ window.addEventListener("load", () => {
     const g = Game.getInstance();
     g.initialize();
 });
-//# sourceMappingURL=game.js.map

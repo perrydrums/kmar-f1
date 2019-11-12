@@ -7,4 +7,3 @@ export class Walking {
         this.character.speedLeft = -5;
     }
 }
-//# sourceMappingURL=walking.js.map
