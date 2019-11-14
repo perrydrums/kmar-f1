@@ -56,7 +56,7 @@ export class Game {
       });
 
       this.socket.on('server:gasoline:update', (data:any) => {
-        console.log('PITSTOP: SERVER UPDATE');
+        console.log('PITSTOP: SERVER UPDATE', data.gasoline);
         this.gasmeter.addGasoline(data.gasoline);
       });
 

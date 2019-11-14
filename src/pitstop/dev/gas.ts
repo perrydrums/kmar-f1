@@ -30,17 +30,19 @@ export class Gas {
    * Reset the amount of gas.
    */
   public reset() {
-    this.amount = 100;
+    // remove function.
   }
 
   public addGasoline(amount:number) {
-    console.log('PITSTOP: ADD GAS');
-    if (this.amount !>= 100) {
+    console.log('PITSTOP: ADD GAS', amount);
+    if (this.amount < 100) {
       this.amount += amount;
       if (this.amount >= 100) {
         this.amount = 100;
       }
     }
+
+    console.log('AMOUNT', this.amount);
   }
 
 }

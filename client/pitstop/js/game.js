@@ -21,7 +21,7 @@ export class Game {
             uuid: this.getCookie('uuid'),
         });
         this.socket.on('server:gasoline:update', (data) => {
-            console.log('PITSTOP: SERVER UPDATE');
+            console.log('PITSTOP: SERVER UPDATE', data.gasoline);
             this.gasmeter.addGasoline(data.gasoline);
         });
         this.gameLoop();

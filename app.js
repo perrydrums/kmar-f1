@@ -41,7 +41,7 @@ io.sockets.on('connection', async socket => {
   socket.on('gasoline:update', data => {
     console.log('SERVER: GASOLINE: UPDATE', data.gasoline);
     setStat('gasoline', data.gasoline);
-    socket.emit('server:gasoline:update', {gasoline: data.gasoline});
+    socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
   });
 
 });

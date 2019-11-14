@@ -12,15 +12,15 @@ export class Gas {
         this.amount--;
     }
     reset() {
-        this.amount = 100;
     }
     addGasoline(amount) {
-        console.log('PITSTOP: ADD GAS');
-        if (this.amount >= 100) {
+        console.log('PITSTOP: ADD GAS', amount);
+        if (this.amount < 100) {
             this.amount += amount;
             if (this.amount >= 100) {
                 this.amount = 100;
             }
         }
+        console.log('AMOUNT', this.amount);
     }
 }
