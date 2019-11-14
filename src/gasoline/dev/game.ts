@@ -15,6 +15,7 @@ export class Game {
     public food:Food[] = [];
     public powerup:boolean = false;
     public subject:Subject = new DeleteNotifier();
+    public socket:SocketIOClient.Socket;
     
     private constructor() {}
     
@@ -23,6 +24,11 @@ export class Game {
         this.scoreElement.classList.add('score');
         document.body.appendChild(this.scoreElement);
         Start.getInstance().show();
+        this.socket = io({ timeout: 60000 });
+
+        this.socket.emit('gasoline:start', {
+          uuid: this.getCookie('uuid'),
+        });
     }
     
     public start() {
@@ -39,6 +45,9 @@ export class Game {
     }
     
     public addScore(amount:number) {
+
+      this.socket.emit('gasoline:update', {gasoline: amount});
+
         if (amount === 0) {
             this.score = Math.round(this.score / 2);
             this.scoreElement.classList.remove("fullScore");
@@ -90,6 +99,17 @@ export class Game {
         }
         return food;
     }
+
+  /**
+   * Get cookie by name.
+   * 
+   * @param name 
+   */
+  private getCookie(name:string) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  }
 }
 
 window.addEventListener("load", ()=> {

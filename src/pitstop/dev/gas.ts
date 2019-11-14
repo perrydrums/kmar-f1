@@ -5,7 +5,7 @@ export class Gas {
 
   public constructor() {
     this.element = document.getElementById('game-gasmeter');
-    this.amount = 100;
+    this.amount = 0;
   }
 
   /**
@@ -31,6 +31,16 @@ export class Gas {
    */
   public reset() {
     this.amount = 100;
+  }
+
+  public addGasoline(amount:number) {
+    console.log('PITSTOP: ADD GAS');
+    if (this.amount !>= 100) {
+      this.amount += amount;
+      if (this.amount >= 100) {
+        this.amount = 100;
+      }
+    }
   }
 
 }

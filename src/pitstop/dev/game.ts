@@ -55,6 +55,11 @@ export class Game {
         uuid: this.getCookie('uuid'),
       });
 
+      this.socket.on('server:gasoline:update', (data:any) => {
+        console.log('PITSTOP: SERVER UPDATE');
+        this.gasmeter.addGasoline(data.gasoline);
+      });
+
       this.gameLoop();
   }
 

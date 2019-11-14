@@ -20,6 +20,10 @@ export class Game {
         this.socket.emit('pitstop:start', {
             uuid: this.getCookie('uuid'),
         });
+        this.socket.on('server:gasoline:update', (data) => {
+            console.log('PITSTOP: SERVER UPDATE');
+            this.gasmeter.addGasoline(data.gasoline);
+        });
         this.gameLoop();
     }
     static getInstance() {
