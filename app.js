@@ -3,8 +3,10 @@ const app     = express()
 const http    = require('http').createServer(app)
 const io      = require('socket.io')(http)
 const uuidv1  = require('uuid/v1');
+const dotenv  = require('dotenv').config();
+const { setStat, getStat } = require('./server/db');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   res.sendFile(__dirname + '/client/index.html');
 });
 
@@ -14,7 +16,7 @@ app.get('/pitstop', (req, res) => {
   res.sendFile(__dirname + '/client/pitstop/');
 });
 
-io.sockets.on('connection', socket => {
+io.sockets.on('connection', async socket => {
   console.log('Socket connected with Client.');
 
   socket.on('client:start', data => {
@@ -32,7 +34,19 @@ io.sockets.on('connection', socket => {
     console.log('PITSTOP: Start with UUID ' + data.uuid);
   });
 
+  socket.on('gasoline:start', data => {
+    console.log('GASOLINE: Start with UUID ' + data.uuid);
+  });
+
+  socket.on('gasoline:update', data => {
+    console.log('SERVER: GASOLINE: UPDATE', data.gasoline);
+    setStat('gasoline', data.gasoline);
+    socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
+  });
+
 });
 
-http.listen(3000);
-console.log('Server running on: http://localhost:3000');
+const port = process.env.PORT || 80;
+
+http.listen(port);
+console.log('Server running on: http://localhost:' + port);

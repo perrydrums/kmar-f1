@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "sourceMap":  false,
+        "removeComments": true,
+        "target":"es6",
+        "outDir": "../../client/gasoline/js/"
+    },
+    "include": [
+        "**/*"
+    ]
+}
