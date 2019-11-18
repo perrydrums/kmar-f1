@@ -79,7 +79,7 @@ typings/
 # nuxt.js build output
 .nuxt
 
-# react / gatsby 
+# react / gatsby
 public/
 
 # vuepress build output
@@ -97,3 +97,4 @@ public/
 # End of https://www.gitignore.io/api/node
 
 .DS_Store
+.idea
