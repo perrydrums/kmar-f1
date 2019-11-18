@@ -1,0 +1,140 @@
+@font-face {
+  src: url('../font/digits.ttf');
+  font-family: 'Digits';
+}
+
+@font-face {
+  src: url('../font/f1.ttf');
+  font-family: 'F1';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: gray;
+}
+
+.number {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transform: rotate(90deg);
+  font-family: 'F1';
+  color: white;
+  font-size: 26px;
+}
+
+.number-1 {
+  top: 455px;
+  left: 330px;
+}
+
+.number-2 {
+  top: 345px;
+  left: 300px;
+}
+
+.number-3 {
+  top: 235px;
+  left: 330px;
+}
+
+.number-4 {
+  top: 140px;
+  left: 355px;
+}
+
+.number-5 {
+  top: 45px;
+  left: 350px;
+}
+
+.question-mark {
+  top: -35px;
+  left: 345px;
+}
+
+.car-overlay {
+  background-image: url('../img/wind.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 400px;
+  height: 600px;
+}
+
+.car {
+  background-image: url('../img/carbig.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(270deg);
+  width: 400px;
+  height: 600px;
+  overflow: visible;
+  position: absolute;
+  top: 20%;
+
+  left: -300px;
+}
+
+.dialog {
+  width: 800px;
+  height: 500px;
+
+  z-index: 4;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  margin-left: -400px;
+  margin-top: -250px;
+
+  background-color: aqua;
+
+  padding: 50px;
+  box-sizing: border-box;
+
+  font-family: 'F1';
+
+  text-align: center;
+}
+
+.dialog h1 {
+  font-size: 40px;
+  text-align: center;
+  border-bottom: 2px solid black;
+  margin-bottom: 50px;
+  line-height: 60px;
+}
+
+.dialog p {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dialog button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  background: #0069ed;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 3;
+
+  position: absolute;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
