@@ -5,6 +5,7 @@
   </head>
   <body>
     <a href="/pitstop">PITSTOP</a>
+    <a href="/research">Research & Development</a>
     <a href="/aero">AERO</a>
     <a href="/gasoline">GASOLINE</a>
     <script>
@@ -12,7 +13,7 @@
         const uuid = Cookies.get('uuid');
 
         socket.emit('client:start', { uuid });
-        
+
         socket.on('server:save_uuid', data => {
           Cookies.set('uuid', data.uuid);
         });
