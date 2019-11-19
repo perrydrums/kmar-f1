@@ -15,14 +15,52 @@ const firebaseConfig = {
 const fb = firebase.initializeApp(firebaseConfig);
 const database = fb.database();
 
+/**
+ * Save a statistic of the current game.
+ * 
+ * @param {string} name 
+ * @param {any} value 
+ */
 const setStat = (name, value) => {
-  database.ref('/stats/' + name).set({value});
+  database.ref('/stats/' + name).set(value);
 };
 
+/**
+ * Get a statistic of the current game.
+ * 
+ * @param {string} name 
+ */
 const getStat = async (name) => {
   const stats = database.ref('/stats/' + name);
   const snapshot = await stats.once('value');
-  return snapshot.val().value;
+  return snapshot.val();
 }
 
-module.exports = { setStat, getStat };
+/**
+ * Set the UUID of the current player of set game.
+ * 
+ * @param {string} name 
+ * @param {string} uuid 
+ */
+const setUUID = async (name, uuid) => {
+  // Get current UUIDs.
+  const root = database.ref('/uuids');
+  const snapshot = await root.once('value');
+  let uuids = snapshot.val() || {};
+
+  uuids[name] = uuid;
+  
+  database.ref('/uuids').set(uuids);
+};
+
+/**
+ * Get all UUIDs of the current game.
+ */
+const getUUIDs = async () => {
+  // Get current UUIDs.
+  const root = database.ref('/uuids');
+  const snapshot = await root.once('value');
+  return snapshot.val() || {};
+};
+
+module.exports = { setStat, getStat, setUUID, getUUIDs };
