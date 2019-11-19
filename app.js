@@ -1,50 +1,44 @@
-const express = require('express')
-const app     = express()
-const http    = require('http').createServer(app)
-const io      = require('socket.io')(http)
-const uuidv1  = require('uuid/v1');
-const dotenv  = require('dotenv').config();
-const { setStat, getStat } = require('./server/db');
+const express      = require('express');
+const cookieParser = require('cookie-parser');
+const app          = express();
+const http         = require('http').createServer(app);
+const io           = require('socket.io')(http);
+const uuidv1       = require('uuid/v1');
+const dotenv       = require('dotenv').config();
+const { initializeSockets } = require('./server/sockets');
+const { getUUIDs } = require('./server/db');
 
+app.use(cookieParser());
+
+/**
+ * Determine to which game the player will be sent to.
+ */
 app.get('/', async (req, res) => {
+  // Create a unique ID for the player and save in cookie.
+  if (req.cookies.uuid) {
+    console.log('Known player with UUID ' + req.cookies.uuid);
+
+    const uuids = await getUUIDs();
+
+    // Check if the UUID is already playing the game, if so, redirect them to their game.
+    const game = Object.keys(uuids).find(key => uuids[key] === req.cookies.uuid);
+    if (game) {
+      res.redirect('/' + game);
+      return;
+    }
+
+  } else {
+    console.log('Set new UUID');
+    const uuid = uuidv1();
+    res.cookie('uuid', uuid);
+  }
+
   res.sendFile(__dirname + '/client/index.html');
 });
 
 app.use('/', express.static(__dirname + '/client'));
 
-app.get('/pitstop', (req, res) => {
-  res.sendFile(__dirname + '/client/pitstop/');
-});
-
-io.sockets.on('connection', async socket => {
-  console.log('Socket connected with Client.');
-
-  socket.on('client:start', data => {
-    if (data.uuid) {
-      console.log('Known player with UUID ' + data.uuid);
-    } else {
-      console.log('Set new UUID');
-      
-      const uuid = uuidv1();
-      socket.emit('server:save_uuid', { uuid });
-    }
-  });
-
-  socket.on('pitstop:start', data => {
-    console.log('PITSTOP: Start with UUID ' + data.uuid);
-  });
-
-  socket.on('gasoline:start', data => {
-    console.log('GASOLINE: Start with UUID ' + data.uuid);
-  });
-
-  socket.on('gasoline:update', data => {
-    console.log('SERVER: GASOLINE: UPDATE', data.gasoline);
-    setStat('gasoline', data.gasoline);
-    socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
-  });
-
-});
+initializeSockets(http);
 
 const port = process.env.PORT || 80;
 
