@@ -1,5 +1,5 @@
 const socketIO = require('socket.io');
-const { setStat, getStat, setUUID } = require('./db');
+const { setStat, setUUID, getUUIDs } = require('./db');
 
 /**
  * Sets up all socket connections.
@@ -22,11 +22,10 @@ const initializeSockets = (http) => {
 
     socket.on('client:startGame', async data => {
 
-      const pitstopUUID = await getStat('pitstopUUID');
-      const gasolineUUID = await getStat('gasolineUUID');
+      const uuids = await getUUIDs();
 
-      // Start the game if all players are in their mini-game.
-      if (pitstopUUID && gasolineUUID) {
+      // Start the game when all mini-games are active.
+      if (uuids.length === 8) {
         setStat('running', true);
         setStat('startTime', Date.now());
       }
