@@ -1,8 +1,8 @@
 import { Character } from './character.js';
 import { DeleteNotifier } from './deleteNotifier.js';
 import { Anvil } from './anvil.js';
-import { Small } from './small.js';
-import { Brain } from './brain.js';
+import { SmallFuel } from './smallFuel.js';
+import { Fuel } from './fuel.js';
 import { Start } from './start.js';
 export class Game {
     constructor() {
@@ -12,9 +12,6 @@ export class Game {
         this.subject = new DeleteNotifier();
     }
     initialize() {
-        this.scoreElement = document.createElement('div');
-        this.scoreElement.classList.add('score');
-        document.body.appendChild(this.scoreElement);
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
         this.socket.emit('gasoline:start', {
@@ -22,7 +19,7 @@ export class Game {
         });
     }
     start() {
-        this.food = this.createFood(1);
+        this.food = this.createFood(4);
         this.character = new Character();
         this.gameLoop();
     }
@@ -36,26 +33,19 @@ export class Game {
         this.socket.emit('gasoline:update', { gasoline: amount });
         if (amount === 0) {
             this.score = Math.round(this.score / 2);
-            this.scoreElement.classList.remove("fullScore");
         }
         else if (this.score >= 150) {
             this.score = 150;
-            this.scoreElement.classList.add("fullScore");
-            alert("Je hebt genoeg benzine verzameld");
-            window.location.reload();
         }
         else {
-            this.scoreElement.classList.remove("fullScore");
             Math.round(this.score += amount);
         }
     }
     showScore() {
-        this.scoreElement.innerHTML = "Benzine: " + this.score.toString() + "L";
     }
     gameLoop() {
         this.character.update();
         this.subject.update();
-        this.showScore();
         for (let f of this.food) {
             f.update();
         }
@@ -70,14 +60,11 @@ export class Game {
         let food = [];
         for (let i = 0; i < amount; i++) {
             const random = Math.floor(Math.random() * 100);
-            if (random > 30) {
+            if (random > 40) {
                 food.push(new Anvil(this.subject));
             }
-            else if (random > 60) {
-                food.push(new Small());
-            }
             else {
-                food.push(new Brain());
+                food.push(new Fuel(), new SmallFuel());
             }
         }
         return food;

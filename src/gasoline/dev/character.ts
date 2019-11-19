@@ -1,5 +1,6 @@
 import { Anvil } from './anvil.js';
 import { Walking } from './walking.js';
+import { StopWalking } from './stopWalking.js';
 import { Movement } from './movement.js';
 import { Food } from './food.js';
 import { Powerup } from './powerup.js';
@@ -7,15 +8,15 @@ import { Game } from './game.js';
 
 export class Character {
     public _htmlElement : HTMLElement
-    private posx:number
-    private posy:number
-    private speed:number = 0
+    public posx:number
+    public posy:number
+    public speed:number = 0
     public behaviour:Movement
     public speedRight:number = 5
     public speedLeft:number = -5
     private food:Food[];
     public powerup:Powerup
-
+    public hit:boolean = false;
 
     constructor(){
         this._htmlElement = document.createElement("div")
@@ -33,6 +34,7 @@ export class Character {
 
     public update(){
         this.behaviour.update();
+        this.noPowerup();
         this.htmlElement.style.transform = `translate(${this.posx += this.speed}px, ${this.posy}px)`;
         
         for(let i = 0; i < this.food.length; i++){
@@ -72,14 +74,18 @@ export class Character {
     }
 
     public noPowerup(){
-        this.behaviour = new Walking(this);
+        if(!this.hit){
+            this.behaviour = new Walking(this);   
+        } else {
+            this.behaviour = new StopWalking(this);
+        }
     }
 
     get htmlElement():HTMLElement {
         return this._htmlElement;
     }
 
-    private onKeyDown(event:KeyboardEvent):void {
+    public onKeyDown(event:KeyboardEvent):void {
         switch(event.keyCode){
         case 37:
             this.speed = this.speedLeft;
@@ -94,7 +100,7 @@ export class Character {
         }
     }
     
-    private onKeyUp(event:KeyboardEvent):void {
+    public onKeyUp(event:KeyboardEvent):void {
         switch(event.keyCode){
         case 37:
             this.speed = 0;

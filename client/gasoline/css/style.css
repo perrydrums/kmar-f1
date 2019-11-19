@@ -157,7 +157,7 @@ food {
     position: absolute;
 }
 
-brain {
+fuel {
     width:150px; height:100px;;
     background-image: url(../images/fuel-big.png);
     background-size:contain;
@@ -166,7 +166,7 @@ brain {
     position: absolute;
 }
 
-small {
+small-fuel {
     width:150px; height:100px;;
     background-image: url(../images/small-bottle.png);
     background-size:contain;
@@ -207,4 +207,13 @@ score {
     font-size:20px;
     font-weight:bold;
     padding:20px;
+}
+
+.anvilHit {
+    background-image: url('../images/explosion.gif');
+    height: 250px;
+    width: 250px;
+    position: relative;
+    z-index: 9999;
+    background-size: cover;
 }

@@ -10,7 +10,15 @@ export class Anvil extends Food {
     }
     action() {
         this.game.addScore(0);
-        alert("Je bent de helft van je benzine verloren!");
+        this.game.character.hit = true;
+        if (!document.querySelector(".anvilHit")) {
+            document.getElementsByTagName("Anvil");
+            this.anvilHit = document.createElement('div');
+            this.anvilHit.classList.add('anvilHit');
+            document.body.appendChild(this.anvilHit);
+            this.anvilHit.style.transform = `translate(${this.game.character.posx - 80}px, ${this.game.character.posy - 200}px)`;
+            setTimeout(() => { this.game.character._htmlElement.classList.remove("hit-character"); this.anvilHit.remove(); this.game.character.hit = false; }, 5000);
+        }
     }
     notify() {
         this.element.remove();
