@@ -5,6 +5,7 @@ export class Game {
         this._fps = 30;
         this._carTime = 0;
         this.running = false;
+        this.sequenceCount = 0;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.gameLoop();
@@ -40,7 +41,7 @@ export class Game {
         }
     }
     checkCar() {
-        if (this._carTime > this._fps * 5) {
+        if (this._carTime > this._fps * 1) {
             if (!this._car) {
                 this._car = new Car();
             }

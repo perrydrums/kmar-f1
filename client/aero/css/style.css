@@ -26,6 +26,7 @@ body {
   font-family: 'F1';
   color: white;
   font-size: 26px;
+  text-shadow: 2px 2px black;
 }
 
 .number-1 {
@@ -54,8 +55,38 @@ body {
 }
 
 .question-mark {
-  top: -35px;
+  font-size: 40px;
+  top: -45px;
   left: 345px;
+  width: auto;
+  height: auto;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+  font-family: F1;
+  color: white;
+  font-size: 80px;
+  padding: 20px;
+}
+
+.answer {
+  padding: 20px;
+  border: 5px solid white;
+  border-radius: 10px;
+  margin-right: 20px;
+  background: #555555;
+  text-shadow: 4px 4px black;
+  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.5);
+}
+
+.correct {
+  background: limegreen;
+}
+
+.incorrect {
+  background: tomato;
 }
 
 .car-overlay {
