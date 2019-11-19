@@ -58,7 +58,7 @@ export class Car {
    * Runs every game tick.
    */
   public update() {
-    if (this.tires.length !== 4 || this.gas <= 50) {
+    if (this.tires.length !== 4 || this.gas <= 45) {
       this.enter();
     }
     else {

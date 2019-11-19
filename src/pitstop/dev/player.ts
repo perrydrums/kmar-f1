@@ -149,7 +149,7 @@ export class Player {
     // Car collision detection when holding gasoline.
     const car = Game.getInstance()._car;
     const gasmeter = Game.getInstance().gasmeter;
-    if (car && this.hasGasoline) {
+    if (car && this.hasGasoline && gasmeter.amount > 0) {
       if (this.isCollision(car._element)) {
         gasmeter.drain();
         car.fill();

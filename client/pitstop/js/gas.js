@@ -9,18 +9,18 @@ export class Gas {
         innerElement.style.height = height;
     }
     drain() {
-        this.amount--;
+        if (this.amount > 0) {
+            this.amount--;
+        }
     }
     reset() {
     }
     addGasoline(amount) {
-        console.log('PITSTOP: ADD GAS', amount);
         if (this.amount < 100) {
             this.amount += amount;
             if (this.amount >= 100) {
                 this.amount = 100;
             }
         }
-        console.log('AMOUNT', this.amount);
     }
 }

@@ -23,7 +23,9 @@ export class Gas {
    * Reduce the amount of gas.
    */
   public drain() {
-    this.amount --;
+    if (this.amount > 0) {
+      this.amount --;
+    }
   }
 
   /**
@@ -34,15 +36,12 @@ export class Gas {
   }
 
   public addGasoline(amount:number) {
-    console.log('PITSTOP: ADD GAS', amount);
     if (this.amount < 100) {
       this.amount += amount;
       if (this.amount >= 100) {
         this.amount = 100;
       }
     }
-
-    console.log('AMOUNT', this.amount);
   }
 
 }
