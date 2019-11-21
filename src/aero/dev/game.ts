@@ -1,7 +1,6 @@
 import { Car } from "./car.js"
 import { Dialog } from "./dialog.js"
 
-
 export class Game {
 
   private static _instance:Game;
@@ -16,12 +15,15 @@ export class Game {
   private _then:number;
 
   public _car:Car;
-
+  
   private _carTime:number = 0;
-
+  
   private running:boolean = false;
-
+  
   private dialog:Dialog;
+  
+  public sequenceCount:number = 0;
+
 
   /**
    * Make the constructor private.
@@ -88,7 +90,7 @@ export class Game {
    * Check if the car's ready.
    */
   private checkCar() {
-    if (this._carTime > this._fps * 5) {
+    if (this._carTime > this._fps * 1) {
       if (!this._car) {
         this._car = new Car();
       }

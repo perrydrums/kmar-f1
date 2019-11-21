@@ -1,3 +1,5 @@
+import { Game } from "./game.js"
+
 export class Car {
 
   public _element: HTMLElement;
@@ -7,6 +9,9 @@ export class Car {
   public carOverlay: HTMLElement;
   public number: HTMLElement;
   public questionMark: HTMLElement;
+  public answers: HTMLElement;
+  public answer: HTMLElement;
+  public correct: boolean = false;
   public sequences: [] = [];
   public currentSequence: [] = [];
 
@@ -30,7 +35,7 @@ export class Car {
     }
   }
 
-  private checkDrawn() {
+  private async checkDrawn() {
     if (!this.drawn) {
       this.createOverlay();
     }
@@ -38,6 +43,9 @@ export class Car {
   }
 
   private async createOverlay() {
+
+    this.currentSequence = await this.getSequence(Game.getInstance().sequenceCount);
+    Game.getInstance().sequenceCount += 1;
 
     this.carOverlay = document.createElement('div');
     this.carOverlay.classList.add('car-overlay');
@@ -48,8 +56,24 @@ export class Car {
     this.questionMark.innerHTML = '?';
     this._element.appendChild(this.questionMark);
 
-    this.currentSequence = await this.getSequence(1);
-    console.log(this.currentSequence);
+    this.answers = document.createElement('div');
+    this.answers.classList.add('answers');
+    document.body.appendChild(this.answers);
+
+    for (let index = 0; index < 4; index++) {
+      this.answer = document.createElement('div');
+      this.answer.classList.add('answer')
+      this.answer.innerHTML = this.currentSequence['options'][index];
+      this.answer.addEventListener('click', (event) => {
+        const boolean = this.checkAnswer(this.currentSequence['options'][index]);
+        if (boolean) {
+          event.target.classList.add('correct')
+        } else {
+          event.target.classList.add('incorrect')
+        }
+      });
+      this.answers.appendChild(this.answer);
+    }
 
     for (let index = 0; index < 5; index++) {
       let classIndex = index + 1;
@@ -69,16 +93,30 @@ export class Car {
     return sendSequence;
   }
 
+  private checkAnswer(number:number) {
+    if (this.currentSequence['answer'] === number) {
+      this.correct = true;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Remove the car from the view and set car as DONE.
    */
   private leave() {
-    if (this.x < 1200) {
-      this.x += 50;
-      this._element.style.top = this.x + 'px';
-    }
-    else {
+    if (this.x < 1400) {
+      this.x += 35;
+      this._element.style.left = this.x + 'px';
+      this.carOverlay.remove();
+      const numberdivs = document.querySelectorAll(".number")
+      for (const number of numberdivs) {
+        number.remove();
+      }
+    } else {
       this._element.remove();
+      this.answers.remove();
       this.done = true;
     }
   }
@@ -88,12 +126,12 @@ export class Car {
    */
   public update() {
     this.enter();
-    //   if (this.tires.length !== 4 || this.gas <= 50) {
-    //     this.enter();
-    //   }
-    //   else {
-    //     this.leave();
-    //   }
+      if (!this.correct) {
+        this.enter();
+      }
+      else {
+        this.leave();
+      }
 
   }
 
