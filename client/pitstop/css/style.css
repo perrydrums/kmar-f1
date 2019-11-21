@@ -43,7 +43,7 @@ body {
   top: -300px;
 }
 
-#tirerack {
+.tirerack {
   background-color: red;
   width: 200px;
   height: 100px;
@@ -55,6 +55,10 @@ body {
   display: flex;
   align-content: space-between;
   align-items: center;
+}
+
+.tirerack--rain {
+  bottom: 400px;
 }
 
 .tire {

@@ -63,6 +63,8 @@ const initializeSockets = (http) => {
 
     socket.on('research:unlock', async data => {
       await addUpgrade(data.upgrade);
+
+      socket.broadcast.emit('server:research:unlock:' + data.upgrade, {});
     });
   });
 };
