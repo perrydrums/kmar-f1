@@ -19,7 +19,8 @@ export class Food {
     public update():void {
         if(this.posy >= window.innerHeight){
             if (this instanceof Anvil) {
-                this.subject.unsubscribe(this);
+                this.remove();
+                // this.subject.unsubscribe(this);
             }
             this.remove();
             const index = this.game.food.indexOf(this);

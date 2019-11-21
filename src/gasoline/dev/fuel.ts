@@ -1,15 +1,15 @@
 import { Food } from './food.js';
 
-export class Small extends Food {
+export class Fuel extends Food {
 
     constructor(){
         super();
-        this._element = document.createElement("small")
+        this._element = document.createElement("fuel")
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this._element);
     }
 
     public action(){
-        this.game.addScore(5);
+        this.game.addScore(25);
     }
 }

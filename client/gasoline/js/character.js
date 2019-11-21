@@ -1,5 +1,6 @@
 import { Anvil } from './anvil.js';
 import { Walking } from './walking.js';
+import { StopWalking } from './stopWalking.js';
 import { Powerup } from './powerup.js';
 import { Game } from './game.js';
 export class Character {
@@ -7,6 +8,7 @@ export class Character {
         this.speed = 0;
         this.speedRight = 5;
         this.speedLeft = -5;
+        this.hit = false;
         this._htmlElement = document.createElement("div");
         document.body.appendChild(this.htmlElement).className = "character";
         this.powerup = new Powerup(this);
@@ -20,6 +22,7 @@ export class Character {
     }
     update() {
         this.behaviour.update();
+        this.noPowerup();
         this.htmlElement.style.transform = `translate(${this.posx += this.speed}px, ${this.posy}px)`;
         for (let i = 0; i < this.food.length; i++) {
             if (this.htmlElement.getBoundingClientRect().left < this.food[i].element.getBoundingClientRect().right &&
@@ -50,7 +53,12 @@ export class Character {
         }
     }
     noPowerup() {
-        this.behaviour = new Walking(this);
+        if (!this.hit) {
+            this.behaviour = new Walking(this);
+        }
+        else {
+            this.behaviour = new StopWalking(this);
+        }
     }
     get htmlElement() {
         return this._htmlElement;
