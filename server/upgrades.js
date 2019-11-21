@@ -6,6 +6,9 @@ const upgradeList = [
   { upgrade: 'shotgun' },
 ];
 
+/**
+ * Set all upgrades to FALSE in the database.
+ */
 const resetUpgrades = async () => {
   let emptyUpgrades = {};
 

@@ -54,6 +54,8 @@ export class Puzzle {
 
     public show() {
         this.createPegs(this.upgrade.getNumberOfPegs());
+
+        // @TODO: Remove before launch.
         console.log('answer', this.answer);
     }
 
@@ -65,6 +67,11 @@ export class Puzzle {
         this.button.remove();
     }
 
+    /**
+     * Create {amount} amount of pegs.
+     * 
+     * @param {number} amount 
+     */
     public createPegs(amount:number) {
         for (let i = 0; i < amount; i ++) {
             const random: number = Math.floor(Math.random() * 4) + 1;
@@ -73,6 +80,9 @@ export class Puzzle {
         }
     }
 
+    /**
+     * Check if the answer is correct.
+     */
     public checkAnswer() {
         this.pegs.forEach((peg, key) => {
             peg.htmlElement.classList.remove('correct-peg')
@@ -96,14 +106,15 @@ export class Puzzle {
         if (!(this.correct.includes(0) || this.correct.includes(1))) {
           this.success();
         }
-
-        console.log('correct', this.correct);
     }
 
+    /**
+     * Runs if the puzzle is completed.
+     */
     public success(){
-        this.successGif = document.createElement('div')
-        this.successGif.classList.add('success-gif')
-        document.body.appendChild(this.successGif)
+        this.successGif = document.createElement('div');
+        this.successGif.classList.add('success-gif');
+        document.body.appendChild(this.successGif);
 
         setTimeout(() => {
             this.successGif.remove();

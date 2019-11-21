@@ -63,6 +63,11 @@ export class Game {
     return this._instance;
   }
 
+  /**
+   * Creates a new puzzle.
+   * 
+   * @param upgrade 
+   */
   public newPuzzle(upgrade:Upgrade):void {    
     this.puzzle = new Puzzle(upgrade);
     this.puzzle.show();
@@ -128,6 +133,7 @@ export class Game {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
+    return null;
   }
 
 }

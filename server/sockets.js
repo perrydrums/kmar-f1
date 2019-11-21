@@ -55,11 +55,9 @@ const initializeSockets = (http) => {
      * Research sockets.
      */
     socket.on('research:start', async data => {
-      console.log('research start')
       setUUID('research', data.uuid);
 
       const upgrades = await getStat('upgrades');
-
       socket.emit('server:research:update', { upgrades });
     });
 

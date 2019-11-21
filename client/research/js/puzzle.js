@@ -71,7 +71,6 @@ export class Puzzle {
         if (!(this.correct.includes(0) || this.correct.includes(1))) {
             this.success();
         }
-        console.log('correct', this.correct);
     }
     success() {
         this.successGif = document.createElement('div');

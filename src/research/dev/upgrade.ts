@@ -27,6 +27,7 @@ export class Upgrade {
       this.clickHandler(this)
     });
 
+    // Lock upgrade buttons if the upgrade is unlocked.
     setTimeout(() => this.checkUnlockedUpgrades(), 1000);
   }
 
@@ -36,6 +37,9 @@ export class Upgrade {
     }
   }
 
+  /**
+   * Mark the upgrade button as UNLOCKED and disable the button.
+   */
   public unlockButton():void {
     this.unlocked = true;
     const button:HTMLElement = this.htmlElement;
@@ -43,6 +47,9 @@ export class Upgrade {
     button.removeEventListener('click', () => {});
   }
 
+  /**
+   * Checks if the button should be disabled.
+   */
   private async checkUnlockedUpgrades() {
     // Check if the upgrade is already unlocked.
     const unlockedUpgrades = Object.entries(Game.getInstance().completed);
