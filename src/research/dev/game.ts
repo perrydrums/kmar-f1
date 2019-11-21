@@ -1,5 +1,7 @@
 import { Dialog } from './dialog.js'
-import { Upgrade } from './upgrade.js'
+import { UpgradeScreen } from './upgradeScreen.js'
+import { Puzzle } from './puzzle.js';
+import { Upgrade } from './upgrade.js';
 
 export class Game {
 
@@ -18,7 +20,13 @@ export class Game {
 
   private dialog:Dialog;
 
-  private upgrade:Upgrade;
+  private upgrade:UpgradeScreen;
+
+  private puzzle:Puzzle;
+
+  private socket:SocketIOClient.Socket;
+
+  public completed:any = {};
 
   /**
    * Make the constructor private.
@@ -26,7 +34,19 @@ export class Game {
   private constructor() {
       this._fpsInterval = 1000 / this._fps;
       this._then = Date.now();
-      Upgrade.getInstance().show();
+      this.upgrade = UpgradeScreen.getInstance();
+      this.upgrade.show();
+
+      this.socket = io();
+
+      this.socket.emit('research:start', {
+        uuid: this.getCookie('uuid'),
+      });
+
+      // Update the buttons if they're unlocked.
+      this.socket.on('server:research:update', (data:any) => {
+        this.completed = data.upgrades;
+      });
 
       this.gameLoop();
   }
@@ -41,6 +61,23 @@ export class Game {
       this._instance = new Game();
     }
     return this._instance;
+  }
+
+  public newPuzzle(upgrade:Upgrade):void {    
+    this.puzzle = new Puzzle(upgrade);
+    this.puzzle.show();
+  }
+
+  /**
+   * Unlocks the upgrade of set level.
+   * 
+   * @param {Upgrade} upgrade 
+   */
+  public unlock(upgrade:Upgrade):void {
+    this.completed[upgrade.getName()] = true;
+    upgrade.unlockButton();
+
+    this.socket.emit('research:unlock', { upgrade: upgrade.getName() });
   }
 
   public startGame():void {
@@ -80,6 +117,17 @@ export class Game {
         this.dialog.addButton();
       }
     }
+  }
+
+  /**
+   * Get cookie by name.
+   * 
+   * @param name 
+   */
+  private getCookie(name:string) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
   }
 
 }

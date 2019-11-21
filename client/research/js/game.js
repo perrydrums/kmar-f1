@@ -1,12 +1,22 @@
 import { Dialog } from './dialog.js';
-import { Upgrade } from './upgrade.js';
+import { UpgradeScreen } from './upgradeScreen.js';
+import { Puzzle } from './puzzle.js';
 export class Game {
     constructor() {
         this._fps = 30;
         this.running = false;
+        this.completed = {};
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
-        Upgrade.getInstance().show();
+        this.upgrade = UpgradeScreen.getInstance();
+        this.upgrade.show();
+        this.socket = io();
+        this.socket.emit('research:start', {
+            uuid: this.getCookie('uuid'),
+        });
+        this.socket.on('server:research:update', (data) => {
+            this.completed = data.upgrades;
+        });
         this.gameLoop();
     }
     static getInstance() {
@@ -14,6 +24,15 @@ export class Game {
             this._instance = new Game();
         }
         return this._instance;
+    }
+    newPuzzle(upgrade) {
+        this.puzzle = new Puzzle(upgrade);
+        this.puzzle.show();
+    }
+    unlock(upgrade) {
+        this.completed[upgrade.getName()] = true;
+        upgrade.unlockButton();
+        this.socket.emit('research:unlock', { upgrade: upgrade.getName() });
     }
     startGame() {
     }
@@ -36,6 +55,12 @@ export class Game {
                 this.dialog.addButton();
             }
         }
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
     }
 }
 window.addEventListener("load", () => {

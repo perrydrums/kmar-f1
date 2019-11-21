@@ -1,8 +1,12 @@
 import { Peg } from './peg.js';
+import { Game } from './game.js';
+import { Upgrade } from './upgrade.js';
 
 export class Puzzle {
 
     private static instance: Puzzle
+    private upgrade:Upgrade;
+
     private start:HTMLElement
     public container:HTMLElement
     public successGif:HTMLElement
@@ -11,9 +15,11 @@ export class Puzzle {
     public pegDiv:HTMLElement;
     public button:HTMLElement;
     private answer:number[] = [];
-    private correct:number[] = [0, 0, 0, 0];
+    private correct:number[] = [];
 
-    private constructor() {
+    constructor(upgrade:Upgrade) {
+        this.upgrade = upgrade;
+
         this.start = document.createElement('div')
         this.start.classList.add('container-puzzle')
         document.body.appendChild(this.start);
@@ -37,20 +43,26 @@ export class Puzzle {
         this.button.addEventListener('click', () => {
             this.checkAnswer();
         })
-        
-    }
 
-    public static getInstance() {
-        if (!this.instance) {
-            this.instance = new Puzzle()
-        }
-        return this.instance;
+        const backButton = document.createElement('button');
+        backButton.innerText = 'Terug';
+        backButton.addEventListener('click', () => {
+            this.hide();
+        });
+        this.container.appendChild(backButton);
     }
 
     public show() {
-        this.createPegs(4);
+        this.createPegs(this.upgrade.getNumberOfPegs());
         console.log('answer', this.answer);
-        
+    }
+
+    public hide() {
+        this.start.remove();
+        this.container.remove();
+        this.pegContainer.remove();
+        this.pegDiv.remove();
+        this.button.remove();
     }
 
     public createPegs(amount:number) {
@@ -81,8 +93,8 @@ export class Puzzle {
             }
         });
 
-        if (JSON.stringify(this.correct) === JSON.stringify([2, 2, 2, 2])) {
-            this.success();
+        if (!(this.correct.includes(0) || this.correct.includes(1))) {
+          this.success();
         }
 
         console.log('correct', this.correct);
@@ -92,5 +104,11 @@ export class Puzzle {
         this.successGif = document.createElement('div')
         this.successGif.classList.add('success-gif')
         document.body.appendChild(this.successGif)
+
+        setTimeout(() => {
+            this.successGif.remove();
+            this.hide();
+            Game.getInstance().unlock(this.upgrade);
+        }, 2000);
     }
 }
