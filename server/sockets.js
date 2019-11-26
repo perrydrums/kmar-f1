@@ -1,10 +1,11 @@
 const socketIO = require('socket.io');
-const { setStat, setUUID, getUUIDs } = require('./db');
+const { setStat, getStat, setUUID, getUUIDs } = require('./db');
+const { addUpgrade, resetUpgrades } = require('./upgrades');
 
 /**
  * Sets up all socket connections.
- * 
- * @param {Server} http 
+ *
+ * @param {Server} http
  */
 const initializeSockets = (http) => {
 
@@ -12,12 +13,12 @@ const initializeSockets = (http) => {
 
   io.sockets.on('connection', async socket => {
     console.log('Socket connected with Client.');
-  
+
     /**
      * Init sockets.
      */
     socket.on('client:start', data => {
-      //
+      resetUpgrades();
     });
 
     socket.on('client:startGame', async data => {
@@ -29,7 +30,7 @@ const initializeSockets = (http) => {
         setStat('running', true);
         setStat('startTime', Date.now());
       }
-      
+
     });
 
     /**
@@ -38,7 +39,7 @@ const initializeSockets = (http) => {
     socket.on('pitstop:start', data => {
       setUUID('pitstop', data.uuid);
     });
-  
+
     /**
      * Gasoline sockets.
      */
@@ -49,7 +50,23 @@ const initializeSockets = (http) => {
     socket.on('gasoline:update', data => {
       socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
     });
+
+    /**
+     * Research sockets.
+     */
+    socket.on('research:start', async data => {
+      setUUID('research', data.uuid);
+
+      const upgrades = await getStat('upgrades');
+      socket.emit('server:research:update', { upgrades });
+    });
+
+    socket.on('research:unlock', async data => {
+      await addUpgrade(data.upgrade);
+
+      socket.broadcast.emit('server:research:unlock:' + data.upgrade, {});
+    });
   });
-}
+};
 
 module.exports = { initializeSockets };

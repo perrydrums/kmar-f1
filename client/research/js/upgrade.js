@@ -1,40 +1,64 @@
-import { Puzzle } from './puzzle.js';
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { UpgradeScreen } from "./upgradeScreen.js";
+import { Game } from "./game.js";
 export class Upgrade {
-    constructor() { }
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new Upgrade();
-        }
-        return this.instance;
+    constructor(level, name, title, numberOfPegs) {
+        this.unlocked = false;
+        this.level = level;
+        this.name = name;
+        this.title = title;
+        this.numberOfPegs = numberOfPegs;
+        this.htmlElement = document.createElement('button');
+        this.htmlElement.classList.add('button-upgrade');
+        this.htmlElement.innerText = this.title;
+        const btnContainer = UpgradeScreen.getInstance().getButtonContainer();
+        btnContainer.appendChild(this.htmlElement);
+        this.htmlElement.addEventListener('click', () => {
+            this.clickHandler(this);
+        });
+        setTimeout(() => this.checkUnlockedUpgrades(), 1000);
     }
-    show() {
-        this.start = document.createElement('div');
-        this.start.classList.add('container');
-        document.body.appendChild(this.start);
-        this.btnContainer = document.createElement('div');
-        this.btnContainer.classList.add('btn-container');
-        this.start.appendChild(this.btnContainer);
-        this.button1 = document.createElement('button');
-        this.button1.classList.add('button-upgrade');
-        this.button1.innerText = "Upgrade 1";
-        this.btnContainer.appendChild(this.button1);
-        this.button2 = document.createElement('button');
-        this.button2.classList.add('button-upgrade');
-        this.button2.innerText = "Upgrade 2";
-        this.btnContainer.appendChild(this.button2);
-        this.button3 = document.createElement('button');
-        this.button3.classList.add('button-upgrade');
-        this.button3.innerText = "Upgrade 3";
-        this.btnContainer.appendChild(this.button3);
-        this.button4 = document.createElement('button');
-        this.button4.classList.add('button-upgrade');
-        this.button4.innerText = "Upgrade 4";
-        this.btnContainer.appendChild(this.button4);
-        this.button1.addEventListener("click", () => {
-            this.clickHandler();
+    clickHandler(upgrade) {
+        if (!this.unlocked) {
+            Game.getInstance().newPuzzle(upgrade);
+        }
+    }
+    unlockButton() {
+        this.unlocked = true;
+        const button = this.htmlElement;
+        button.classList.add('unlocked');
+        button.removeEventListener('click', () => { });
+    }
+    checkUnlockedUpgrades() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const unlockedUpgrades = Object.entries(Game.getInstance().completed);
+            for (const [upgradeName, hasUpgrade] of unlockedUpgrades) {
+                if (upgradeName === this.getName() && hasUpgrade) {
+                    this.unlockButton();
+                }
+            }
         });
     }
-    clickHandler() {
-        Puzzle.getInstance().show();
+    getLevel() {
+        return this.level;
+    }
+    getName() {
+        return this.name;
+    }
+    getTitle() {
+        return this.title;
+    }
+    getNumberOfPegs() {
+        return this.numberOfPegs;
+    }
+    getElement() {
+        return this.htmlElement;
     }
 }

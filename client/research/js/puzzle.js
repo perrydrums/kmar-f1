@@ -1,9 +1,11 @@
 import { Peg } from './peg.js';
+import { Game } from './game.js';
 export class Puzzle {
-    constructor() {
+    constructor(upgrade) {
         this.pegs = [];
         this.answer = [];
-        this.correct = [0, 0, 0, 0];
+        this.correct = [];
+        this.upgrade = upgrade;
         this.start = document.createElement('div');
         this.start.classList.add('container-puzzle');
         document.body.appendChild(this.start);
@@ -23,16 +25,23 @@ export class Puzzle {
         this.button.addEventListener('click', () => {
             this.checkAnswer();
         });
-    }
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new Puzzle();
-        }
-        return this.instance;
+        const backButton = document.createElement('button');
+        backButton.innerText = 'Terug';
+        backButton.addEventListener('click', () => {
+            this.hide();
+        });
+        this.container.appendChild(backButton);
     }
     show() {
-        this.createPegs(4);
+        this.createPegs(this.upgrade.getNumberOfPegs());
         console.log('answer', this.answer);
+    }
+    hide() {
+        this.start.remove();
+        this.container.remove();
+        this.pegContainer.remove();
+        this.pegDiv.remove();
+        this.button.remove();
     }
     createPegs(amount) {
         for (let i = 0; i < amount; i++) {
@@ -59,14 +68,18 @@ export class Puzzle {
                 peg.htmlElement.classList.add('wrong-peg');
             }
         });
-        if (JSON.stringify(this.correct) === JSON.stringify([2, 2, 2, 2])) {
+        if (!(this.correct.includes(0) || this.correct.includes(1))) {
             this.success();
         }
-        console.log('correct', this.correct);
     }
     success() {
         this.successGif = document.createElement('div');
         this.successGif.classList.add('success-gif');
         document.body.appendChild(this.successGif);
+        setTimeout(() => {
+            this.successGif.remove();
+            this.hide();
+            Game.getInstance().unlock(this.upgrade);
+        }, 2000);
     }
 }

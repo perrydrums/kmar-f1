@@ -4,11 +4,14 @@ import { Player } from './player.js';
 import { Timer } from './timer.js';
 import { Tire } from './tire.js';
 import { Car } from './car.js';
+import { RainTire } from './rainTire.js';
 export class Game {
     constructor() {
         this._fps = 30;
         this._carTime = 0;
         this.tires = [];
+        this.rainTires = [];
+        this.rainTiresUnlocked = false;
         this.running = false;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
@@ -23,6 +26,11 @@ export class Game {
         this.socket.on('server:gasoline:update', (data) => {
             console.log('PITSTOP: SERVER UPDATE', data.gasoline);
             this.gasmeter.addGasoline(data.gasoline);
+        });
+        this.socket.on('server:research:unlock:rain-tires', (data) => {
+            console.log('RAIN TIRES!!');
+            this.rainTiresUnlocked = true;
+            this.spawnRainTires();
         });
         this.gameLoop();
     }
@@ -62,6 +70,11 @@ export class Game {
     spawnTires() {
         for (let i = 0; i < 4; i++) {
             this.tires.push(new Tire());
+        }
+    }
+    spawnRainTires() {
+        for (let i = 0; i < 4; i++) {
+            this.rainTires.push(new RainTire());
         }
     }
     checkCar() {

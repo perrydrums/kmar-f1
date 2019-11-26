@@ -4,6 +4,7 @@ import { Player } from './player.js';
 import { Timer } from './timer.js';
 import { Tire } from './tire.js';
 import { Car } from './car.js';
+import { RainTire } from './rainTire.js';
 
 export class Game {
 
@@ -23,6 +24,10 @@ export class Game {
   private _carTime:number = 0;
 
   public tires:Tire[] = [];
+
+  public rainTires:RainTire[] = [];
+
+  private rainTiresUnlocked:boolean = false;
 
   private player:Player;
 
@@ -58,6 +63,12 @@ export class Game {
       this.socket.on('server:gasoline:update', (data:any) => {
         console.log('PITSTOP: SERVER UPDATE', data.gasoline);
         this.gasmeter.addGasoline(data.gasoline);
+      });
+
+      this.socket.on('server:research:unlock:rain-tires', (data:any) => {
+        console.log('RAIN TIRES!!');
+        this.rainTiresUnlocked = true;
+        this.spawnRainTires();
       });
 
       this.gameLoop();
@@ -98,7 +109,7 @@ export class Game {
 
         // Every minute spawn a new car.
         this.checkCar();
-          
+
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         this._then = now - (elapsed % this._fpsInterval);
@@ -124,6 +135,15 @@ export class Game {
   private spawnTires() {
     for (let i = 0; i < 4; i ++) {
       this.tires.push(new Tire());
+    }
+  }
+
+  /**
+   * Check if the rain tires are unlocked.
+   */
+  private spawnRainTires() {
+    for (let i = 0; i < 4; i ++) {
+      this.rainTires.push(new RainTire());
     }
   }
 
