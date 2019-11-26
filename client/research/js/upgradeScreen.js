@@ -17,9 +17,9 @@ export class UpgradeScreen {
         this.btnContainer.classList.add('btn-container');
         this.start.appendChild(this.btnContainer);
         this.upgrades.push(new Upgrade(1, 'rain-tires', 'Regenbanden', 3));
-        this.upgrades.push(new Upgrade(2, 'upgrade2', 'Upgrade 2', 4));
-        this.upgrades.push(new Upgrade(3, 'upgrade3', 'Upgrade 3', 5));
-        this.upgrades.push(new Upgrade(4, 'upgrade4', 'Upgrade 4', 6));
+        this.upgrades.push(new Upgrade(2, 'upgrade2', 'Motor', 4));
+        this.upgrades.push(new Upgrade(3, 'upgrade3', 'Turbo', 5));
+        this.upgrades.push(new Upgrade(4, 'upgrade4', 'Aerodynamica', 6));
     }
     getButtonContainer() {
         return this.btnContainer;

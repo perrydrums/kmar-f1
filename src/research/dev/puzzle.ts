@@ -24,6 +24,14 @@ export class Puzzle {
         this.start.classList.add('container-puzzle')
         document.body.appendChild(this.start);
 
+        const backButton = document.createElement('button');
+        backButton.classList.add('backButton');
+        backButton.innerText = 'Terug';
+        backButton.addEventListener('click', () => {
+            this.hide();
+        });
+        this.start.appendChild(backButton);
+
         this.container = document.createElement('div')
         this.container.classList.add('inner-container-puzzle')
         this.start.appendChild(this.container)
@@ -44,12 +52,7 @@ export class Puzzle {
             this.checkAnswer();
         })
 
-        const backButton = document.createElement('button');
-        backButton.innerText = 'Terug';
-        backButton.addEventListener('click', () => {
-            this.hide();
-        });
-        this.container.appendChild(backButton);
+
     }
 
     public show() {

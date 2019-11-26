@@ -101,10 +101,22 @@ button {
   border: 2px solid #696868;
   text-transform: uppercase;
   font-size: 16px;
+  cursor: pointer;
 }
 
-.button-upgrade:before {
+.icon-upgrade2:before {
   background-image: url('../img/engine.png');
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  content:"";
+  display: block;
+  height: 50px;
+  margin: auto;
+  width: 50px; 
+}
+
+.icon-rain-tires:before {
+  background-image: url('../img/rain-tire.png');
   background-repeat: no-repeat;
   background-size: 50px 50px;
   content:"";
@@ -163,6 +175,7 @@ button {
   outline: none;
   background-image: url('../img/click.png');
   background-size: cover;
+  cursor: pointer;
 }
 
 .color-1 {
@@ -193,6 +206,11 @@ button {
   margin: auto;
   display: block;
   padding: 15px;
+  border-radius: 5px;
+  background-color: #444444;
+  border: 0px;
+  color: #fff;
+  cursor: pointer;
 }
 
 .correct-peg {
@@ -221,4 +239,16 @@ button {
 
 .unlocked {
   background-color: limegreen;
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #444444;
+  border: 0px;
+  color: #fff;
+  cursor: pointer;
 }
