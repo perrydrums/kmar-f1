@@ -19,8 +19,6 @@ body {
 }
 
 .number {
-  width: 30px;
-  height: 30px;
   position: absolute;
   transform: rotate(90deg);
   font-family: 'F1';
@@ -30,27 +28,27 @@ body {
 }
 
 .number-1 {
-  top: 455px;
-  left: 330px;
+  top: 445px;
+  left: 340px;
 }
 
 .number-2 {
-  top: 345px;
-  left: 300px;
+  top: 340px;
+  left: 305px;
 }
 
 .number-3 {
-  top: 235px;
-  left: 330px;
+  top: 230px;
+  left: 335px;
 }
 
 .number-4 {
-  top: 140px;
+  top: 135px;
   left: 355px;
 }
 
 .number-5 {
-  top: 45px;
+  top: 40px;
   left: 350px;
 }
 

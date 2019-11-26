@@ -26,10 +26,10 @@ export class Car {
    * Move the car into place.
    */
   public enter() {
-    if (this.x < 400) {
+    if (this.x < 650) {
       this.x += 25;
       this._element.style.left = this.x + 'px';
-      this._element.style.transform = 'rotate(' + (this.x * 0.675) + 'deg)';
+      this._element.style.transform = 'rotate(' + (this.x * -0.1384615385) + 'deg)';
     } else {
       this.checkDrawn()
     }
