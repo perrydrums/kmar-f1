@@ -20,6 +20,7 @@ export class Game {
 
   public question:Question;
 
+  public questionId:string;
 
   /**
    * Make the constructor private.
@@ -28,9 +29,8 @@ export class Game {
     this._fpsInterval = 1000 / this._fps;
     this._then = Date.now();
   
-    console.log('GAME');
-
     this.quiz = new Quiz();
+    this.questionId = "1:0"; //this.question.getId();
 
     this.generateQuiz();
     this.gameLoop();
@@ -50,26 +50,19 @@ export class Game {
 
   public startGame():void {
     this.running = true;
-
-    console.log('Starting game...');
   }
 
   public showQuestion() {
-    // TODO: fix current id
-    console.log('Get question');
-
-    let currentQuestion = this.quiz.myQuestions["1:1"];
+    let currentQuestion = this.quiz.myQuestions[this.questionId];
     let element = document.getElementById("question");
     element.innerHTML = currentQuestion.getQuestion();
   }
 
   public showChoices() {
-    // TODO: fix current id
-    console.log("show choices")
-    let choices = this.quiz.myQuestions["1:1"].getChoices();
+    let choices = this.quiz.myQuestions[this.questionId].getChoices();
 
     for (let i = 0; i < choices.length; i++) {
-      choices.push()
+      choices.push();
     }
 
     choices = Object.entries(choices)
@@ -80,15 +73,11 @@ export class Game {
 
       this.submit("btn" + i, choice);
     }
-    
-    // console.log("l2", choices.length);
-    console.log("choices: ", choices)
-
   }
 
   public isEnded():boolean {
     return false;
-    // return this.question.id == this.quiz.myQuestions.length;
+    // return this.question.id === this.quiz.myQuestions.finalQuestionId;
   }
 
   public async generateQuiz() {
@@ -99,29 +88,44 @@ export class Game {
       await this.quiz.setQuestions();
       this.showQuestion();
       this.showChoices();
-
-      console.log("Generating quiz...")
     }
+
+    this.showScore();
+  }
+
+  public nextQuestion() {
+    this.showQuestion();
+    this.showChoices();
+    this.showScore();
+
+    console.log("Next question!")
   }
   
   public submit(id, submit) {
     let button = document.getElementById(id);
+    let correctAnswer = this.quiz.myQuestions[this.questionId].getCorrectAnswer();
+
     button.onclick = function() {
-        submit(submit);
+      console.log("Submitted answer: ", submit);
+      console.log("Correct answer: ", correctAnswer);
 
-        console.log(submit);
-        console.log("submit");
+      if (correctAnswer === submit) {
+        console.log("Correct!")
+        Game.getInstance().quiz.score ++;
+      }
+      else {
+        console.log("Wrong...")
+        Game.getInstance().quiz.score --;
+      }
+
+      Game.getInstance().nextQuestion();
     }
+  }
 
-    if (this.quiz.myQuestions["1:1"].isCorrectAnswer(submit)) {
-        this.quiz.score++;
-    }
-
-    console.log("score");
-    console.log(this.quiz.score);
-
-    // TODO: nextQuestion()
-}
+  public showScore() {
+    var element = document.getElementById("score");
+    element.innerHTML = "Score: " + this.quiz.score;
+  }
   
   /**
    * Runs approx. {this._fps} times a second.
@@ -132,12 +136,10 @@ export class Game {
     // Calculate elapsed time.
     const now = Date.now();
     const elapsed = now - this._then;
-    console.log("Game is looping...");
 
     if (this.running) {
       // If enough time has elapsed, draw the next frame.
 
-      console.log("Running...");
       if (elapsed > this._fpsInterval) {
         // this.player.update();
           

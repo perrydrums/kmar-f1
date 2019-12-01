@@ -14,8 +14,8 @@ export class Game {
         this.running = false;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
-        console.log('GAME');
         this.quiz = new Quiz();
+        this.questionId = "1:0";
         this.generateQuiz();
         this.gameLoop();
     }
@@ -27,17 +27,14 @@ export class Game {
     }
     startGame() {
         this.running = true;
-        console.log('Starting game...');
     }
     showQuestion() {
-        console.log('Get question');
-        let currentQuestion = this.quiz.myQuestions["1:1"];
+        let currentQuestion = this.quiz.myQuestions[this.questionId];
         let element = document.getElementById("question");
         element.innerHTML = currentQuestion.getQuestion();
     }
     showChoices() {
-        console.log("show choices");
-        let choices = this.quiz.myQuestions["1:1"].getChoices();
+        let choices = this.quiz.myQuestions[this.questionId].getChoices();
         for (let i = 0; i < choices.length; i++) {
             choices.push();
         }
@@ -47,7 +44,6 @@ export class Game {
             element.innerHTML = choice;
             this.submit("btn" + i, choice);
         }
-        console.log("choices: ", choices);
     }
     isEnded() {
         return false;
@@ -60,30 +56,42 @@ export class Game {
                 yield this.quiz.setQuestions();
                 this.showQuestion();
                 this.showChoices();
-                console.log("Generating quiz...");
             }
+            this.showScore();
         });
+    }
+    nextQuestion() {
+        this.showQuestion();
+        this.showChoices();
+        this.showScore();
+        console.log("Next question!");
     }
     submit(id, submit) {
         let button = document.getElementById(id);
+        let correctAnswer = this.quiz.myQuestions[this.questionId].getCorrectAnswer();
         button.onclick = function () {
-            submit(submit);
-            console.log(submit);
-            console.log("submit");
+            console.log("Submitted answer: ", submit);
+            console.log("Correct answer: ", correctAnswer);
+            if (correctAnswer === submit) {
+                console.log("Correct!");
+                Game.getInstance().quiz.score++;
+            }
+            else {
+                console.log("Wrong...");
+                Game.getInstance().quiz.score--;
+            }
+            Game.getInstance().nextQuestion();
         };
-        if (this.quiz.myQuestions["1:1"].isCorrectAnswer(submit)) {
-            this.quiz.score++;
-        }
-        console.log("score");
-        console.log(this.quiz.score);
+    }
+    showScore() {
+        var element = document.getElementById("score");
+        element.innerHTML = "Score: " + this.quiz.score;
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
         const now = Date.now();
         const elapsed = now - this._then;
-        console.log("Game is looping...");
         if (this.running) {
-            console.log("Running...");
             if (elapsed > this._fpsInterval) {
                 this._then = now - (elapsed % this._fpsInterval);
             }
