@@ -17,7 +17,8 @@ export class Upgrade {
     this.numberOfPegs = numberOfPegs;
 
     this.htmlElement = document.createElement('button');
-    this.htmlElement.classList.add('button-upgrade');
+    this.htmlElement.classList.add('button-upgrade');    
+    this.htmlElement.classList.add('icon-' + this.name);
     this.htmlElement.innerText = this.title;
 
     const btnContainer = UpgradeScreen.getInstance().getButtonContainer();
