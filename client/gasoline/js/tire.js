@@ -7,5 +7,6 @@ export class Tire extends Food {
         foreground.appendChild(this._element);
     }
     action() {
+        this.game.addTire();
     }
 }

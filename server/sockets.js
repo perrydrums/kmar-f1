@@ -43,12 +43,15 @@ const initializeSockets = (http) => {
     /**
      * Gasoline sockets.
      */
-    socket.on('gasoline:start', data => {
+    socket.on('gasoline:start', async data => {
       setUUID('gasoline', data.uuid);
+
+      const upgrades = await getStat('upgrades');
+      socket.emit('server:gasoline:upgrades', { upgrades })
     });
 
     socket.on('gasoline:update', data => {
-      socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
+      socket.broadcast.emit('server:gasoline:update', { ...data });
     });
 
     /**
