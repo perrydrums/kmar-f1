@@ -113,7 +113,33 @@ button {
   height: 50px;
   margin: auto;
   width: 50px; 
+  margin-bottom: 10px;
 }
+
+.icon-upgrade3:before {
+  background-image: url('../img/turbo.png');
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  content:"";
+  display: block;
+  height: 45px;
+  margin: auto;
+  width: 60px; 
+  margin-bottom: 10px;
+}
+
+.icon-upgrade4:before {
+  background-image: url('../img/wind.png');
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  content:"";
+  display: block;
+  height: 45px;
+  margin: auto;
+  width: 60px; 
+  margin-bottom: 10px;
+}
+
 
 .icon-rain-tires:before {
   background-image: url('../img/rain-tire.png');
@@ -124,6 +150,7 @@ button {
   height: 50px;
   margin: auto;
   width: 50px; 
+  margin-bottom: 10px;
 }
 
 .container-puzzle {
