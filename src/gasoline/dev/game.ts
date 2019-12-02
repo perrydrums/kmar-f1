@@ -4,6 +4,8 @@ import { Subject } from './subject.js';
 import { DeleteNotifier } from './deleteNotifier.js';
 import { Anvil } from './anvil.js';
 import { SmallFuel } from './smallFuel.js';
+import { Tire } from './tire.js';
+import { RainTire } from './rainTire.js';
 import { Fuel } from './fuel.js';
 import { Start } from './start.js';
 
@@ -90,7 +92,14 @@ export class Game {
                 food.push(new Anvil(this.subject));
             } 
             else {
-                food.push(new Fuel(), new SmallFuel());
+                food.push(new Fuel());
+
+                const random = Math.floor(Math.random() * 100);
+                if (random > 40) {
+                    food.push(new RainTire());
+                } else {
+                    food.push(new Tire());
+                }
             }
         }
         return food;

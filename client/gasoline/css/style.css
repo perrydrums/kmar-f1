@@ -175,6 +175,24 @@ small-fuel {
     position: absolute;
 }
 
+tire {
+    width:150px; height:150px;;
+    background-image: url(../images/tire.png);
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+rain-tire {
+    width:150px; height:150px;;
+    background-image: url(../images/rain-tire.png);
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
 anvil {
     width:150px; height:115px;;
     background-image: url(../images/anvil.png);
