@@ -19,9 +19,9 @@ export class Game {
     public subject:Subject = new DeleteNotifier();
     public socket:SocketIOClient.Socket;
     private rainTiresUnlocked:boolean = false;
-    
+
     private constructor() {}
-    
+
     public initialize(){
         // this.scoreElement = document.createElement('div');
         // this.scoreElement.classList.add('score');
@@ -34,23 +34,27 @@ export class Game {
         });
 
         this.socket.on('server:gasoline:upgrades', (data:any) => {
-          if (data.upgrades['rain-tires']) this.rainTiresUnlocked = true;          
+          if (data.upgrades['rain-tires']) this.rainTiresUnlocked = true;
+        });
+
+        this.socket.on('server:research:unlock:rain-tires', (data:any) => {
+          this.rainTiresUnlocked = true;
         });
     }
-    
+
     public start() {
         this.food = this.createFood(4);
         this.character = new Character();
         this.gameLoop();
     }
-    
+
     public static getInstance() {
         if (! Game.instance) {
             Game.instance = new Game();
         }
         return Game.instance;
     }
-    
+
     public addScore(amount:number) {
 
       this.socket.emit('gasoline:update', {gasoline: amount});
@@ -83,7 +87,7 @@ export class Game {
         this.character.update();
         this.subject.update();
         // this.showScore();
-        
+
         for(let f of this.food){
             f.update()
         }
@@ -103,7 +107,7 @@ export class Game {
             const random = Math.floor(Math.random() * 100);
             if (random > 40) {
                 food.push(new Anvil(this.subject));
-            } 
+            }
             else {
                 food.push(new Fuel());
 
@@ -122,8 +126,8 @@ export class Game {
 
   /**
    * Get cookie by name.
-   * 
-   * @param name 
+   *
+   * @param name
    */
   private getCookie(name:string) {
     const value = "; " + document.cookie;

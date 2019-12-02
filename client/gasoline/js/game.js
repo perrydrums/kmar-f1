@@ -23,6 +23,9 @@ export class Game {
             if (data.upgrades['rain-tires'])
                 this.rainTiresUnlocked = true;
         });
+        this.socket.on('server:research:unlock:rain-tires', (data) => {
+            this.rainTiresUnlocked = true;
+        });
     }
     start() {
         this.food = this.createFood(4);
