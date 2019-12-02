@@ -18,6 +18,7 @@ export class Game {
     public powerup:boolean = false;
     public subject:Subject = new DeleteNotifier();
     public socket:SocketIOClient.Socket;
+    private rainTiresUnlocked:boolean = false;
     
     private constructor() {}
     
@@ -30,6 +31,10 @@ export class Game {
 
         this.socket.emit('gasoline:start', {
           uuid: this.getCookie('uuid'),
+        });
+
+        this.socket.on('server:gasoline:upgrades', (data:any) => {
+          if (data.upgrades['rain-tires']) this.rainTiresUnlocked = true;          
         });
     }
     
@@ -60,6 +65,14 @@ export class Game {
             // this.scoreElement.classList.remove("fullScore");
             Math.round(this.score += amount);
         }
+    }
+
+    public addTire(rainTire:boolean = false) {
+      if (rainTire) {
+        this.socket.emit('gasoline:update', {rainTire: true});
+      } else {
+        this.socket.emit('gasoline:update', {tire: true});
+      }
     }
 
     private showScore() {
@@ -96,7 +109,9 @@ export class Game {
 
                 const random = Math.floor(Math.random() * 100);
                 if (random > 40) {
-                    food.push(new RainTire());
+                    if (this.rainTiresUnlocked) {
+                      food.push(new RainTire());
+                    }
                 } else {
                     food.push(new Tire());
                 }

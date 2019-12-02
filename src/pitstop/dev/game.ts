@@ -25,10 +25,6 @@ export class Game {
 
   public tires:Tire[] = [];
 
-  public rainTires:RainTire[] = [];
-
-  private rainTiresUnlocked:boolean = false;
-
   private player:Player;
 
   public gasmeter:Gas;
@@ -48,8 +44,6 @@ export class Game {
       this._fpsInterval = 1000 / this._fps;
       this._then = Date.now();
 
-      this.spawnTires();
-
       this.player = new Player();
       this.gasmeter = new Gas();
       this.timer = new Timer();
@@ -61,14 +55,9 @@ export class Game {
       });
 
       this.socket.on('server:gasoline:update', (data:any) => {
-        console.log('PITSTOP: SERVER UPDATE', data.gasoline);
-        this.gasmeter.addGasoline(data.gasoline);
-      });
-
-      this.socket.on('server:research:unlock:rain-tires', (data:any) => {
-        console.log('RAIN TIRES!!');
-        this.rainTiresUnlocked = true;
-        this.spawnRainTires();
+        if (data.gasoline) this.gasmeter.addGasoline(data.gasoline);
+        if (data.tire) this.addTire();
+        if (data.rainTire) this.addTire(true);
       });
 
       this.gameLoop();
@@ -130,20 +119,23 @@ export class Game {
   }
 
   /**
-   * Create new tires.
+   * Add a tire to the tirerack.
+   * 
+   * @param {boolean} isRainTire 
    */
-  private spawnTires() {
-    for (let i = 0; i < 4; i ++) {
-      this.tires.push(new Tire());
-    }
-  }
+  private addTire(isRainTire:boolean = false) {
+    let tireCount = 0;
+    let rainTireCount = 0;
 
-  /**
-   * Check if the rain tires are unlocked.
-   */
-  private spawnRainTires() {
-    for (let i = 0; i < 4; i ++) {
-      this.rainTires.push(new RainTire());
+    this.tires.forEach((tire:Tire) => {
+      tire instanceof RainTire ? rainTireCount ++ : tireCount ++;
+    });
+
+    if (isRainTire && rainTireCount < 4) {
+      this.tires.push(new RainTire());
+    }
+    else if (!isRainTire && tireCount < 4) {
+      this.tires.push(new Tire());
     }
   }
 
@@ -165,8 +157,6 @@ export class Game {
 
       if (this._car.done) {
         this._car = null;
-        this.spawnTires();
-        this.gasmeter.reset();
         this.timer.stop();
       }
     }

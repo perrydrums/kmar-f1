@@ -28,13 +28,6 @@ export class Gas {
     }
   }
 
-  /**
-   * Reset the amount of gas.
-   */
-  public reset() {
-    // remove function.
-  }
-
   public addGasoline(amount:number) {
     if (this.amount < 100) {
       this.amount += amount;

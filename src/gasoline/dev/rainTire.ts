@@ -10,6 +10,6 @@ export class RainTire extends Food {
     }
 
     public action(){
-        // this.game.addScore(5);
+        this.game.addTire(true);
     }
 }

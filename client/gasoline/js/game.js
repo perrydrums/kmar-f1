@@ -11,12 +11,17 @@ export class Game {
         this.food = [];
         this.powerup = false;
         this.subject = new DeleteNotifier();
+        this.rainTiresUnlocked = false;
     }
     initialize() {
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
         this.socket.emit('gasoline:start', {
             uuid: this.getCookie('uuid'),
+        });
+        this.socket.on('server:gasoline:upgrades', (data) => {
+            if (data.upgrades['rain-tires'])
+                this.rainTiresUnlocked = true;
         });
     }
     start() {
@@ -40,6 +45,14 @@ export class Game {
         }
         else {
             Math.round(this.score += amount);
+        }
+    }
+    addTire(rainTire = false) {
+        if (rainTire) {
+            this.socket.emit('gasoline:update', { rainTire: true });
+        }
+        else {
+            this.socket.emit('gasoline:update', { tire: true });
         }
     }
     showScore() {
@@ -68,7 +81,9 @@ export class Game {
                 food.push(new Fuel());
                 const random = Math.floor(Math.random() * 100);
                 if (random > 40) {
-                    food.push(new RainTire());
+                    if (this.rainTiresUnlocked) {
+                        food.push(new RainTire());
+                    }
                 }
                 else {
                     food.push(new Tire());

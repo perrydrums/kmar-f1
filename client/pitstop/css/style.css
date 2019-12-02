@@ -73,6 +73,10 @@ body {
   flex: 1;
 }
 
+.tire--rain {
+  background-image: url('../img/rain-tire.png');
+}
+
 .player {
   width: 70px;
   height: 70px;

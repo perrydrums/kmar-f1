@@ -126,6 +126,7 @@ export class Player {
         if (!this.currentTire) {
           tires[i].grabbed();
           this.currentTire = tires[i];
+          Game.getInstance().tires.splice(i, 1);
         }
       }
     }

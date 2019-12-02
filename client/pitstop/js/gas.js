@@ -13,8 +13,6 @@ export class Gas {
             this.amount--;
         }
     }
-    reset() {
-    }
     addGasoline(amount) {
         if (this.amount < 100) {
             this.amount += amount;

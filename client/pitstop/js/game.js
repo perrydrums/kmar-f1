@@ -10,12 +10,9 @@ export class Game {
         this._fps = 30;
         this._carTime = 0;
         this.tires = [];
-        this.rainTires = [];
-        this.rainTiresUnlocked = false;
         this.running = false;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
-        this.spawnTires();
         this.player = new Player();
         this.gasmeter = new Gas();
         this.timer = new Timer();
@@ -24,13 +21,12 @@ export class Game {
             uuid: this.getCookie('uuid'),
         });
         this.socket.on('server:gasoline:update', (data) => {
-            console.log('PITSTOP: SERVER UPDATE', data.gasoline);
-            this.gasmeter.addGasoline(data.gasoline);
-        });
-        this.socket.on('server:research:unlock:rain-tires', (data) => {
-            console.log('RAIN TIRES!!');
-            this.rainTiresUnlocked = true;
-            this.spawnRainTires();
+            if (data.gasoline)
+                this.gasmeter.addGasoline(data.gasoline);
+            if (data.tire)
+                this.addTire();
+            if (data.rainTire)
+                this.addTire(true);
         });
         this.gameLoop();
     }
@@ -67,14 +63,17 @@ export class Game {
             }
         }
     }
-    spawnTires() {
-        for (let i = 0; i < 4; i++) {
-            this.tires.push(new Tire());
+    addTire(isRainTire = false) {
+        let tireCount = 0;
+        let rainTireCount = 0;
+        this.tires.forEach((tire) => {
+            tire instanceof RainTire ? rainTireCount++ : tireCount++;
+        });
+        if (isRainTire && rainTireCount < 4) {
+            this.tires.push(new RainTire());
         }
-    }
-    spawnRainTires() {
-        for (let i = 0; i < 4; i++) {
-            this.rainTires.push(new RainTire());
+        else if (!isRainTire && tireCount < 4) {
+            this.tires.push(new Tire());
         }
     }
     checkCar() {
@@ -90,8 +89,6 @@ export class Game {
             this._car.update();
             if (this._car.done) {
                 this._car = null;
-                this.spawnTires();
-                this.gasmeter.reset();
                 this.timer.stop();
             }
         }
