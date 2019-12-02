@@ -65,17 +65,24 @@ export class Game {
       choices.push();
     }
 
-    choices = Object.entries(choices)
+    choices = Object.entries(choices);
 
-    for (const [i, choice] of choices) {
+    for (const [i, choiceData] of choices) {
+      for (let i = 0; i < choiceData.length; i++) {
+        choiceData.push();
+      }
+
+      let answer = choiceData.answer;
+      let nextQuestionId = choiceData.nextQuestionId;
+
       let element = document.getElementById("choice" + i);
-      element.innerHTML = choice;
+      element.innerHTML = choiceData.answer;
 
-      this.submit("btn" + i, choice);
+      this.submit("btn" + i, answer, nextQuestionId);
     }
   }
 
-  public isEnded():boolean {
+  public isEnded():boolean {  
     return false;
     // return this.question.id === this.quiz.myQuestions.finalQuestionId;
   }
@@ -93,7 +100,8 @@ export class Game {
     this.showScore();
   }
 
-  public nextQuestion() {
+  public getNextQuestion(nextQuestionId) {
+    this.questionId = nextQuestionId;
     this.showQuestion();
     this.showChoices();
     this.showScore();
@@ -101,15 +109,16 @@ export class Game {
     console.log("Next question!")
   }
   
-  public submit(id, submit) {
+  public submit(id, answer, nextQuestionId) {
     let button = document.getElementById(id);
     let correctAnswer = this.quiz.myQuestions[this.questionId].getCorrectAnswer();
 
     button.onclick = function() {
-      console.log("Submitted answer: ", submit);
+      console.log("Submitted answer: ", answer);
       console.log("Correct answer: ", correctAnswer);
+      console.log("Next question: ", nextQuestionId);
 
-      if (correctAnswer === submit) {
+      if (correctAnswer === answer) {
         console.log("Correct!")
         Game.getInstance().quiz.score ++;
       }
@@ -118,7 +127,7 @@ export class Game {
         Game.getInstance().quiz.score --;
       }
 
-      Game.getInstance().nextQuestion();
+      Game.getInstance().getNextQuestion(nextQuestionId);
     }
   }
 

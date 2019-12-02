@@ -39,15 +39,10 @@ export class Game {
             choices.push();
         }
         choices = Object.entries(choices);
-        for (const [i, choiceData] of choices) {
-            for (let i = 0; i < choiceData.length; i++) {
-                choiceData.push();
-            }
-            let answer = choiceData.answer;
-            let nextQuestionId = choiceData.nextQuestionId;
+        for (const [i, choice] of choices) {
             let element = document.getElementById("choice" + i);
-            element.innerHTML = choiceData.answer;
-            this.submit("btn" + i, answer, nextQuestionId);
+            element.innerHTML = choice;
+            this.submit("btn" + i, choice);
         }
     }
     isEnded() {
@@ -65,21 +60,20 @@ export class Game {
             this.showScore();
         });
     }
-    getNextQuestion(nextQuestionId) {
-        this.questionId = nextQuestionId;
+    nextQuestion() {
+        this.questionId = this.question.getNextQuestionId();
         this.showQuestion();
         this.showChoices();
         this.showScore();
         console.log("Next question!");
     }
-    submit(id, answer, nextQuestionId) {
+    submit(id, submit) {
         let button = document.getElementById(id);
         let correctAnswer = this.quiz.myQuestions[this.questionId].getCorrectAnswer();
         button.onclick = function () {
-            console.log("Submitted answer: ", answer);
+            console.log("Submitted answer: ", submit);
             console.log("Correct answer: ", correctAnswer);
-            console.log("Next question: ", nextQuestionId);
-            if (correctAnswer === answer) {
+            if (correctAnswer === submit) {
                 console.log("Correct!");
                 Game.getInstance().quiz.score++;
             }
@@ -87,7 +81,7 @@ export class Game {
                 console.log("Wrong...");
                 Game.getInstance().quiz.score--;
             }
-            Game.getInstance().getNextQuestion(nextQuestionId);
+            Game.getInstance().nextQuestion();
         };
     }
     showScore() {

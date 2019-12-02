@@ -1,9 +1,9 @@
 export class Question {
 
     public id:string;
-     question:string;
-     choices:Array<string>;
-     correctAnswer:string;
+        question:string;
+        choices:Array<string>;
+        correctAnswer:string;
 
     constructor(id:string, question:string, choices:Array<string>, correctAnswer:string) {
         this.id = id;
@@ -15,12 +15,15 @@ export class Question {
     getId(): string {
         return this.id;
     }
+
     getQuestion(): string {
         return this.question;
     }
+
     getChoices(): Array<string> {
         return this.choices;
     }
+
     getCorrectAnswer(): string {
         return this.correctAnswer;
     }

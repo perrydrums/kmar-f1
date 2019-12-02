@@ -1,6 +1,6 @@
 import {Question} from './question.js';
 import {Game} from './game.js';
-import { isNullOrUndefined } from 'util';
+// import { isNullOrUndefined } from 'util';
 
 export class Quiz {
     public quizElement : HTMLElement
@@ -23,7 +23,11 @@ export class Quiz {
         const json = await file.json();
 
         for (let id in json) {
-            this.myQuestions[id] = new Question(id, json[id].question, json[id].choices, json[id].correctAnswer);
+            this.myQuestions[id] = new Question(
+                id, 
+                json[id].question, 
+                json[id].choices, 
+                json[id].correctAnswer);
         }
     }   
 
@@ -37,11 +41,5 @@ export class Quiz {
     public getQuestion(id:string) {
         return this.myQuestions[id].getQuestion();
     }
-
-    // public prototype.submit(correctAnswer) {
-    //     // TODO: fix current id
-
-    //     }
-    // }
 }
 
