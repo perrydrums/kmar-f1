@@ -1,7 +1,6 @@
 import { Anvil } from './anvil.js';
 import { Walking } from './walking.js';
 import { StopWalking } from './stopWalking.js';
-import { Powerup } from './powerup.js';
 import { Game } from './game.js';
 export class Character {
     constructor() {
@@ -11,7 +10,6 @@ export class Character {
         this.hit = false;
         this._htmlElement = document.createElement("div");
         document.body.appendChild(this.htmlElement).className = "character";
-        this.powerup = new Powerup(this);
         this.food = Game.getInstance().food;
         this.posx = window.innerWidth / 2 - 100;
         this.posy = window.innerHeight - 150;
@@ -36,14 +34,6 @@ export class Character {
                 this.food[i].remove();
                 Game.getInstance().food.splice(i, 1);
             }
-        }
-        if (this.htmlElement.getBoundingClientRect().left < this.powerup.element.getBoundingClientRect().right &&
-            this.htmlElement.getBoundingClientRect().right > this.powerup.element.getBoundingClientRect().left &&
-            this.htmlElement.getBoundingClientRect().bottom > this.powerup.element.getBoundingClientRect().top &&
-            this.htmlElement.getBoundingClientRect().top < this.powerup.element.getBoundingClientRect().bottom &&
-            this.powerup.now) {
-            this.powerup.action();
-            Game.getInstance().powerup = true;
         }
         if (this.posx >= window.innerWidth - 120) {
             this.speedRight = 0;
