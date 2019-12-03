@@ -19,14 +19,10 @@ export class Car extends Vehicle {
         this.game.setWord(this.randomWord);
     }
     onKeyDown(event) {
-        console.log(this.splitted);
-        console.log(this.randomWord.charCodeAt(this.currentLetter));
-        console.log(event.keyCode);
         const keyCode = this.randomWord.charAt(this.currentLetter).toUpperCase().charCodeAt(0);
         switch (event.keyCode) {
             case keyCode:
                 if (this.currentLetter === this.randomWord.length - 1) {
-                    console.log('Het woord is klaar.');
                     this.currentLetter = 0;
                     this.speed += 0.10;
                     if (this.speed > 0) {
