@@ -9,6 +9,8 @@ export class Puzzle {
 
     private start:HTMLElement
     public container:HTMLElement
+    public tryCount:number = 4;
+    public tryCountContainer:HTMLElement
     public successGif:HTMLElement
     public pegs:Peg[] = [];
     public pegContainer:HTMLElement;
@@ -32,6 +34,11 @@ export class Puzzle {
         });
         this.start.appendChild(backButton);
 
+        this.tryCountContainer = document.createElement('div')
+        this.tryCountContainer.classList.add('try-count')
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+        this.start.appendChild(this.tryCountContainer)
+
         this.container = document.createElement('div')
         this.container.classList.add('inner-container-puzzle')
         this.start.appendChild(this.container)
@@ -46,7 +53,7 @@ export class Puzzle {
 
         this.button = document.createElement('button')
         this.button.classList.add('button-submit')
-        this.button.innerText = "Submit"
+        this.button.innerText = "Verzenden"
         this.pegDiv.appendChild(this.button)
         this.button.addEventListener('click', () => {
             this.checkAnswer();
@@ -87,6 +94,13 @@ export class Puzzle {
      * Check if the answer is correct.
      */
     public checkAnswer() {
+        this.tryCount --;
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+        
+        if(this.tryCount === 0){
+            this.hide();
+        }
+
         this.pegs.forEach((peg, key) => {
             peg.htmlElement.classList.remove('correct-peg')
             peg.htmlElement.classList.remove('almost-peg')
