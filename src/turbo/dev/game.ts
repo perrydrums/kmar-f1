@@ -72,7 +72,6 @@ export class Game implements Observer {
 
     public winner(v:Vehicle):void{
         if (v instanceof Car){
-            // TODO: START SPACEBAR MASHING GAME.
             this.masher = MasherGame.getInstance();
             this.masher.show();
         }
