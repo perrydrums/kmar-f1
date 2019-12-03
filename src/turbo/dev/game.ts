@@ -1,17 +1,30 @@
+import { Observer } from './interfaces/observer.js';
+import { Vehicle } from './vehicle.js';
 import { Dialog } from './dialog.js';
+import { Subject } from './interfaces/subject.js';
 import { Truck } from './truck.js';
 import { Speed } from './speed.js';
 import { Car } from './car.js';
 import { MasherGame } from './masherGame.js';
-export class Game {
-    constructor() {
-        this.vehicle = [];
-        this.running = false;
-        this.masher = null;
-        this.complete = false;
+
+export class Game implements Observer {
+
+    public vehicle: Vehicle []=[];
+    private static instance:Game;
+    private extraSpeedElement:HTMLElement;
+    private speedSubject:Subject;
+    private dialog: Dialog;
+    private running: boolean = false;
+    private masher: MasherGame = null;
+    private complete: boolean = false;
+
+    public socket:SocketIOClient.Socket;
+
+    private constructor() {
         this.socket = io({ timeout: 60000 });
     }
-    initialize() {
+
+    public initialize():void {
         this.speedSubject = new Speed();
         this.speedSubject.subscribe(this);
         this.showWord();
@@ -19,58 +32,71 @@ export class Game {
         this.vehicle = [new Truck(this.speedSubject), new Car()];
         this.gameLoop();
     }
-    static getInstance() {
+
+    public static getInstance():Game {
         if (!this.instance) {
             this.instance = new Game();
         }
         return this.instance;
     }
-    generateRandom() {
-        return Math.floor(Math.random() * (90 - 65 + 1) + 65);
+
+    public generateRandom():number{
+        return Math.floor(Math.random()*(90-65+1)+65);
     }
-    randomWord() {
-        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatie", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag"];
+
+    public randomWord():string{
+        const wordArray = ["marechaussee","kmar","schiphol","drugs","paspoort","tobs","kazerne","veiligheid","nederland","grenscontrole","informatie","defensie","commandant","baret","controle","paresto","wapen","wapendag"];
         let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
         return randomWord;
     }
-    showWord() {
+
+    private showWord():void{
         let word = document.createElement("div");
-        word.setAttribute("id", "word");
+        word.setAttribute("id","word");
         document.body.appendChild(word);
     }
-    showSpeed() {
+
+    private showSpeed():void{
         this.extraSpeedElement = document.createElement("speed");
-        this.extraSpeedElement.setAttribute("id", "extraSpeed");
+        this.extraSpeedElement.setAttribute("id","extraSpeed");
         document.body.appendChild(this.extraSpeedElement);
     }
-    setWord(word) {
+
+    public setWord(word:string):void{
         const splitted = word.split('');
         let addToHTML = '';
-        splitted.forEach(letter => addToHTML += '<span>' + letter + '</span>');
+        splitted.forEach(letter =>
+            addToHTML += '<span>' + letter + '</span>');
         document.getElementById("word").innerHTML = addToHTML;
     }
-    winner(v) {
-        if (v instanceof Car) {
+
+    public winner(v:Vehicle):void{
+        if (v instanceof Car){
+            // TODO: START SPACEBAR MASHING GAME.
             this.masher = MasherGame.getInstance();
             this.masher.show();
         }
-        else if (v instanceof Truck) {
+        else if (v instanceof Truck){
             window.location.reload();
         }
     }
-    startGame() {
+
+    public startGame(){
         this.running = true;
     }
-    stopGame() {
+
+    public stopGame() {
         this.vehicle.forEach(vehicle => {
             vehicle.posx = 0;
         });
         this.running = false;
     }
-    gameLoop() {
+
+    private gameLoop():void{
         requestAnimationFrame(() => this.gameLoop());
+
         if (this.running) {
-            for (let v of this.vehicle) {
+            for(let v of this.vehicle){
                 v.update();
                 v.checkCollision();
             }
@@ -84,19 +110,25 @@ export class Game {
         else {
             if (!this.dialog) {
                 this.dialog = Dialog.getInstance();
-                this.dialog.setHTML('<h1>KMar F1 - Turbo</h1>' +
+                this.dialog.setHTML(
+                    '<h1>KMar F1 - Turbo</h1>' +
                     '<p>Jij bent verantwoordelijk voor de turbo. Probeer zo snel mogelijk de woorden in te typen die in het beeld verschijnen.</p>' +
                     '<p>Let op, door verkeerde aanslagen gaat je auto achteruit!</p>' +
-                    '<p>Probeer van de oranje bus te winnen!</p>');
+                    '<p>Probeer van de oranje bus te winnen!</p>'
+                  );
                 this.dialog.addButton();
             }
         }
+
     }
-    notify(p) {
-        let speed = Math.floor(p * 2) + 90;
+
+    public notify(p:number):void{
+        let speed = Math.floor(p*2)+90;
         this.extraSpeedElement.innerHTML = speed.toString() + " km/u";
     }
+
 }
+
 window.addEventListener("load", () => {
     const g = Game.getInstance();
     g.initialize();
