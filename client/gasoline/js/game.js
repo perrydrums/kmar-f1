@@ -66,8 +66,8 @@ export class Game {
         for (let f of this.food) {
             f.update();
         }
-        if (this.food.length <= 2) {
-            for (let food of this.createFood(2)) {
+        if (this.food.length <= 3) {
+            for (let food of this.createFood(4)) {
                 this.food.push(food);
             }
         }
@@ -77,20 +77,18 @@ export class Game {
         let food = [];
         for (let i = 0; i < amount; i++) {
             const random = Math.floor(Math.random() * 100);
-            if (random > 40) {
+            console.log(random);
+            if (random > 0 && random < 50) {
                 food.push(new Anvil(this.subject));
+            }
+            else if (random > 50 && random < 65) {
+                food.push(new Tire());
+            }
+            else if (random > 65 && random < 80 && this.rainTiresUnlocked) {
+                food.push(new RainTire());
             }
             else {
                 food.push(new Fuel());
-                const random = Math.floor(Math.random() * 100);
-                if (random > 40) {
-                    if (this.rainTiresUnlocked) {
-                        food.push(new RainTire());
-                    }
-                }
-                else {
-                    food.push(new Tire());
-                }
             }
         }
         return food;
