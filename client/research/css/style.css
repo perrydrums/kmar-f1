@@ -90,67 +90,67 @@ button {
 }
 
 .btn-container {
-  display: flex;
-  justify-content: space-around;
-  width: 600px;
+  width: 100vw;
 }
 
 .button-upgrade {
-  padding: 20px;
-  border-radius: 5px;
-  border: 2px solid #696868;
-  text-transform: uppercase;
-  font-size: 16px;
+  padding: 35px;
+  border: 0;
   cursor: pointer;
-}
-
-.icon-upgrade2:before {
-  background-image: url('../img/engine.png');
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  content:"";
-  display: block;
-  height: 50px;
-  margin: auto;
-  width: 50px; 
+  width: 100vw;
+  position: relative;
+  text-align: left;
+  height: auto;
+  background-size: cover;
+  background-position: 50% 50%;
+  color: #fff;
+  font-style: italic;
   margin-bottom: 10px;
 }
 
-.icon-upgrade3:before {
-  background-image: url('../img/turbo.png');
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  content:"";
-  display: block;
-  height: 45px;
-  margin: auto;
-  width: 60px; 
-  margin-bottom: 10px;
+.button-upgrade:hover {
+  padding-left: 90px;
 }
 
-.icon-upgrade4:before {
-  background-image: url('../img/wind.png');
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  content:"";
-  display: block;
-  height: 45px;
-  margin: auto;
-  width: 60px; 
-  margin-bottom: 10px;
+.button-upgrade:before{
+  background-image: linear-gradient(to right, #000000, #00000047, transparent);
+  width: 100%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
+.button-upgrade span {
+  position: relative;
+  z-index: 1;
+  text-shadow: 3px 3px #000;
+  text-transform: uppercase;
+  font-size: 60px;
+}
 
-.icon-rain-tires:before {
-  background-image: url('../img/rain-tire.png');
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  content:"";
-  display: block;
-  height: 50px;
-  margin: auto;
-  width: 50px; 
-  margin-bottom: 10px;
+.icon-rain-tires {
+  background-image: url(../img/pirelli-bg.jpg);
+  background-position: 50% 25%;
+}
+
+.icon-upgrade2 {
+  background-image: url(../img/engine-bg2.jpg);
+  background-position: 50% 30%;
+}
+
+.icon-upgrade3 {
+  background-image: url(../img/turbo-bg.jpg);
+}
+
+.icon-upgrade4 {
+  background-image: url(../img/aerodinamics.jpg);
+}
+
+.icon-upgrade5 {
+  background-image: url(../img/fuel-bg.jpg);
+  background-position: 50% 80%;
 }
 
 .container-puzzle {
@@ -164,14 +164,7 @@ button {
   top: 0;
   background-image: url('../img/bg2.jpg');
   background-size: cover;
-}
-
-.inner-container-puzzle {
-  /* height: 600px;
-  width: 800px;
-  display: flex;
-  align-items: center;
-  justify-content: center; */
+  z-index: 2;
 }
 
 .container-pegs {

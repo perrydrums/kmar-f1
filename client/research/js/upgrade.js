@@ -18,7 +18,9 @@ export class Upgrade {
         this.htmlElement = document.createElement('button');
         this.htmlElement.classList.add('button-upgrade');
         this.htmlElement.classList.add('icon-' + this.name);
-        this.htmlElement.innerText = this.title;
+        this.spanElement = document.createElement('span');
+        this.spanElement.innerText = this.title;
+        this.htmlElement.appendChild(this.spanElement);
         const btnContainer = UpgradeScreen.getInstance().getButtonContainer();
         btnContainer.appendChild(this.htmlElement);
         this.htmlElement.addEventListener('click', () => {
