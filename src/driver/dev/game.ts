@@ -21,6 +21,9 @@ export class Game {
   private running:boolean = false;
   
   private dialog:Dialog;
+  
+  public sequenceCount:number = 0;
+
 
   /**
    * Make the constructor private.
@@ -87,7 +90,7 @@ export class Game {
    * Check if the car's ready.
    */
   private checkCar() {
-    if (this._carTime > this._fps * 1) {
+    if (this._carTime > this._fps * 0) {
       if (!this._car) {
         this._car = new Car();
       }
