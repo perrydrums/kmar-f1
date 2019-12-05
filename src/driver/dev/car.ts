@@ -10,20 +10,17 @@ export class Car {
   public questionMark: HTMLElement;
   public answers: HTMLElement;
   public answer: HTMLElement;
-  public correct: boolean = false;
-  public sequences: [] = [];
-  public currentSequence: [] = [];
 
   private speedX:number = 0;
   private speedY:number = 0;
 
-  private speedLeft:number = -15;
-  private speedRight:number = 15;
-
   private canGoLeft:boolean = true;
+  private canGoRight:boolean = true;
 
-  private posX:number = 0;
-  private posY:number = 0;
+  public posX:number = 0;
+  public posY:number = 0;
+
+  public hit:boolean = false;
 
   public constructor() {
     // Create car element.
@@ -43,8 +40,6 @@ export class Car {
   private onKeyDown(e:KeyboardEvent):void {
     switch(e.keyCode){
       case 37:
-        console.log('cgl', this.canGoLeft);
-        
         if (this.canGoLeft) {
           this.speedX = -15;
           this._element.classList.add('carleft');
@@ -60,8 +55,13 @@ export class Car {
         this.speedY = 15;
         break;
       case 39:
-        this.speedX = 15;
-        this._element.classList.add('carright');
+        if (this.canGoRight) {
+          this.speedX = 15;
+          this._element.classList.add('carright');
+        }
+        else {
+          this.speedX = 0;
+        }
         break;
     }
   }
@@ -98,23 +98,23 @@ export class Car {
     let blockRight = document.querySelector('.block-right');
     
     if (this._element.getBoundingClientRect().right > blockRight.getBoundingClientRect().left) {
-      this.speedRight = 0;
+      this.canGoRight = false;
     } else {
-      this.speedRight = 15;
+      this.canGoRight = true;
     }
 
     let blockLeft = document.querySelector('.block-left');
 
-      if (this._element.getBoundingClientRect().left < blockLeft.getBoundingClientRect().right) {
-        this.canGoLeft = false;
-        // this.speedLeft = 0;
-      } else {
-        this.canGoLeft = true;
-        // this.speedLeft = -15;
-      }
-      
+    if (this._element.getBoundingClientRect().left < blockLeft.getBoundingClientRect().right) {
+      this.canGoLeft = false;
+    } else {
+      this.canGoLeft = true;
+    }
 
-    this._element.style.transform = `translate(${this.posX += this.speedX}px, ${this.posY += this.speedY}px)`;
+    this.posX += this.speedX;
+    this.posY += this.speedY;
+      
+    this._element.style.transform = `translate(${this.posX}px, ${this.posY}px)`;
     this.drive();
   }
 }
