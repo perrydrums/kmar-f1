@@ -12,10 +12,13 @@ export class Game {
         this.powerup = false;
         this.subject = new DeleteNotifier();
         this.rainTiresUnlocked = false;
+        this._fps = 30;
     }
     initialize() {
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
+        this._fpsInterval = 1000 / this._fps;
+        this._then = Date.now();
         this.socket.emit('gasoline:start', {
             uuid: this.getCookie('uuid'),
         });
@@ -61,15 +64,20 @@ export class Game {
     showScore() {
     }
     gameLoop() {
-        this.character.update();
-        this.subject.update();
-        for (let f of this.food) {
-            f.update();
-        }
-        if (this.food.length <= 2) {
-            for (let food of this.createFood(2)) {
-                this.food.push(food);
+        const now = Date.now();
+        const elapsed = now - this._then;
+        if (elapsed > this._fpsInterval) {
+            this.character.update();
+            this.subject.update();
+            for (let f of this.food) {
+                f.update();
             }
+            if (this.food.length <= 6) {
+                for (let food of this.createFood(1)) {
+                    this.food.push(food);
+                }
+            }
+            this._then = now - (elapsed % this._fpsInterval);
         }
         requestAnimationFrame(() => this.gameLoop());
     }
@@ -77,20 +85,18 @@ export class Game {
         let food = [];
         for (let i = 0; i < amount; i++) {
             const random = Math.floor(Math.random() * 100);
-            if (random > 40) {
+            console.log(random);
+            if (random > 0 && random < 50) {
                 food.push(new Anvil(this.subject));
+            }
+            else if (random > 50 && random < 65) {
+                food.push(new Tire());
+            }
+            else if (random > 65 && random < 80 && this.rainTiresUnlocked) {
+                food.push(new RainTire());
             }
             else {
                 food.push(new Fuel());
-                const random = Math.floor(Math.random() * 100);
-                if (random > 40) {
-                    if (this.rainTiresUnlocked) {
-                        food.push(new RainTire());
-                    }
-                }
-                else {
-                    food.push(new Tire());
-                }
             }
         }
         return food;
