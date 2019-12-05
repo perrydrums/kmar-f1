@@ -8,7 +8,7 @@ export class Food {
         this.game = Game.getInstance();
     }
     update() {
-        if (this.posy >= window.innerHeight) {
+        if (this.posy >= window.innerHeight + 200) {
             if (this instanceof Anvil) {
                 this.remove();
             }

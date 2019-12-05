@@ -12,10 +12,13 @@ export class Game {
         this.powerup = false;
         this.subject = new DeleteNotifier();
         this.rainTiresUnlocked = false;
+        this._fps = 30;
     }
     initialize() {
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
+        this._fpsInterval = 1000 / this._fps;
+        this._then = Date.now();
         this.socket.emit('gasoline:start', {
             uuid: this.getCookie('uuid'),
         });
@@ -61,15 +64,20 @@ export class Game {
     showScore() {
     }
     gameLoop() {
-        this.character.update();
-        this.subject.update();
-        for (let f of this.food) {
-            f.update();
-        }
-        if (this.food.length <= 3) {
-            for (let food of this.createFood(4)) {
-                this.food.push(food);
+        const now = Date.now();
+        const elapsed = now - this._then;
+        if (elapsed > this._fpsInterval) {
+            this.character.update();
+            this.subject.update();
+            for (let f of this.food) {
+                f.update();
             }
+            if (this.food.length <= 6) {
+                for (let food of this.createFood(1)) {
+                    this.food.push(food);
+                }
+            }
+            this._then = now - (elapsed % this._fpsInterval);
         }
         requestAnimationFrame(() => this.gameLoop());
     }

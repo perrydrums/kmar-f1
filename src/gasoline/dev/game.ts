@@ -3,7 +3,6 @@ import { Food } from './food.js';
 import { Subject } from './subject.js';
 import { DeleteNotifier } from './deleteNotifier.js';
 import { Anvil } from './anvil.js';
-import { SmallFuel } from './smallFuel.js';
 import { Tire } from './tire.js';
 import { RainTire } from './rainTire.js';
 import { Fuel } from './fuel.js';
@@ -20,6 +19,15 @@ export class Game {
     public socket:SocketIOClient.Socket;
     private rainTiresUnlocked:boolean = false;
 
+    /**
+     * The speed, in frames per second, the game runs at.
+     */
+    private _fps:number = 30;
+
+    private _fpsInterval:number;
+
+    private _then:number;
+
     private constructor() {}
 
     public initialize(){
@@ -28,6 +36,9 @@ export class Game {
         // document.body.appendChild(this.scoreElement);
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
+
+        this._fpsInterval = 1000 / this._fps;
+        this._then = Date.now();
 
         this.socket.emit('gasoline:start', {
           uuid: this.getCookie('uuid'),
@@ -84,18 +95,28 @@ export class Game {
     }
 
     private gameLoop() {
-        this.character.update();
-        this.subject.update();
-        // this.showScore();
+        // Calculate elapsed time.
+        const now = Date.now();
+        const elapsed = now - this._then;
 
-        for(let f of this.food){
-            f.update()
-        }
+        if (elapsed > this._fpsInterval) {
 
-        if(this.food.length <= 3){
-            for (let food of this.createFood(4)) {
-                this.food.push(food)
+            this.character.update();
+            this.subject.update();
+
+            for(let f of this.food){
+                f.update()
             }
+
+            if(this.food.length <= 6){
+                for (let food of this.createFood(1)) {
+                    this.food.push(food)
+                }
+            }
+
+            // Get ready for next frame by setting then=now, but...
+            // Also, adjust for fpsInterval not being multiple of 16.67
+            this._then = now - (elapsed % this._fpsInterval);
         }
 
         requestAnimationFrame(() => this.gameLoop())
