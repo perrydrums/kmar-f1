@@ -1,0 +1,213 @@
+@font-face {
+  src: url('../font/digits.ttf');
+  font-family: 'Digits';
+}
+
+@font-face {
+  src: url('../font/f1.ttf');
+  font-family: 'F1';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: gray;
+}
+
+.number {
+  position: absolute;
+  transform: rotate(90deg);
+  font-family: 'F1';
+  color: white;
+  font-size: 26px;
+  text-shadow: 2px 2px black;
+}
+
+.line {
+  width: 15px; height: 200px;
+  margin: 0 auto;
+  position: absolute;
+  background: white;
+  animation: moveline linear 1s infinite;
+}
+
+.secondline {
+  animation-delay: 0.5s;
+}
+
+.line-1 {
+  left: 680px;
+}
+
+.line-2 {
+  left: 980px;
+}
+
+.block {
+  width: 360px;
+  height: 100%;
+  background: #505050;
+  position: absolute;
+  border-right: 40px solid red;
+  z-index: 1;
+}
+
+.block-right {
+  left: 1280px;
+  border-right: 0;
+  border-left: 40px solid red;
+}
+
+.car {
+  background-image: url('../img/car.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 150px;
+  transform: rotate(180deg);
+  bottom: 0;
+  left: 50%;
+  overflow: visible;
+  position: absolute;
+  z-index: 3;
+}
+
+.opponent {
+  background-image: url('../img/opponent.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 150px;
+  position: absolute;
+}
+
+.opponentHit {
+  background-image: url('../img/explosion.gif');
+  height: 250px;
+  width: 250px;
+  position: relative;
+  z-index: 9999;
+  background-size: cover;
+}
+
+.kerb {
+  background: white;
+  position: absolute;
+  left: 360px;
+  width: 40px;
+  height: 100px;
+  animation: moveline linear 1s infinite;
+  z-index: 2;
+}
+
+.kerb-right {
+  left: 1280px;
+}
+
+.kerb-2 {
+  animation-delay: 0.2s;
+}
+
+.kerb-3 {
+  animation-delay: 0.4s;
+}
+
+.kerb-4 {
+  animation-delay: 0.6s;
+}
+
+.kerb-5 {
+  animation-delay: 0.8s;
+}
+
+.kerb-7 {
+  animation-delay: 0.2s;
+}
+
+.kerb-8 {
+  animation-delay: 0.4s;
+}
+
+.kerb-9 {
+  animation-delay: 0.6s;
+}
+
+.kerb-10 {
+  animation-delay: 0.8s;
+}
+
+.carleft {
+  background-image: url('../img/carleft.png');
+}
+
+.carright {
+  background-image: url('../img/carright.png');
+}
+
+.dialog {
+  width: 800px;
+  height: 500px;
+
+  z-index: 4;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  margin-left: -400px;
+  margin-top: -250px;
+
+  background-color: aqua;
+
+  padding: 50px;
+  box-sizing: border-box;
+
+  font-family: 'F1';
+
+  text-align: center;
+}
+
+.dialog h1 {
+  font-size: 40px;
+  text-align: center;
+  border-bottom: 2px solid black;
+  margin-bottom: 50px;
+  line-height: 60px;
+}
+
+.dialog p {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dialog button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  background: #0069ed;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 3;
+
+  position: absolute;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes moveline {
+  from {top: -400px;}
+  to {top: 900px;}
+}
