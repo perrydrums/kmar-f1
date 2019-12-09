@@ -2,6 +2,7 @@ import { Car } from "./car.js";
 import { Opponent } from "./opponent.js";
 import { Dialog } from "./dialog.js";
 import { Pitstop } from "./pitstop.js";
+import { Boost } from "./boost.js";
 export class Game {
     constructor() {
         this._fps = 30;
@@ -11,7 +12,9 @@ export class Game {
         this.opponent = [];
         this.inPitstop = false;
         this.distance = 0;
+        this.speed = 1;
         this.lap = 1;
+        this.lapTime = {};
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.createCar();
@@ -20,11 +23,13 @@ export class Game {
         this.socket.emit('driver:start', {
             uuid: this.getCookie('uuid'),
         });
-        this.socket.on('server:aero:boost', data => {
-            console.log('BOOST!');
+        this.socket.on('server:aero:boost', (data) => {
+            new Boost('Aerodynamische boost!', '+ 10% snelheid');
+            this.speed += .1;
         });
-        this.socket.on('server:pitstop:done', data => {
+        this.socket.on('server:pitstop:done', (data) => {
             this.lap++;
+            this.startTime = Date.now();
             this.scoreElement.innerText = this.lap.toString();
             this.inPitstop = false;
             this.pitstopObject.hide();
@@ -34,6 +39,9 @@ export class Game {
         this.scoreElement.classList.add('lap');
         this.scoreElement.innerText = this.lap.toString();
         document.body.appendChild(this.scoreElement);
+        this.distanceElement = document.createElement('div');
+        this.distanceElement.classList.add('distance');
+        document.body.appendChild(this.distanceElement);
         this.gameLoop();
     }
     static getInstance() {
@@ -66,7 +74,8 @@ export class Game {
                         this.opponent.push(opponent);
                     }
                 }
-                this.distance++;
+                this.distance += this.speed;
+                this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() : '0';
                 if (this.distance > 1000) {
                     this.pitstop();
                     this.distance = 0;
@@ -96,6 +105,8 @@ export class Game {
         this._car = new Car();
     }
     pitstop() {
+        this.lapTime[this.lap] = Date.now() - this.startTime;
+        console.log(this.lapTime);
         this.socket.emit('driver:pitstop');
         this.inPitstop = true;
     }
@@ -118,13 +129,6 @@ export class Game {
             }
         }
     }
-    spawnOpponent(amount) {
-        let opponent = [];
-        for (let i = 0; i < amount; i++) {
-            opponent.push(new Opponent());
-        }
-        return opponent;
-    }
     checkCar() {
         if (this._carTime > this._fps * 0) {
             if (!this._car) {
@@ -139,6 +143,7 @@ export class Game {
         const parts = value.split("; " + name + "=");
         if (parts.length == 2)
             return parts.pop().split(";").shift();
+        return null;
     }
 }
 window.addEventListener("load", () => {

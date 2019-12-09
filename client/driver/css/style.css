@@ -237,6 +237,20 @@ body {
   font-family: F1, sans-serif;
 }
 
+.distance {
+    position: absolute;
+    margin: 50px auto;
+
+    width: 100px;
+    height: 50px;
+
+    z-index: 5;
+
+    font-size: 20px;
+    color: white;
+    font-family: F1, sans-serif;
+}
+
 @keyframes moveline {
   from {top: -400px;}
   to {top: 900px;}
