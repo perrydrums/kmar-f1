@@ -87,9 +87,11 @@ body {
 
 .opponentHit {
   background-image: url('../img/explosion.gif');
+  left: 50%;
+  bottom: 0;
   height: 250px;
   width: 250px;
-  position: relative;
+  position: absolute;
   z-index: 9999;
   background-size: cover;
 }

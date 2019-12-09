@@ -10,6 +10,7 @@ export class Game {
         this.opponent = [];
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
+        this.createCar();
         this.gameLoop();
     }
     static getInstance() {
@@ -27,8 +28,8 @@ export class Game {
         const elapsed = now - this._then;
         if (this.running) {
             if (elapsed > this._fpsInterval) {
-                this.checkCar();
                 this.checkCollision();
+                this._car.update();
                 for (let o of this.opponent) {
                     o.update();
                 }
@@ -51,40 +52,29 @@ export class Game {
             }
         }
     }
+    spawnOpponent(amount) {
+        let opponent = [];
+        for (let i = 0; i < amount; i++) {
+            opponent.push(new Opponent());
+        }
+        return opponent;
+    }
+    createCar() {
+        this._car = new Car();
+    }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
             if (this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
                 this._car._element.getBoundingClientRect().right > this.opponent[i].element.getBoundingClientRect().left &&
                 this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
                 this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
-                this.opponentHit = document.createElement('div');
-                this.opponentHit.classList.add('opponentHit');
-                document.body.appendChild(this.opponentHit);
-                this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
-                setTimeout(() => { this.opponentHit.remove(); this._car.hit = false; }, 5000);
-            }
-        }
-    }
-    spawnOpponent(amount) {
-        let opponent = [];
-        for (let i = 0; i < amount; i++) {
-            opponent.push(new Opponent());
-        }
-        console.log(opponent);
-        return opponent;
-    }
-    checkCar() {
-        if (this._carTime > this._fps * 0) {
-            if (!this._car) {
-                this._car = new Car();
-            }
-            this._carTime = 0;
-        }
-        this._carTime++;
-        if (this._car) {
-            this._car.update();
-            if (this._car.done) {
-                this._car = null;
+                if (!document.querySelector('.opponentHit')) {
+                    this.opponentHit = document.createElement('div');
+                    this.opponentHit.classList.add('opponentHit');
+                    document.body.appendChild(this.opponentHit);
+                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
+                    setTimeout(() => { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
+                }
             }
         }
     }
