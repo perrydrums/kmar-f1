@@ -198,15 +198,6 @@ export class Game {
       }
   }
 
-  private spawnOpponent(amount:number):Opponent[] {
-    let opponent:Opponent[] = [];
-    for (let i = 0; i < amount; i ++) {
-      opponent.push(new Opponent())
-    }
-
-    return opponent;
-}
-
     /**
    * Check if the car's ready.
    */
