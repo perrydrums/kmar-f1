@@ -221,6 +221,20 @@ body {
   font-family: F1, sans-serif;
 }
 
+.lap {
+  position: absolute;
+  margin: 0 auto;
+
+  width: 100px;
+  height: 50px;
+
+  z-index: 5;
+
+  font-size: 30px;
+  color: white;
+  font-family: F1, sans-serif;
+}
+
 @keyframes moveline {
   from {top: -400px;}
   to {top: 900px;}

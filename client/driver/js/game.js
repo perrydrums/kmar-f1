@@ -11,7 +11,7 @@ export class Game {
         this.opponent = [];
         this.inPitstop = false;
         this.distance = 0;
-        this.lap = 0;
+        this.lap = 1;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.startTime = Date.now();
@@ -24,10 +24,15 @@ export class Game {
         });
         this.socket.on('server:pitstop:done', data => {
             this.lap++;
+            this.scoreElement.innerText = this.lap.toString();
             this.inPitstop = false;
             this.pitstopObject.hide();
             this.pitstopObject = null;
         });
+        this.scoreElement = document.createElement('div');
+        this.scoreElement.classList.add('lap');
+        this.scoreElement.innerText = this.lap.toString();
+        document.body.appendChild(this.scoreElement);
         this.gameLoop();
     }
     static getInstance() {
@@ -43,6 +48,7 @@ export class Game {
         requestAnimationFrame(() => this.gameLoop());
         if (this.inPitstop) {
             this.pitstopObject = Pitstop.getInstance();
+            this.pitstopObject.show();
             return;
         }
         const now = Date.now();
@@ -60,8 +66,9 @@ export class Game {
                     }
                 }
                 this.distance++;
-                if (this.distance > 300) {
+                if (this.distance > 1000) {
                     this.pitstop();
+                    this.distance = 0;
                 }
                 this._then = now - (elapsed % this._fpsInterval);
             }
