@@ -85,10 +85,6 @@ export class Game {
             }
         }
     }
-    pitstop() {
-        this.socket.emit('driver:pitstop');
-        this.inPitstop = true;
-    }
     spawnOpponent(amount) {
         let opponent = [];
         for (let i = 0; i < amount; i++) {
@@ -99,17 +95,26 @@ export class Game {
     createCar() {
         this._car = new Car();
     }
+    pitstop() {
+        this.socket.emit('driver:pitstop');
+        this.inPitstop = true;
+    }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
             if (this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
                 this._car._element.getBoundingClientRect().right > this.opponent[i].element.getBoundingClientRect().left &&
                 this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
                 this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
-                this.opponentHit = document.createElement('div');
-                this.opponentHit.classList.add('opponentHit');
-                document.body.appendChild(this.opponentHit);
-                this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
-                setTimeout(() => { this.opponentHit.remove(); this._car.hit = false; }, 5000);
+                if (!document.querySelector('.opponentHit')) {
+                    this.opponentHit = document.createElement('div');
+                    this.opponentHit.classList.add('opponentHit');
+                    document.body.appendChild(this.opponentHit);
+                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
+                    setTimeout(() => {
+                        this.opponentHit.remove();
+                        this._car.hit = false;
+                    }, 5000);
+                }
             }
         }
     }
@@ -124,21 +129,8 @@ export class Game {
         if (this._carTime > this._fps * 0) {
             if (!this._car) {
                 this._car = new Car();
-            }
-            this._carTime = 0;
-        }
-        this._carTime++;
-        if (this._car) {
-            this._car.update();
-            if (this._car.done) {
-                this._car = null;
-                if (!document.querySelector('.opponentHit')) {
-                    this.opponentHit = document.createElement('div');
-                    this.opponentHit.classList.add('opponentHit');
-                    document.body.appendChild(this.opponentHit);
-                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
-                    setTimeout(() => { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
-                }
+                this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
+                setTimeout(() => { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
             }
         }
     }
