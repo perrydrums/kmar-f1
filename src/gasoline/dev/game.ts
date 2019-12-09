@@ -3,7 +3,8 @@ import { Food } from './food.js';
 import { Subject } from './subject.js';
 import { DeleteNotifier } from './deleteNotifier.js';
 import { Anvil } from './anvil.js';
-import { SmallFuel } from './smallFuel.js';
+import { Tire } from './tire.js';
+import { RainTire } from './rainTire.js';
 import { Fuel } from './fuel.js';
 import { Start } from './start.js';
 
@@ -16,9 +17,19 @@ export class Game {
     public powerup:boolean = false;
     public subject:Subject = new DeleteNotifier();
     public socket:SocketIOClient.Socket;
-    
+    private rainTiresUnlocked:boolean = false;
+
+    /**
+     * The speed, in frames per second, the game runs at.
+     */
+    private _fps:number = 30;
+
+    private _fpsInterval:number;
+
+    private _then:number;
+
     private constructor() {}
-    
+
     public initialize(){
         // this.scoreElement = document.createElement('div');
         // this.scoreElement.classList.add('score');
@@ -26,24 +37,35 @@ export class Game {
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
 
+        this._fpsInterval = 1000 / this._fps;
+        this._then = Date.now();
+
         this.socket.emit('gasoline:start', {
           uuid: this.getCookie('uuid'),
         });
+
+        this.socket.on('server:gasoline:upgrades', (data:any) => {
+          if (data.upgrades['rain-tires']) this.rainTiresUnlocked = true;
+        });
+
+        this.socket.on('server:research:unlock:rain-tires', (data:any) => {
+          this.rainTiresUnlocked = true;
+        });
     }
-    
+
     public start() {
         this.food = this.createFood(4);
         this.character = new Character();
         this.gameLoop();
     }
-    
+
     public static getInstance() {
         if (! Game.instance) {
             Game.instance = new Game();
         }
         return Game.instance;
     }
-    
+
     public addScore(amount:number) {
 
       this.socket.emit('gasoline:update', {gasoline: amount});
@@ -60,23 +82,41 @@ export class Game {
         }
     }
 
+    public addTire(rainTire:boolean = false) {
+      if (rainTire) {
+        this.socket.emit('gasoline:update', {rainTire: true});
+      } else {
+        this.socket.emit('gasoline:update', {tire: true});
+      }
+    }
+
     private showScore() {
         // this.scoreElement.innerHTML = "Benzine: " + this.score.toString() + "L";
     }
 
     private gameLoop() {
-        this.character.update();
-        this.subject.update();
-        // this.showScore();
-        
-        for(let f of this.food){
-            f.update()
-        }
+        // Calculate elapsed time.
+        const now = Date.now();
+        const elapsed = now - this._then;
 
-        if(this.food.length <= 2 ){
-            for (let food of this.createFood(2)) {
-                this.food.push(food)
+        if (elapsed > this._fpsInterval) {
+
+            this.character.update();
+            this.subject.update();
+
+            for(let f of this.food){
+                f.update()
             }
+
+            if(this.food.length <= 6){
+                for (let food of this.createFood(1)) {
+                    this.food.push(food)
+                }
+            }
+
+            // Get ready for next frame by setting then=now, but...
+            // Also, adjust for fpsInterval not being multiple of 16.67
+            this._then = now - (elapsed % this._fpsInterval);
         }
 
         requestAnimationFrame(() => this.gameLoop())
@@ -86,11 +126,18 @@ export class Game {
         let food:Food[] = [];
         for (let i = 0; i < amount; i ++) {
             const random = Math.floor(Math.random() * 100);
-            if (random > 40) {
+            console.log(random);
+            if (random > 0 && random < 50) {
                 food.push(new Anvil(this.subject));
-            } 
+            }
+            else if (random > 50 && random < 65) {
+                food.push(new Tire());
+            }
+            else if (random > 65 && random < 80 && this.rainTiresUnlocked) {
+                food.push(new RainTire());
+            }
             else {
-                food.push(new Fuel(), new SmallFuel());
+                food.push(new Fuel());
             }
         }
         return food;
@@ -98,8 +145,8 @@ export class Game {
 
   /**
    * Get cookie by name.
-   * 
-   * @param name 
+   *
+   * @param name
    */
   private getCookie(name:string) {
     const value = "; " + document.cookie;

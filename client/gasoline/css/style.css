@@ -2,7 +2,7 @@
     src: url('../fonts/digits.ttf');
     font-family: 'Digits';
   }
-  
+
   @font-face {
     src: url('../fonts/f1.ttf');
     font-family: 'F1';
@@ -155,6 +155,7 @@ food {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
+    top: -200px;
 }
 
 fuel {
@@ -164,6 +165,7 @@ fuel {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
+    top: -200px;
 }
 
 small-fuel {
@@ -173,6 +175,27 @@ small-fuel {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
+    top: -200px;
+}
+
+tire {
+    width:150px; height:150px;;
+    background-image: url(../images/tire.png);
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: -200px;
+}
+
+rain-tire {
+    width:150px; height:150px;;
+    background-image: url(../images/rain-tire.png);
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: -200px;
 }
 
 anvil {
@@ -182,6 +205,7 @@ anvil {
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
+    top: -200px;
 }
 
 powerup {

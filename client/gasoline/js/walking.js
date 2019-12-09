@@ -3,7 +3,7 @@ export class Walking {
         this.character = character;
     }
     update() {
-        this.character.speedRight = 5;
-        this.character.speedLeft = -5;
+        this.character.speedRight = 10;
+        this.character.speedLeft = -10;
     }
 }

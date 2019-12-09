@@ -199,6 +199,8 @@ body {
 }
 
 .overlay {
+  top: 0; left: 0;
+
   width: 100vw;
   height: 100vh;
 
@@ -207,6 +209,32 @@ body {
   position: absolute;
 
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pitstop {
+  position: absolute;
+  width: 50vw;
+  height: 500px;
+
+  z-index: 4;
+
+  background-color: red;
+  color: white;
+  font-family: F1, sans-serif;
+}
+
+.lap {
+  position: absolute;
+  margin: 0 auto;
+
+  width: 100px;
+  height: 50px;
+
+  z-index: 5;
+
+  font-size: 30px;
+  color: white;
+  font-family: F1, sans-serif;
 }
 
 @keyframes moveline {

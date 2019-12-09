@@ -2,13 +2,13 @@ import { Anvil } from './anvil.js';
 import { Game } from './game.js';
 
 export class Food {
-    
+
     protected _element: HTMLElement
     public posy:number = -200;
     public posx:number
     protected speed:number
     protected game:Game
-        
+
     constructor() {
         this.posx = Math.random() * (window.innerWidth - 300);
         this.speed = Math.random() * 5 + 1;
@@ -17,7 +17,7 @@ export class Food {
     }
 
     public update():void {
-        if(this.posy >= window.innerHeight){
+        if(this.posy >= window.innerHeight + 200){
             if (this instanceof Anvil) {
                 this.remove();
                 // this.subject.unsubscribe(this);

@@ -2,10 +2,14 @@ import { Dialog } from './dialog.js';
 import { Truck } from './truck.js';
 import { Speed } from './speed.js';
 import { Car } from './car.js';
+import { MasherGame } from './masherGame.js';
 export class Game {
     constructor() {
         this.vehicle = [];
         this.running = false;
+        this.masher = null;
+        this.complete = false;
+        this.socket = io({ timeout: 60000 });
     }
     initialize() {
         this.speedSubject = new Speed();
@@ -47,14 +51,21 @@ export class Game {
     }
     winner(v) {
         if (v instanceof Car) {
-            alert("You win :D\nDo you want to play again?");
+            this.masher = MasherGame.getInstance();
+            this.masher.show();
         }
         else if (v instanceof Truck) {
+            window.location.reload();
         }
-        window.location.reload();
     }
     startGame() {
         this.running = true;
+    }
+    stopGame() {
+        this.vehicle.forEach(vehicle => {
+            vehicle.posx = 0;
+        });
+        this.running = false;
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
@@ -64,6 +75,11 @@ export class Game {
                 v.checkCollision();
             }
             this.speedSubject.update();
+        }
+        else if (this.masher && !this.complete) {
+            if (this.masher.update()) {
+                this.complete = true;
+            }
         }
         else {
             if (!this.dialog) {

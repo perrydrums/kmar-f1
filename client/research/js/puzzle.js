@@ -2,6 +2,7 @@ import { Peg } from './peg.js';
 import { Game } from './game.js';
 export class Puzzle {
     constructor(upgrade) {
+        this.tryCount = 4;
         this.pegs = [];
         this.answer = [];
         this.correct = [];
@@ -9,6 +10,17 @@ export class Puzzle {
         this.start = document.createElement('div');
         this.start.classList.add('container-puzzle');
         document.body.appendChild(this.start);
+        const backButton = document.createElement('button');
+        backButton.classList.add('backButton');
+        backButton.innerText = 'Terug';
+        backButton.addEventListener('click', () => {
+            this.hide();
+        });
+        this.start.appendChild(backButton);
+        this.tryCountContainer = document.createElement('div');
+        this.tryCountContainer.classList.add('try-count');
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+        this.start.appendChild(this.tryCountContainer);
         this.container = document.createElement('div');
         this.container.classList.add('inner-container-puzzle');
         this.start.appendChild(this.container);
@@ -20,17 +32,11 @@ export class Puzzle {
         this.container.appendChild(this.pegDiv);
         this.button = document.createElement('button');
         this.button.classList.add('button-submit');
-        this.button.innerText = "Submit";
+        this.button.innerText = "Verzenden";
         this.pegDiv.appendChild(this.button);
         this.button.addEventListener('click', () => {
             this.checkAnswer();
         });
-        const backButton = document.createElement('button');
-        backButton.innerText = 'Terug';
-        backButton.addEventListener('click', () => {
-            this.hide();
-        });
-        this.container.appendChild(backButton);
     }
     show() {
         this.createPegs(this.upgrade.getNumberOfPegs());
@@ -51,6 +57,11 @@ export class Puzzle {
         }
     }
     checkAnswer() {
+        this.tryCount--;
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+        if (this.tryCount === 0) {
+            this.hide();
+        }
         this.pegs.forEach((peg, key) => {
             peg.htmlElement.classList.remove('correct-peg');
             peg.htmlElement.classList.remove('almost-peg');

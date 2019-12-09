@@ -40,15 +40,22 @@ const initializeSockets = (http) => {
       setUUID('pitstop', data.uuid);
     });
 
+    socket.on('pitstop:done', data => {
+      socket.broadcast.emit('server:pitstop:done', {});
+    });
+
     /**
      * Gasoline sockets.
      */
-    socket.on('gasoline:start', data => {
+    socket.on('gasoline:start', async data => {
       setUUID('gasoline', data.uuid);
+
+      const upgrades = await getStat('upgrades');
+      socket.emit('server:gasoline:upgrades', { upgrades })
     });
 
     socket.on('gasoline:update', data => {
-      socket.broadcast.emit('server:gasoline:update', {gasoline: data.gasoline});
+      socket.broadcast.emit('server:gasoline:update', { ...data });
     });
 
     /**
@@ -66,6 +73,28 @@ const initializeSockets = (http) => {
 
       socket.broadcast.emit('server:research:unlock:' + data.upgrade, {});
     });
+
+    /**
+     * Driver sockets.
+     */
+    socket.on('driver:start', async data => {
+      setUUID('driver', data.uuid);
+    });
+
+    socket.on('driver:pitstop', async data => {
+      socket.broadcast.emit('server:driver:pitstop', {});
+    });
+
+    /**
+     * Aero sockets.
+     */
+    socket.on('aero:start', async data => {
+      setUUID('aero', data.uuid);
+    });
+
+    socket.on('aero:boost', async data => {
+      socket.broadcast.emit('server:aero:boost', {});
+    })
   });
 };
 

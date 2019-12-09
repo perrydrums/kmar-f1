@@ -1,0 +1,32 @@
+{
+    "1:0": {
+        "question": "Q1: What is 5?",
+        "choices": {
+            "a": { "answer": "3", "nextQuestionId": "1:2" },
+            "b": { "answer": "5", "nextQuestionId": "1:1" },
+            "c": { "answer": "20", "nextQuestionId": "1:2" },
+            "d": { "answer": "69", "nextQuestionId": "1:2" }
+        },
+        "correctAnswer": "5"
+    },
+    "1:1": {
+        "question": "Q2: What is 10?",
+        "choices": {
+            "a": { "answer": "1", "nextQuestionId": "1:0" },
+            "b": { "answer": "2", "nextQuestionId": "1:0" },
+            "c": { "answer": "10", "nextQuestionId": "1:2" },
+            "d": { "answer": "420", "nextQuestionId": "1:0" }
+        },
+        "correctAnswer": "10"
+    },
+    "1:2": {
+        "question": "Q3: What is 13?",
+        "choices": {
+            "a": { "answer": "Rogier", "nextQuestionId": "1:0" },
+            "b": { "answer": "2", "nextQuestionId": "1:1" },
+            "c": { "answer": "10", "nextQuestionId": "1:1" },
+            "d": { "answer": "13", "nextQuestionId": "1:1" }
+        },
+        "correctAnswer": "13"
+    }
+}
