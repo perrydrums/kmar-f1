@@ -2,6 +2,7 @@ import { Car } from "./car.js"
 import { Opponent } from "./opponent.js"
 import { Dialog } from "./dialog.js"
 import { Pitstop } from "./pitstop.js";
+import {Boost} from "./boost.js";
 
 export class Game {
 
@@ -40,9 +41,14 @@ export class Game {
 
   public distance:number = 0;
 
+  public speed:number = 1;
+
   private lap:number = 1;
 
   private scoreElement:HTMLElement;
+  private distanceElement:HTMLElement;
+
+  private currentBoost:Boost;
 
   /**
    * Make the constructor private.
@@ -60,11 +66,15 @@ export class Game {
         uuid: this.getCookie('uuid'),
       });
 
-      this.socket.on('server:aero:boost', data => {
-        console.log('BOOST!');
+      this.socket.on('server:aero:boost', (data:any) => {
+          new Boost('Aerodynamische boost!');
+          this.speed += .5;
+          setTimeout(() => {
+              this.speed -= .5;
+          }, 1000);
       });
 
-      this.socket.on('server:pitstop:done', data => {
+      this.socket.on('server:pitstop:done', (data:any) => {
         this.lap ++;
         this.scoreElement.innerText = this.lap.toString();
         this.inPitstop = false;
@@ -76,6 +86,10 @@ export class Game {
       this.scoreElement.classList.add('lap');
       this.scoreElement.innerText = this.lap.toString();
       document.body.appendChild(this.scoreElement);
+
+      this.distanceElement = document.createElement('div');
+      this.distanceElement.classList.add('distance');
+      document.body.appendChild(this.distanceElement);
 
       this.gameLoop();
   }
@@ -130,7 +144,9 @@ export class Game {
           }
         }
 
-        this.distance ++;
+        this.distance += this.speed;
+        this.distanceElement.innerText = this.distance.toString();
+
         if (this.distance > 1000) {
           this.pitstop();
           this.distance = 0;
@@ -221,6 +237,7 @@ export class Game {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
+    return null;
   }
 
 }
