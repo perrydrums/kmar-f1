@@ -60,6 +60,13 @@ export class Game {
         if (data.rainTire) this.addTire(true);
       });
 
+      this.socket.on('server:driver:pitstop', (data:any) => {
+        if (!this._car) {
+          this._car = new Car();
+          this.timer.start();
+        }
+      });
+
       this.gameLoop();
   }
 
@@ -143,21 +150,14 @@ export class Game {
    * Check if the car's ready.
    */
   private checkCar() {
-    if (this._carTime > this._fps * 5) {
-      if (!this._car) {
-        this._car = new Car();
-        this.timer.start();
-      }
-      this._carTime = 0;
-    }
-    this._carTime ++;
-
     if (this._car) {
       this._car.update();
 
       if (this._car.done) {
         this._car = null;
         this.timer.stop();
+        
+        this.socket.emit('pitstop:done', {});
       }
     }
   }

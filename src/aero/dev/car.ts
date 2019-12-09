@@ -96,6 +96,7 @@ export class Car {
   private checkAnswer(number:number) {
     if (this.currentSequence['answer'] === number) {
       this.correct = true;
+      Game.getInstance().boost();
       return true;
     } else {
       return false;

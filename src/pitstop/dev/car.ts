@@ -66,7 +66,7 @@ export class Car {
     }
 
     this.gasmeterElementInner.style.height = this.gas + 'px';
-    
+
     const red = 100;
     const green = this.gas * 5;
     this.gasmeterElementInner.style.backgroundColor = `rgba(${red}, ${green}, 0, 1)`
@@ -74,8 +74,8 @@ export class Car {
 
   /**
    * Add tire to the car.
-   * 
-   * @param {Tire} tire 
+   *
+   * @param {Tire} tire
    */
   public addTire(tire:Tire) {
     this.tires.push(tire);

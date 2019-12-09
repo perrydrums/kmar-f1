@@ -40,6 +40,10 @@ const initializeSockets = (http) => {
       setUUID('pitstop', data.uuid);
     });
 
+    socket.on('pitstop:done', data => {
+      socket.broadcast.emit('server:pitstop:done', {});
+    });
+
     /**
      * Gasoline sockets.
      */
@@ -69,6 +73,28 @@ const initializeSockets = (http) => {
 
       socket.broadcast.emit('server:research:unlock:' + data.upgrade, {});
     });
+
+    /**
+     * Driver sockets.
+     */
+    socket.on('driver:start', async data => {
+      setUUID('driver', data.uuid);
+    });
+
+    socket.on('driver:pitstop', async data => {
+      socket.broadcast.emit('server:driver:pitstop', {});
+    });
+
+    /**
+     * Aero sockets.
+     */
+    socket.on('aero:start', async data => {
+      setUUID('aero', data.uuid);
+    });
+
+    socket.on('aero:boost', async data => {
+      socket.broadcast.emit('server:aero:boost', {});
+    })
   });
 };
 

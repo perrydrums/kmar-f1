@@ -22,12 +22,22 @@ export class Game {
   
   private dialog:Dialog;
 
+  public sequenceCount:number = 0;
+
+  public socket: SocketIOClient.Socket;
+
   /**
    * Make the constructor private.
    */
   private constructor() {
       this._fpsInterval = 1000 / this._fps;
       this._then = Date.now();
+
+      this.socket = io({ timeout: 60000 });
+
+      this.socket.emit('aero:start', {
+        uuid: this.getCookie('uuid'),
+      });
 
       this.gameLoop();
   }
@@ -83,6 +93,10 @@ export class Game {
     }
   }
 
+  public boost() {
+    this.socket.emit('aero:boost');
+  }
+
     /**
    * Check if the car's ready.
    */
@@ -102,6 +116,17 @@ export class Game {
         this._car = null;
       }
     }
+  }
+
+  /**
+   * Get cookie by name.
+   *
+   * @param name
+   */
+  private getCookie(name:string) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
   }
 
 }
