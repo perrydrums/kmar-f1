@@ -59,6 +59,9 @@ export class Game {
         this.running = true;
         this.startTime = Date.now();
     }
+    finish() {
+        console.log('RACE FINISHED!!!');
+    }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
         if (this.inPitstop) {
@@ -83,8 +86,13 @@ export class Game {
                 this.distance += this.speed;
                 this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() : '0';
                 if (this.distance > 1000) {
-                    this.pitstop();
-                    this.distance = 0;
+                    if (this.lap >= 4) {
+                        this.finish();
+                    }
+                    else {
+                        this.pitstop();
+                        this.distance = 0;
+                    }
                 }
                 this._then = now - (elapsed % this._fpsInterval);
             }

@@ -116,6 +116,10 @@ export class Game {
     this.startTime = Date.now();
   }
 
+  public finish():void {
+      console.log('RACE FINISHED!!!');
+  }
+
   /**
    * Runs approx. {this._fps} times a second.
    */
@@ -152,8 +156,13 @@ export class Game {
         this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() : '0';
 
         if (this.distance > 1000) {
-          this.pitstop();
-          this.distance = 0;
+            if (this.lap >= 4) {
+                this.finish();
+            }
+            else {
+                this.pitstop();
+                this.distance = 0;
+            }
         }
 
         // Get ready for next frame by setting then=now, but...
@@ -183,7 +192,7 @@ export class Game {
     return opponent;
 }
 
-    /**
+  /**
    * Create caracter
    */
   private createCar() {
