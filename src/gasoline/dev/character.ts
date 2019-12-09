@@ -17,6 +17,7 @@ export class Character {
     private food:Food[];
     // public powerup:Powerup
     public hit:boolean = false;
+    characterLane:number = 1;
 
     constructor(){
         this._htmlElement = document.createElement("div")
@@ -36,7 +37,23 @@ export class Character {
         this.behaviour.update();
         this.noPowerup();
         this.htmlElement.style.transform = `translate(${this.posx += this.speed}px, ${this.posy}px)`;
-        
+        console.log(this.characterLane);
+
+        if(this.characterLane === 1){
+            this.htmlElement.style.zIndex = "999";
+            this.htmlElement.style.height = "200px";
+            this.htmlElement.style.width = "150px";
+        } else if(this.characterLane === 2){
+            this.htmlElement.style.zIndex = "998";
+            this.htmlElement.style.height = "180px";
+            this.htmlElement.style.width = "130px";
+        } else {
+            this.htmlElement.style.zIndex = "997";
+            this.htmlElement.style.height = "160px";
+            this.htmlElement.style.width = "120px";
+        }
+
+
         for(let i = 0; i < this.food.length; i++){
             if(
                 this.htmlElement.getBoundingClientRect().left < this.food[i].element.getBoundingClientRect().right &&
@@ -44,12 +61,30 @@ export class Character {
                 this.htmlElement.getBoundingClientRect().bottom > this.food[i].element.getBoundingClientRect().top &&
                 this.htmlElement.getBoundingClientRect().top < this.food[i].element.getBoundingClientRect().bottom
             ){
-                if (this instanceof Anvil) {
-                    this.subject.unsubscribe(this);
+                if(this.food[i].lane === 1 && this.characterLane === 1) {
+                    if (this instanceof Anvil) {
+                        this.subject.unsubscribe(this);
+                    }
+                    this.food[i].action();
+                    this.food[i].remove();
+                    Game.getInstance().food.splice(i, 1);
+                } else if (this.food[i].lane === 2 && this.characterLane === 2){
+                    
+                    if (this instanceof Anvil) {
+                        this.subject.unsubscribe(this);
+                    }
+                    this.food[i].action();
+                    this.food[i].remove();
+                    Game.getInstance().food.splice(i, 1);
+                } else if (this.food[i].lane === 3 && this.characterLane === 3) {
+                    
+                    if (this instanceof Anvil) {
+                        this.subject.unsubscribe(this);
+                    }
+                    this.food[i].action();
+                    this.food[i].remove();
+                    Game.getInstance().food.splice(i, 1);
                 }
-                this.food[i].action();
-                this.food[i].remove();
-                Game.getInstance().food.splice(i, 1);
             }
         }
 
@@ -88,15 +123,39 @@ export class Character {
     public onKeyDown(event:KeyboardEvent):void {
         switch(event.keyCode){
         case 37:
+            event.preventDefault();
             this.speed = this.speedLeft;
             this._htmlElement.classList.add("characterLeft");
             this._htmlElement.classList.remove("characterRight");
             break;
+        case 38:
+            event.preventDefault();
+            if(!this.hit){
+                if(this.characterLane != 3){
+                    this.characterLane += 1;
+                    this.posy -= 50;
+                } else {
+                    this.posy -= 0;
+                }
+            }
+            break;
         case 39:
+            event.preventDefault();
             this.speed = this.speedRight;
             this._htmlElement.classList.add("characterRight");
             this._htmlElement.classList.remove("characterLeft");
             break;
+        case 40:
+            event.preventDefault();
+            if(!this.hit){
+                if(this.characterLane != 1){
+                    this.characterLane -= 1;
+                    this.posy += 50;
+                } else {
+                    this.posy += 0;
+                }
+            }
+            break;    
         }
     }
     

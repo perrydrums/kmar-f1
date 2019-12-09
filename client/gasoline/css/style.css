@@ -25,7 +25,6 @@ foreground {
     box-sizing: border-box;
 }
 
-
 .character {
     position: absolute;
     z-index: 1;
@@ -33,8 +32,6 @@ foreground {
     width: 150px;
     height: 200px;
     background-size: cover;
-    /* -webkit-animation: bounce 2s infinite;
-    animation: bounce 2s infinite; */
     background-position: center;
     animation-name: bounce;
     top: -70px;
@@ -159,17 +156,33 @@ food {
 }
 
 fuel {
-    width:150px; height:100px;;
+    width:150px; height:100px;
     background-image: url(../images/fuel-big.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
     top: -200px;
+    z-index: 999;
+}
+
+.fuel1 {
+    width:150px; height:100px;
+    z-index: 999;
+}
+
+.fuel2 {
+    width:140px; height:90px;
+    z-index: 998;
+}
+
+.fuel3 {
+    width:130px; height:80px;
+    z-index: 997;
 }
 
 small-fuel {
-    width:150px; height:100px;;
+    width:150px; height:100px;
     background-image: url(../images/small-bottle.png);
     background-size:contain;
     background-position: center;
@@ -179,33 +192,79 @@ small-fuel {
 }
 
 tire {
-    width:150px; height:150px;;
+    width:150px; height:150px;
     background-image: url(../images/tire.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
     top: -200px;
+    z-index: 999;
+}
+
+.tire1 {
+    width:150px; height:150px;
+}
+
+.tire2 {
+    width:130px; height:130px;
+    z-index: 998;
+}
+
+.tire3 {
+    width:110px; height:110px;;
+    z-index: 997;
 }
 
 rain-tire {
-    width:150px; height:150px;;
+    width:150px; height:150px;
     background-image: url(../images/rain-tire.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
     top: -200px;
+    z-index: 999;
+}
+
+.rain-tire1 {
+    width:150px; height:150px;
+}
+
+.rain-tire2 {
+    width:130px; height:130px;
+    z-index: 998;
+}
+
+.rain-tire3 {
+    width:110px; height:110px;
+    z-index: 997;
 }
 
 anvil {
-    width:150px; height:115px;;
+    width:150px; height:115px;
     background-image: url(../images/anvil.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
     top: -200px;
+    z-index: 999;
+}
+
+.anvil1 {
+    width:150px; height:115px;
+    background-image: url(../images/anvil.png);
+}
+
+.anvil2 {
+    width:130px; height:95px;
+    z-index: 998;
+}
+
+.anvil3 {
+    width:110px; height:75px;;
+    z-index: 997;
 }
 
 powerup {
