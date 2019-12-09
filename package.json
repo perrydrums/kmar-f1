@@ -19,7 +19,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "./start.sh",
+    "start": "node app.js",
+    "dev": "./start.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
