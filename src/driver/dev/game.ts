@@ -60,8 +60,6 @@ export class Game {
       this._then = Date.now();
       this.createCar();
 
-      this.startTime = Date.now();
-
       this.socket = io({ timeout: 60000 });
 
       this.socket.emit('driver:start', {
@@ -108,6 +106,7 @@ export class Game {
 
   public startGame():void {
     this.running = true;
+    this.startTime = Date.now();
   }
 
   /**

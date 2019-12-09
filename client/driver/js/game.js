@@ -18,7 +18,6 @@ export class Game {
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.createCar();
-        this.startTime = Date.now();
         this.socket = io({ timeout: 60000 });
         this.socket.emit('driver:start', {
             uuid: this.getCookie('uuid'),
@@ -52,6 +51,7 @@ export class Game {
     }
     startGame() {
         this.running = true;
+        this.startTime = Date.now();
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
