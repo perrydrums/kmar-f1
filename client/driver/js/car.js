@@ -12,6 +12,8 @@ export class Car {
         this._element = document.createElement('div');
         this._element.classList.add('car');
         document.body.appendChild(this._element);
+        this.posX = 0;
+        this.posY = 0;
         window.addEventListener('keydown', (e) => this.onKeyDown(e));
         window.addEventListener('keyup', (e) => this.onKeyUp(e));
     }

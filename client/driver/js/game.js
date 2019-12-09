@@ -14,6 +14,7 @@ export class Game {
         this.lap = 1;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
+        this.createCar();
         this.startTime = Date.now();
         this.socket = io({ timeout: 60000 });
         this.socket.emit('driver:start', {
@@ -55,8 +56,8 @@ export class Game {
         const elapsed = now - this._then;
         if (this.running) {
             if (elapsed > this._fpsInterval) {
-                this.checkCar();
                 this.checkCollision();
+                this._car.update();
                 for (let o of this.opponent) {
                     o.update();
                 }
@@ -87,6 +88,16 @@ export class Game {
     pitstop() {
         this.socket.emit('driver:pitstop');
         this.inPitstop = true;
+    }
+    spawnOpponent(amount) {
+        let opponent = [];
+        for (let i = 0; i < amount; i++) {
+            opponent.push(new Opponent());
+        }
+        return opponent;
+    }
+    createCar() {
+        this._car = new Car();
     }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
@@ -121,6 +132,13 @@ export class Game {
             this._car.update();
             if (this._car.done) {
                 this._car = null;
+                if (!document.querySelector('.opponentHit')) {
+                    this.opponentHit = document.createElement('div');
+                    this.opponentHit.classList.add('opponentHit');
+                    document.body.appendChild(this.opponentHit);
+                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
+                    setTimeout(() => { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
+                }
             }
         }
     }

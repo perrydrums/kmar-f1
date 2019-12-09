@@ -50,6 +50,7 @@ export class Game {
   private constructor() {
       this._fpsInterval = 1000 / this._fps;
       this._then = Date.now();
+      this.createCar();
 
       this.startTime = Date.now();
 
@@ -101,7 +102,7 @@ export class Game {
   gameLoop() {
     requestAnimationFrame(() => this.gameLoop());
 
-    if (this.inPitstop) {      
+    if (this.inPitstop) {
       this.pitstopObject = Pitstop.getInstance();
       this.pitstopObject.show();
       return;
@@ -115,8 +116,8 @@ export class Game {
       // If enough time has elapsed, draw the next frame.
       if (elapsed > this._fpsInterval) {
 
-        this.checkCar();
         this.checkCollision();
+        this._car.update();
 
         for(let o of this.opponent){
           o.update()
@@ -155,6 +156,21 @@ export class Game {
     }
   }
 
+  private spawnOpponent(amount:number):Opponent[] {
+    let opponent:Opponent[] = [];
+    for (let i = 0; i < amount; i ++) {
+      opponent.push(new Opponent())
+    }
+    return opponent;
+}
+
+    /**
+   * Create caracter
+   */
+  private createCar() {
+    this._car = new Car();
+  }
+
   private pitstop() {
     this.socket.emit('driver:pitstop');
     this.inPitstop = true;
@@ -168,6 +184,7 @@ export class Game {
           this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
           this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom
       ){
+          if(!document.querySelector('.opponentHit')) {
             this.opponentHit = document.createElement('div');
             this.opponentHit.classList.add('opponentHit');
             document.body.appendChild(this.opponentHit);
@@ -193,16 +210,9 @@ export class Game {
     if (this._carTime > this._fps * 0) {
       if (!this._car) {
         this._car = new Car();
-      }
-      this._carTime = 0;
-    }
-    this._carTime ++;
-
-    if (this._car) {
-      this._car.update();
-
-      if (this._car.done) {
-        this._car = null;
+            this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
+            setTimeout(()=> { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
+          }
       }
     }
   }
