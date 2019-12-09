@@ -23,11 +23,8 @@ export class Game {
             uuid: this.getCookie('uuid'),
         });
         this.socket.on('server:aero:boost', (data) => {
-            new Boost('Aerodynamische boost!');
-            this.speed += .5;
-            setTimeout(() => {
-                this.speed -= .5;
-            }, 1000);
+            new Boost('Aerodynamische boost!', '+ 10% snelheid');
+            this.speed += .1;
         });
         this.socket.on('server:pitstop:done', (data) => {
             this.lap++;
@@ -76,7 +73,7 @@ export class Game {
                     }
                 }
                 this.distance += this.speed;
-                this.distanceElement.innerText = this.distance.toString();
+                this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toString() : '0';
                 if (this.distance > 1000) {
                     this.pitstop();
                     this.distance = 0;

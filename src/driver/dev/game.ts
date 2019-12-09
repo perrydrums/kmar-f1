@@ -67,11 +67,8 @@ export class Game {
       });
 
       this.socket.on('server:aero:boost', (data:any) => {
-          new Boost('Aerodynamische boost!');
-          this.speed += .5;
-          setTimeout(() => {
-              this.speed -= .5;
-          }, 1000);
+          new Boost('Aerodynamische boost!', '+ 10% snelheid');
+          this.speed += .1;
       });
 
       this.socket.on('server:pitstop:done', (data:any) => {
@@ -129,23 +126,21 @@ export class Game {
     if (this.running) {
       // If enough time has elapsed, draw the next frame.
       if (elapsed > this._fpsInterval) {
-
         this.checkCollision();
         this._car.update();
 
-        for(let o of this.opponent){
+        for (let o of this.opponent) {
           o.update()
         }
 
-
-        if(this.opponent.length <= 2 ){
+        if (this.opponent.length <= 2 ) {
           for (let opponent of this.spawnOpponent(2)) {
               this.opponent.push(opponent)
           }
         }
 
         this.distance += this.speed;
-        this.distanceElement.innerText = this.distance.toString();
+        this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toString() : '0';
 
         if (this.distance > 1000) {
           this.pitstop();
@@ -155,7 +150,6 @@ export class Game {
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         this._then = now - (elapsed % this._fpsInterval);
-
       }
     }
     else {
