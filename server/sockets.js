@@ -40,6 +40,10 @@ const initializeSockets = (http) => {
       setUUID('pitstop', data.uuid);
     });
 
+    socket.on('pitstop:done', data => {
+      socket.broadcast.emit('server:pitstop:done', {});
+    });
+
     /**
      * Gasoline sockets.
      */
@@ -75,6 +79,10 @@ const initializeSockets = (http) => {
      */
     socket.on('driver:start', async data => {
       setUUID('driver', data.uuid);
+    });
+
+    socket.on('driver:pitstop', async data => {
+      socket.broadcast.emit('server:driver:pitstop', {});
     });
 
     /**

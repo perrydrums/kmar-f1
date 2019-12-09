@@ -1,6 +1,7 @@
 import { Car } from "./car.js";
 import { Opponent } from "./opponent.js";
 import { Dialog } from "./dialog.js";
+import { Pitstop } from "./pitstop.js";
 export class Game {
     constructor() {
         this._fps = 30;
@@ -8,6 +9,9 @@ export class Game {
         this.running = false;
         this.sequenceCount = 0;
         this.opponent = [];
+        this.inPitstop = false;
+        this.distance = 0;
+        this.lap = 0;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.startTime = Date.now();
@@ -17,6 +21,12 @@ export class Game {
         });
         this.socket.on('server:aero:boost', data => {
             console.log('BOOST!');
+        });
+        this.socket.on('server:pitstop:done', data => {
+            this.lap++;
+            this.inPitstop = false;
+            this.pitstopObject.hide();
+            this.pitstopObject = null;
         });
         this.gameLoop();
     }
@@ -31,6 +41,10 @@ export class Game {
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
+        if (this.inPitstop) {
+            this.pitstopObject = Pitstop.getInstance();
+            return;
+        }
         const now = Date.now();
         const elapsed = now - this._then;
         if (this.running) {
@@ -46,6 +60,9 @@ export class Game {
                     }
                 }
                 this.distance++;
+                if (this.distance > 300) {
+                    this.pitstop();
+                }
                 this._then = now - (elapsed % this._fpsInterval);
             }
         }
@@ -59,6 +76,10 @@ export class Game {
                 this.dialog.addButton();
             }
         }
+    }
+    pitstop() {
+        this.socket.emit('driver:pitstop');
+        this.inPitstop = true;
     }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {

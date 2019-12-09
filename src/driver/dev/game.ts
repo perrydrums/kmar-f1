@@ -1,6 +1,7 @@
 import { Car } from "./car.js"
 import { Opponent } from "./opponent.js"
 import { Dialog } from "./dialog.js"
+import { Pitstop } from "./pitstop.js";
 
 export class Game {
 
@@ -31,9 +32,15 @@ export class Game {
 
   public socket: SocketIOClient.Socket;
 
+  private inPitstop:boolean = false;
+
+  private pitstopObject:Pitstop;
+
   public startTime:number;
 
-  public distance:number;
+  public distance:number = 0;
+
+  private lap:number = 0;
 
   /**
    * Make the constructor private.
@@ -52,7 +59,13 @@ export class Game {
 
       this.socket.on('server:aero:boost', data => {
         console.log('BOOST!');
-        
+      });
+
+      this.socket.on('server:pitstop:done', data => {
+        this.lap ++;
+        this.inPitstop = false;
+        this.pitstopObject.hide();
+        this.pitstopObject = null;
       });
 
       this.gameLoop();
@@ -80,6 +93,11 @@ export class Game {
   gameLoop() {
     requestAnimationFrame(() => this.gameLoop());
 
+    if (this.inPitstop) {      
+      this.pitstopObject = Pitstop.getInstance();
+      return;
+    }
+
     // Calculate elapsed time.
     const now = Date.now();
     const elapsed = now - this._then;
@@ -103,6 +121,9 @@ export class Game {
         }
 
         this.distance ++;
+        if (this.distance > 300) {
+          this.pitstop();
+        }
 
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
@@ -122,6 +143,11 @@ export class Game {
         this.dialog.addButton();
       }
     }
+  }
+
+  private pitstop() {
+    this.socket.emit('driver:pitstop');
+    this.inPitstop = true;
   }
 
   private checkCollision() {
