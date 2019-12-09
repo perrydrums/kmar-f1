@@ -8,6 +8,10 @@ export class Game {
         this.sequenceCount = 0;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
+        this.socket = io({ timeout: 60000 });
+        this.socket.emit('aero:start', {
+            uuid: this.getCookie('uuid'),
+        });
         this.gameLoop();
     }
     static getInstance() {
@@ -40,6 +44,9 @@ export class Game {
             }
         }
     }
+    boost() {
+        this.socket.emit('aero:boost');
+    }
     checkCar() {
         if (this._carTime > this._fps * 1) {
             if (!this._car) {
@@ -54,6 +61,12 @@ export class Game {
                 this._car = null;
             }
         }
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
     }
 }
 window.addEventListener("load", () => {

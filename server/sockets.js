@@ -69,6 +69,24 @@ const initializeSockets = (http) => {
 
       socket.broadcast.emit('server:research:unlock:' + data.upgrade, {});
     });
+
+    /**
+     * Driver sockets.
+     */
+    socket.on('driver:start', async data => {
+      setUUID('driver', data.uuid);
+    });
+
+    /**
+     * Aero sockets.
+     */
+    socket.on('aero:start', async data => {
+      setUUID('aero', data.uuid);
+    });
+
+    socket.on('aero:boost', async data => {
+      socket.broadcast.emit('server:aero:boost', {});
+    })
   });
 };
 

@@ -16,18 +16,24 @@ export class Game {
   private _then:number;
 
   public _car:Car;
-  
+
   private _carTime:number = 0;
-  
+
   private running:boolean = false;
-  
+
   private dialog:Dialog;
 
   private opponentHit:HTMLElement;
-  
+
   public sequenceCount:number = 0;
 
   public opponent:Opponent[] = [];
+
+  public socket: SocketIOClient.Socket;
+
+  public startTime:number;
+
+  public distance:number;
 
   /**
    * Make the constructor private.
@@ -36,12 +42,25 @@ export class Game {
       this._fpsInterval = 1000 / this._fps;
       this._then = Date.now();
 
+      this.startTime = Date.now();
+
+      this.socket = io({ timeout: 60000 });
+
+      this.socket.emit('driver:start', {
+        uuid: this.getCookie('uuid'),
+      });
+
+      this.socket.on('server:aero:boost', data => {
+        console.log('BOOST!');
+        
+      });
+
       this.gameLoop();
   }
 
   /**
    * There can always only be one Game instance.
-   * 
+   *
    * @returns {Game}
    */
   public static getInstance():Game {
@@ -54,7 +73,7 @@ export class Game {
   public startGame():void {
     this.running = true;
   }
-  
+
   /**
    * Runs approx. {this._fps} times a second.
    */
@@ -82,7 +101,9 @@ export class Game {
               this.opponent.push(opponent)
           }
         }
-          
+
+        this.distance ++;
+
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         this._then = now - (elapsed % this._fpsInterval);
@@ -125,7 +146,7 @@ export class Game {
     for (let i = 0; i < amount; i ++) {
       opponent.push(new Opponent())
     }
-    console.log(opponent);
+
     return opponent;
 }
 
@@ -148,6 +169,17 @@ export class Game {
         this._car = null;
       }
     }
+  }
+
+  /**
+   * Get cookie by name.
+   *
+   * @param name
+   */
+  private getCookie(name:string) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
   }
 
 }

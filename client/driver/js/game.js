@@ -10,6 +10,14 @@ export class Game {
         this.opponent = [];
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
+        this.startTime = Date.now();
+        this.socket = io({ timeout: 60000 });
+        this.socket.emit('driver:start', {
+            uuid: this.getCookie('uuid'),
+        });
+        this.socket.on('server:aero:boost', data => {
+            console.log('BOOST!');
+        });
         this.gameLoop();
     }
     static getInstance() {
@@ -37,6 +45,7 @@ export class Game {
                         this.opponent.push(opponent);
                     }
                 }
+                this.distance++;
                 this._then = now - (elapsed % this._fpsInterval);
             }
         }
@@ -70,7 +79,6 @@ export class Game {
         for (let i = 0; i < amount; i++) {
             opponent.push(new Opponent());
         }
-        console.log(opponent);
         return opponent;
     }
     checkCar() {
@@ -87,6 +95,12 @@ export class Game {
                 this._car = null;
             }
         }
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
     }
 }
 window.addEventListener("load", () => {
