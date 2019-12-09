@@ -251,6 +251,36 @@ body {
     font-family: F1, sans-serif;
 }
 
+.message {
+    width: 400px;
+    height: 200px;
+    border: 2px solid white;
+    font-family: F1, sans-serif;
+
+    z-index: 10;
+
+    position: absolute;
+    margin: 200px auto;
+}
+
+.message h1 {
+    font-size: 30px;
+}
+
+.message p {
+    font-size: 16px;
+}
+
+.good {
+    color: green;
+    border-color: green;
+}
+
+.bad {
+    color: red;
+    border-color: red;
+}
+
 @keyframes moveline {
   from {top: -400px;}
   to {top: 900px;}

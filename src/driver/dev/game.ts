@@ -2,7 +2,7 @@ import { Car } from "./car.js"
 import { Opponent } from "./opponent.js"
 import { Dialog } from "./dialog.js"
 import { Pitstop } from "./pitstop.js";
-import {Boost} from "./boost.js";
+import { Message } from "./message.js";
 
 export class Game {
 
@@ -50,7 +50,7 @@ export class Game {
   private scoreElement:HTMLElement;
   private distanceElement:HTMLElement;
 
-  private currentBoost:Boost;
+  private currentMessage:Message;
 
   /**
    * Make the constructor private.
@@ -67,8 +67,15 @@ export class Game {
       });
 
       this.socket.on('server:aero:boost', (data:any) => {
-          new Boost('Aerodynamische boost!', '+ 10% snelheid');
+          this.currentMessage = new Message('Aerodynamische boost!', '+ 10% snelheid', 'good');
           this.speed += .1;
+      });
+
+      this.socket.on('server:aero:slow', (data:any) => {
+          this.currentMessage = new Message('Aerodynamische slowdown!', '- 10% snelheid', 'bad');
+          if (this.speed >= .3) {
+              this.speed -= .1;
+          }
       });
 
       this.socket.on('server:pitstop:done', (data:any) => {

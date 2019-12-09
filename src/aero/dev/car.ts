@@ -99,7 +99,9 @@ export class Car {
       Game.getInstance().boost();
       return true;
     } else {
-      return false;
+        Game.getInstance().slowdown();
+
+        return false;
     }
   }
 

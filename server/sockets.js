@@ -94,6 +94,10 @@ const initializeSockets = (http) => {
 
     socket.on('aero:boost', async data => {
       socket.broadcast.emit('server:aero:boost', {});
+    });
+
+    socket.on('aero:slow', async data => {
+      socket.broadcast.emit('server:aero:slow', {});
     })
   });
 };

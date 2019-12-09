@@ -47,6 +47,9 @@ export class Game {
     boost() {
         this.socket.emit('aero:boost');
     }
+    slowdown() {
+        this.socket.emit('aero:slow');
+    }
     checkCar() {
         if (this._carTime > this._fps * 1) {
             if (!this._car) {
