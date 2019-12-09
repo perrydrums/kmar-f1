@@ -45,6 +45,8 @@ export class Game {
 
   private lap:number = 1;
 
+  private lapTime:any = {};
+
   private scoreElement:HTMLElement;
   private distanceElement:HTMLElement;
 
@@ -73,6 +75,7 @@ export class Game {
 
       this.socket.on('server:pitstop:done', (data:any) => {
         this.lap ++;
+        this.startTime = Date.now();
         this.scoreElement.innerText = this.lap.toString();
         this.inPitstop = false;
         this.pitstopObject.hide();
@@ -140,7 +143,7 @@ export class Game {
         }
 
         this.distance += this.speed;
-        this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toString() : '0';
+        this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() : '0';
 
         if (this.distance > 1000) {
           this.pitstop();
@@ -182,6 +185,8 @@ export class Game {
   }
 
   private pitstop() {
+    this.lapTime[this.lap] = Date.now() - this.startTime;
+    console.log(this.lapTime);
     this.socket.emit('driver:pitstop');
     this.inPitstop = true;
   }
