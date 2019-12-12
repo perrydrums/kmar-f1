@@ -1,8 +1,9 @@
 import { Anvil } from './anvil.js';
 import { Game } from './game.js';
 export class Food {
-    constructor() {
+    constructor(lane) {
         this.posy = -200;
+        this.lane = lane;
         this.posx = Math.random() * (window.innerWidth - 300);
         this.speed = Math.random() * 5 + 1;
         this.game = Game.getInstance();
@@ -11,6 +12,7 @@ export class Food {
         if (this.posy >= window.innerHeight + 200) {
             if (this instanceof Anvil) {
                 this.remove();
+                this.subject.unsubscribe(this);
             }
             this.remove();
             const index = this.game.food.indexOf(this);

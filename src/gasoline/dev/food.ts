@@ -8,8 +8,11 @@ export class Food {
     public posx:number
     protected speed:number
     protected game:Game
+    lane:number
 
-    constructor() {
+    constructor(lane:number) {
+        this.lane = lane;
+        
         this.posx = Math.random() * (window.innerWidth - 300);
         this.speed = Math.random() * 5 + 1;
 
@@ -20,7 +23,7 @@ export class Food {
         if(this.posy >= window.innerHeight + 200){
             if (this instanceof Anvil) {
                 this.remove();
-                // this.subject.unsubscribe(this);
+                this.subject.unsubscribe(this);
             }
             this.remove();
             const index = this.game.food.indexOf(this);
