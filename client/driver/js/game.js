@@ -84,7 +84,7 @@ export class Game {
                     }
                 }
                 this.distance += this.speed;
-                this.distanceElement.innerText = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() : '0';
+                this.distanceElement.innerHTML = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() + '<br>' + (this.speed * 200).toFixed(0).toString() + ' km/h' : '0';
                 if (this.distance > 1000) {
                     if (this.lap >= 4) {
                         this.finish();
@@ -123,6 +123,10 @@ export class Game {
         console.log(this.lapTime);
         this.socket.emit('driver:pitstop');
         this.inPitstop = true;
+        this.socket.emit('driver:lap', {
+            lap: this.lap,
+            time: this.lapTime,
+        });
     }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
@@ -140,15 +144,6 @@ export class Game {
                         this._car.hit = false;
                     }, 5000);
                 }
-            }
-        }
-    }
-    checkCar() {
-        if (this._carTime > this._fps * 0) {
-            if (!this._car) {
-                this._car = new Car();
-                this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
-                setTimeout(() => { this.opponentHit.classList.remove('opponentHit'); this.opponentHit.remove(); console.log('timeout klaar'); }, 4000);
             }
         }
     }
