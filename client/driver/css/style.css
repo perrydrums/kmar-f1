@@ -281,7 +281,17 @@ body {
     border-color: red;
 }
 
+.blinking {
+    animation: blinker .5s linear infinite;
+}
+
 @keyframes moveline {
   from {top: -400px;}
   to {top: 900px;}
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }

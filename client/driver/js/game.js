@@ -130,19 +130,24 @@ export class Game {
     }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
-            if (this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
+            if (!this._car.hit &&
+                this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
                 this._car._element.getBoundingClientRect().right > this.opponent[i].element.getBoundingClientRect().left &&
                 this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
                 this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
                 if (!document.querySelector('.opponentHit')) {
+                    this._car.hit = true;
+                    this.speed -= .1;
                     this.opponentHit = document.createElement('div');
                     this.opponentHit.classList.add('opponentHit');
                     document.body.appendChild(this.opponentHit);
                     this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
+                    this._car._element.classList.add('blinking');
                     setTimeout(() => {
                         this.opponentHit.remove();
                         this._car.hit = false;
-                    }, 5000);
+                        this._car._element.classList.remove('blinking');
+                    }, 3000);
                 }
             }
         }
