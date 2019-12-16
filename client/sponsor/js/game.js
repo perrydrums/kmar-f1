@@ -83,8 +83,8 @@ export class Game {
         });
     }
     getNextQuestion(nextQuestionId) {
-        this.changeDifficulty();
         this.questionId = nextQuestionId;
+        this.changeDifficulty();
         this.showQuestion();
         this.showChoices();
         this.showScore();
@@ -126,21 +126,27 @@ export class Game {
     changeDifficulty() {
         if (this.quiz.score < 0) {
             Game.getInstance().currentDifficulty = "very easy";
+            Game.getInstance().questionId = "1:1";
         }
         if (this.quiz.score >= 10) {
             Game.getInstance().currentDifficulty = "easy";
+            Game.getInstance().questionId = "1:1";
         }
         if (this.quiz.score >= 20) {
             Game.getInstance().currentDifficulty = "medium";
+            Game.getInstance().questionId = "1:1";
         }
         if (this.quiz.score >= 40) {
             Game.getInstance().currentDifficulty = "hard";
+            Game.getInstance().questionId = "1:1";
         }
         if (this.quiz.score >= 65) {
             Game.getInstance().currentDifficulty = "very hard";
+            Game.getInstance().questionId = "1:1";
         }
         if (this.quiz.score >= 85) {
             Game.getInstance().currentDifficulty = "extreme";
+            Game.getInstance().questionId = "1:1";
         }
     }
     showScore() {
