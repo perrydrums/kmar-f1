@@ -129,7 +129,7 @@ export class Game {
   }
 
   public finish():void {
-      console.log('RACE FINISHED!!!');
+      alert('Race finished!!!!!!');
   }
 
   /**
@@ -247,6 +247,8 @@ export class Game {
                   document.body.appendChild(this.opponentHit);
                   this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                   this._car._element.classList.add('blinking');
+
+                  this.opponent[i]._element.remove();
 
                   setTimeout(() => {
                       this.opponentHit.remove();

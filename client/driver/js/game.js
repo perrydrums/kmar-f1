@@ -69,7 +69,7 @@ export class Game {
         this.startTime = Date.now();
     }
     finish() {
-        console.log('RACE FINISHED!!!');
+        alert('Race finished!!!!!!');
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
@@ -157,6 +157,7 @@ export class Game {
                     document.body.appendChild(this.opponentHit);
                     this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                     this._car._element.classList.add('blinking');
+                    this.opponent[i]._element.remove();
                     setTimeout(() => {
                         this.opponentHit.remove();
                         this._car.hit = false;
