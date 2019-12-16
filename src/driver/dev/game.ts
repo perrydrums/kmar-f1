@@ -47,6 +47,8 @@ export class Game {
 
   private lapTime:any = {};
 
+  private lapText:string = 'Ronde 1 van 4';
+
   private scoreElement:HTMLElement;
   private distanceElement:HTMLElement;
 
@@ -88,8 +90,9 @@ export class Game {
 
       this.socket.on('server:pitstop:done', (data:any) => {
         this.lap ++;
+        this.lapText = 'Ronde ' + this.lap + ' van 4';
+        this.scoreElement.innerText = this.lapText;
         this.startTime = Date.now();
-        this.scoreElement.innerText = this.lap.toString();
         this.inPitstop = false;
         this.pitstopObject.hide();
         this.pitstopObject = null;
@@ -98,7 +101,7 @@ export class Game {
 
       this.scoreElement = document.createElement('div');
       this.scoreElement.classList.add('lap');
-      this.scoreElement.innerText = this.lap.toString();
+      this.scoreElement.innerText = this.lapText;
       document.body.appendChild(this.scoreElement);
 
       this.distanceElement = document.createElement('div');
@@ -237,10 +240,12 @@ export class Game {
                   this.speed = 0;
                   this.setAnimationState('paused');
 
-                  this.opponentHit = document.createElement('div');
+                  this.opponentHit = document.createElement('img');
                   this.opponentHit.classList.add('opponentHit');
+                  this.opponentHit.src = "";
+                  this.opponentHit.src = "./img/explosion.gif";
                   document.body.appendChild(this.opponentHit);
-                  this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
+                  this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                   this._car._element.classList.add('blinking');
 
                   setTimeout(() => {

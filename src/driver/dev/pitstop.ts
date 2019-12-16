@@ -3,6 +3,9 @@ export class Pitstop {
   private static _instance:Pitstop;
   private element:HTMLElement;
   private overlay:HTMLElement;
+  private trackOverlay:HTMLElement;
+  private trackOverlay2:HTMLElement;
+  private textOverlay:HTMLElement;
   private visible:boolean = false;
 
   private constructor() {}
@@ -28,8 +31,20 @@ export class Pitstop {
       this.element = document.createElement('div');
       this.element.classList.add('pitstop');
       this.overlay.appendChild(this.element);
+
+      this.trackOverlay = document.createElement('div');
+      this.trackOverlay.classList.add('track-overlay');
+      this.element.appendChild(this.trackOverlay);
+
+      this.trackOverlay2 = document.createElement('div');
+      this.trackOverlay2.classList.add('track-overlay', 'track-overlay--top');
+      this.element.appendChild(this.trackOverlay2);
   
-      this.element.innerText = 'IN DE PITSTOP!';
+      this.textOverlay = document.createElement('div');
+      this.trackOverlay.classList.add('text-overlay');
+      this.element.appendChild(this.textOverlay);
+  
+      this.textOverlay.innerText = 'IN DE PITSTOP!';
 
       this.visible = true;
     }
