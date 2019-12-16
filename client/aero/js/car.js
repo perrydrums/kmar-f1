@@ -92,6 +92,7 @@ export class Car {
             return true;
         }
         else {
+            Game.getInstance().slowdown();
             return false;
         }
     }

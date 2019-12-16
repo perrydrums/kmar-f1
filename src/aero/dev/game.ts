@@ -15,11 +15,11 @@ export class Game {
   private _then:number;
 
   public _car:Car;
-  
+
   private _carTime:number = 0;
-  
+
   private running:boolean = false;
-  
+
   private dialog:Dialog;
 
   public sequenceCount:number = 0;
@@ -44,7 +44,7 @@ export class Game {
 
   /**
    * There can always only be one Game instance.
-   * 
+   *
    * @returns {Game}
    */
   public static getInstance():Game {
@@ -57,7 +57,7 @@ export class Game {
   public startGame():void {
     this.running = true;
   }
-  
+
   /**
    * Runs approx. {this._fps} times a second.
    */
@@ -71,9 +71,9 @@ export class Game {
     if (this.running) {
       // If enough time has elapsed, draw the next frame.
       if (elapsed > this._fpsInterval) {
-        
+
         this.checkCar();
-          
+
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         this._then = now - (elapsed % this._fpsInterval);
@@ -96,6 +96,10 @@ export class Game {
   public boost() {
     this.socket.emit('aero:boost');
   }
+
+    public slowdown() {
+        this.socket.emit('aero:slow');
+    }
 
     /**
    * Check if the car's ready.

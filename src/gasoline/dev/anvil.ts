@@ -10,9 +10,11 @@ export class Anvil extends Food implements Observer {
     character:Character
     stopWalking:StopWalking
     anvilHit:HTMLElement
+    lane:number
 
-    constructor(s:Subject){
+    constructor(s:Subject, lane:number){
         super();
+        this.lane = lane;
 
         this.subject = s;
         s.subscribe(this);
@@ -20,6 +22,15 @@ export class Anvil extends Food implements Observer {
         this._element = document.createElement("anvil");
         let foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this._element);
+
+        if(this.lane === 1){
+            this._element.classList.add("anvil1")
+        } else if(this.lane === 2){
+            this._element.classList.add("anvil2")
+        } else if(this.lane === 3){
+            this._element.classList.add("anvil3")
+        }
+
 
     }
 
@@ -30,7 +41,6 @@ export class Anvil extends Food implements Observer {
 
         if(!document.querySelector(".anvilHit")){
             document.getElementsByTagName("Anvil")
-
 
             this.anvilHit = document.createElement('div');
             this.anvilHit.classList.add('anvilHit');

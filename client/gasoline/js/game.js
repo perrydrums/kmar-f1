@@ -85,18 +85,21 @@ export class Game {
         let food = [];
         for (let i = 0; i < amount; i++) {
             const random = Math.floor(Math.random() * 100);
-            console.log(random);
             if (random > 0 && random < 50) {
-                food.push(new Anvil(this.subject));
+                let randomLane = Math.floor(Math.random() * 4);
+                food.push(new Anvil(this.subject, randomLane));
             }
             else if (random > 50 && random < 65) {
-                food.push(new Tire());
+                let randomLane = Math.floor(Math.random() * 4);
+                food.push(new Tire(randomLane));
             }
             else if (random > 65 && random < 80 && this.rainTiresUnlocked) {
-                food.push(new RainTire());
+                let randomLane = Math.floor(Math.random() * 4);
+                food.push(new RainTire(randomLane));
             }
             else {
-                food.push(new Fuel());
+                let randomLane = Math.floor(Math.random() * 4);
+                food.push(new Fuel(randomLane));
             }
         }
         return food;
