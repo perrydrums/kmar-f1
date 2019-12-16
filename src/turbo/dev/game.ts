@@ -22,6 +22,10 @@ export class Game implements Observer {
 
     private constructor() {
         this.socket = io({ timeout: 60000 });
+
+        this.socket.emit('turbo:start', {
+            uuid: this.getCookie('uuid'),
+        });
     }
 
     public initialize():void {
@@ -80,6 +84,13 @@ export class Game implements Observer {
         }
     }
 
+    public turbo():void {
+        this.socket.emit('turbo:turbo');
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+
     public startGame(){
         this.running = true;
     }
@@ -124,6 +135,18 @@ export class Game implements Observer {
     public notify(p:number):void{
         let speed = Math.floor(p*2)+90;
         this.extraSpeedElement.innerHTML = speed.toString() + " km/u";
+    }
+
+    /**
+     * Get cookie by name.
+     *
+     * @param name
+     */
+    private getCookie(name:string) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+        return null;
     }
 
 }

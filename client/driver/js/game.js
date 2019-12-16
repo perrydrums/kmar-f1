@@ -32,6 +32,12 @@ export class Game {
                 this.speed -= .1;
             }
         });
+        this.socket.on('server:turbo:turbo', (data) => {
+            this.speed += .5;
+            setTimeout(() => {
+                this.speed -= .5;
+            }, 5000);
+        });
         this.socket.on('server:pitstop:done', (data) => {
             this.lap++;
             this.startTime = Date.now();
@@ -39,6 +45,7 @@ export class Game {
             this.inPitstop = false;
             this.pitstopObject.hide();
             this.pitstopObject = null;
+            this.setAnimationState('running');
         });
         this.scoreElement = document.createElement('div');
         this.scoreElement.classList.add('lap');
@@ -123,6 +130,7 @@ export class Game {
         console.log(this.lapTime);
         this.socket.emit('driver:pitstop');
         this.inPitstop = true;
+        this.setAnimationState('paused');
         this.socket.emit('driver:lap', {
             lap: this.lap,
             time: this.lapTime,
@@ -137,7 +145,9 @@ export class Game {
                 this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
                 if (!document.querySelector('.opponentHit')) {
                     this._car.hit = true;
-                    this.speed -= .1;
+                    const oldSpeed = this.speed;
+                    this.speed = 0;
+                    this.setAnimationState('paused');
                     this.opponentHit = document.createElement('div');
                     this.opponentHit.classList.add('opponentHit');
                     document.body.appendChild(this.opponentHit);
@@ -147,10 +157,22 @@ export class Game {
                         this.opponentHit.remove();
                         this._car.hit = false;
                         this._car._element.classList.remove('blinking');
+                        this.speed = oldSpeed;
+                        this.setAnimationState('running');
                     }, 3000);
                 }
             }
         }
+    }
+    setAnimationState(state) {
+        const kerbs = document.querySelectorAll('.kerb');
+        const lines = document.querySelectorAll('.line');
+        kerbs.forEach((kerb) => {
+            kerb.style.webkitAnimationPlayState = state;
+        });
+        lines.forEach((line) => {
+            line.style.webkitAnimationPlayState = state;
+        });
     }
     getCookie(name) {
         const value = "; " + document.cookie;

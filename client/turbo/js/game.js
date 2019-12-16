@@ -10,6 +10,9 @@ export class Game {
         this.masher = null;
         this.complete = false;
         this.socket = io({ timeout: 60000 });
+        this.socket.emit('turbo:start', {
+            uuid: this.getCookie('uuid'),
+        });
     }
     initialize() {
         this.speedSubject = new Speed();
@@ -58,6 +61,12 @@ export class Game {
             window.location.reload();
         }
     }
+    turbo() {
+        this.socket.emit('turbo:turbo');
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
     startGame() {
         this.running = true;
     }
@@ -95,6 +104,13 @@ export class Game {
     notify(p) {
         let speed = Math.floor(p * 2) + 90;
         this.extraSpeedElement.innerHTML = speed.toString() + " km/u";
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
+        return null;
     }
 }
 window.addEventListener("load", () => {
