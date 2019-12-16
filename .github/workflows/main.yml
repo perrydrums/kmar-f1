@@ -12,4 +12,13 @@ jobs:
         with:
           node-version: '10.x'
       - run: npm install
-      - run: npm run build
+      - run: |
+          for d in ./src/*/dev/; do
+              cd "$d" || exit
+              echo "Building $d ..."
+              tsc
+              cd ../../..
+          done
+
+          echo "Build complete!"
+
