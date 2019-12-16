@@ -10,11 +10,16 @@
 <body>
 
 <div class="grid">
-    <div id="quiz">
-        <h1>Sponsor Koninklijke Marechaussee</h1>
-        <hr style="margin-bottom: 20px">
+    <div class="sponsor">
+        <div id="sponsor"></div>
+        <!-- <div id="textbubble"></div> -->
+    </div>
+    <div id="quiz" class="quiz">
 
-        <p id="question"></p>
+        <div class="question">
+            <p id="difficulty"></p>
+            <p id="question"></p>
+        </div>
 
         <div class="buttons">
             <button id="btna"><span id="choicea"></span></button>
@@ -23,14 +28,12 @@
             <button id="btnd"><span id="choiced"></span></button>
         </div>
 
-        <hr style="margin-top: 50px">
-        <footer>
-            <!-- <p id="progress">Question x of y</p> -->
+        <div class="score">
             <p id="score"></p>
-        </footer>
+            <p id="streak"></p> 
+        </div>
     </div>
 </div>
-
 <script src="./js/game.js" type="module"></script>
 
 </body>
