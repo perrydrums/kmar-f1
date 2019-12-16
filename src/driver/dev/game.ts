@@ -25,7 +25,7 @@ export class Game {
 
   private dialog:Dialog;
 
-  private opponentHit:HTMLElement;
+  private opponentHit:HTMLImageElement;
 
   public sequenceCount:number = 0;
 
