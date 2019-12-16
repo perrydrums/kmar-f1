@@ -42,6 +42,8 @@ export class Game {
 
   private lap:number = 1;
 
+  private lapText:string = 'Ronde 1 van 4';
+
   private scoreElement:HTMLElement;
 
   /**
@@ -66,7 +68,8 @@ export class Game {
 
       this.socket.on('server:pitstop:done', data => {
         this.lap ++;
-        this.scoreElement.innerText = this.lap.toString();
+        this.lapText = 'Ronde ' + this.lap + ' van 4';
+        this.scoreElement.innerText = this.lapText;
         this.inPitstop = false;
         this.pitstopObject.hide();
         this.pitstopObject = null;
@@ -74,7 +77,7 @@ export class Game {
 
       this.scoreElement = document.createElement('div');
       this.scoreElement.classList.add('lap');
-      this.scoreElement.innerText = this.lap.toString();
+      this.scoreElement.innerText = this.lapText;
       document.body.appendChild(this.scoreElement);
 
       this.gameLoop();
@@ -131,7 +134,7 @@ export class Game {
         }
 
         this.distance ++;
-        if (this.distance > 1000) {
+        if (this.distance > 100) {
           this.pitstop();
           this.distance = 0;
         }
@@ -185,11 +188,14 @@ export class Game {
               this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom
           ) {
               if (!document.querySelector('.opponentHit')) {
-                  this.opponentHit = document.createElement('div');
+                  this.opponentHit = document.createElement('img');
                   this.opponentHit.classList.add('opponentHit');
+                  this.opponentHit.src = "";
+                  this.opponentHit.src = "./img/explosion.gif";
                   document.body.appendChild(this.opponentHit);
-                  this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
+                  this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                   setTimeout(() => {
+
                       this.opponentHit.remove();
                       this._car.hit = false
                   }, 5000);

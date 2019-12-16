@@ -16,7 +16,16 @@ export class Pitstop {
             this.element = document.createElement('div');
             this.element.classList.add('pitstop');
             this.overlay.appendChild(this.element);
-            this.element.innerText = 'IN DE PITSTOP!';
+            this.trackOverlay = document.createElement('div');
+            this.trackOverlay.classList.add('track-overlay');
+            this.element.appendChild(this.trackOverlay);
+            this.trackOverlay2 = document.createElement('div');
+            this.trackOverlay2.classList.add('track-overlay', 'track-overlay--top');
+            this.element.appendChild(this.trackOverlay2);
+            this.textOverlay = document.createElement('div');
+            this.trackOverlay.classList.add('text-overlay');
+            this.element.appendChild(this.textOverlay);
+            this.textOverlay.innerText = 'IN DE PITSTOP!';
             this.visible = true;
         }
     }
