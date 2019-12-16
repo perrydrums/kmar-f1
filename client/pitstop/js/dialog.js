@@ -21,7 +21,9 @@ export class Dialog {
     addButton() {
         this.button = document.createElement('button');
         this.button.innerText = 'START';
-        this.button.onclick = () => { Dialog.getInstance().startGame(); };
+        this.button.onclick = () => {
+            Dialog.getInstance().startGame();
+        };
         this.element.appendChild(this.button);
     }
     startGame() {

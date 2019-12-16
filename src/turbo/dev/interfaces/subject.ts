@@ -1,7 +1,9 @@
-import { Observer } from './observer.js';
+import {Observer} from './observer.js';
 
 export interface Subject {
-    observers:Observer[]
-    subscribe(c: Observer):void
-    update():void
+    observers: Observer[]
+
+    subscribe(c: Observer): void
+
+    update(): void
 }

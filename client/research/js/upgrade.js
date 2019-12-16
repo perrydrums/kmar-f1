@@ -37,7 +37,8 @@ export class Upgrade {
         this.unlocked = true;
         const button = this.htmlElement;
         button.classList.add('unlocked');
-        button.removeEventListener('click', () => { });
+        button.removeEventListener('click', () => {
+        });
     }
     checkUnlockedUpgrades() {
         return __awaiter(this, void 0, void 0, function* () {

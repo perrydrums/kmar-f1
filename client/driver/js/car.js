@@ -62,20 +62,10 @@ export class Car {
     drive() {
     }
     update() {
-        let blockRight = document.querySelector('.block-right');
-        if (this._element.getBoundingClientRect().right > blockRight.getBoundingClientRect().left) {
-            this.canGoRight = false;
-        }
-        else {
-            this.canGoRight = true;
-        }
-        let blockLeft = document.querySelector('.block-left');
-        if (this._element.getBoundingClientRect().left < blockLeft.getBoundingClientRect().right) {
-            this.canGoLeft = false;
-        }
-        else {
-            this.canGoLeft = true;
-        }
+        const blockRight = document.querySelector('.block-right');
+        this.canGoRight = this._element.getBoundingClientRect().right <= blockRight.getBoundingClientRect().left;
+        const blockLeft = document.querySelector('.block-left');
+        this.canGoLeft = this._element.getBoundingClientRect().left >= blockLeft.getBoundingClientRect().right;
         this.posX += this.speedX;
         this.posY += this.speedY;
         this._element.style.transform = `translate(${this.posX}px, ${this.posY}px)`;

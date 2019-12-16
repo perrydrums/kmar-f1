@@ -1,3 +1,3 @@
 export interface Observer {
-    notify(p:number):void
+    notify(p: number): void
 }
