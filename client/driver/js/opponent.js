@@ -29,5 +29,4 @@ export class Opponent {
     remove() {
         this._element.remove();
     }
-    action() { }
 }

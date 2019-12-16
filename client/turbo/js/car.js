@@ -20,23 +20,23 @@ export class Car extends Vehicle {
     }
     onKeyDown(event) {
         const keyCode = this.randomWord.charAt(this.currentLetter).toUpperCase().charCodeAt(0);
-        switch (event.keyCode) {
-            case keyCode:
-                if (this.currentLetter === this.randomWord.length - 1) {
-                    this.currentLetter = 0;
-                    this.speed += 0.10;
-                    if (this.speed > 0) {
-                        this.behavior = new Forward(this);
-                    }
-                    this.makeWord();
+        if (event.keyCode === keyCode) {
+            if (this.currentLetter === this.randomWord.length - 1) {
+                this.currentLetter = 0;
+                this.speed += 0.10;
+                if (this.speed > 0) {
+                    this.behavior = new Forward(this);
                 }
-                else {
-                    const letterSpans = document.getElementById('word').childNodes;
-                    letterSpans[this.currentLetter].classList.add('correct');
-                    this.currentLetter++;
-                }
-                break;
-            default: this.speed -= 0.10;
+                this.makeWord();
+            }
+            else {
+                const letterSpans = document.getElementById('word').childNodes;
+                letterSpans[this.currentLetter].classList.add('correct');
+                this.currentLetter++;
+            }
+        }
+        else {
+            this.speed -= 0.10;
         }
     }
     update() {

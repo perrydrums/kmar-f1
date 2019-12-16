@@ -2,9 +2,9 @@ import {MasherGame} from "./masherGame.js";
 
 export class TurboMeter {
 
-    private element:HTMLElement;
-    private innerElement:HTMLElement;
-    private amount:number = 0;
+    private element: HTMLElement;
+    private innerElement: HTMLElement;
+    private amount: number = 0;
 
     public constructor() {
         document.addEventListener('keyup', this.add);
@@ -22,7 +22,7 @@ export class TurboMeter {
         MasherGame.getInstance().getElement().appendChild(this.element)
     }
 
-    public update():boolean {
+    public update(): boolean {
         // Update element.
         this.innerElement.style.width = 100 - this.amount + '%';
 
@@ -41,7 +41,7 @@ export class TurboMeter {
         return false;
     }
 
-    public add = (event:KeyboardEvent) => {
+    public add = (event: KeyboardEvent) => {
         if (event.keyCode === 32) {
             this.amount += 5;
         }

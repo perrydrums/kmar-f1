@@ -57,13 +57,10 @@ export class Player {
         }
     }
     isCollision(element) {
-        if (this._element.getBoundingClientRect().left < element.getBoundingClientRect().right &&
+        return this._element.getBoundingClientRect().left < element.getBoundingClientRect().right &&
             this._element.getBoundingClientRect().right > element.getBoundingClientRect().left &&
             this._element.getBoundingClientRect().bottom > element.getBoundingClientRect().top &&
-            this._element.getBoundingClientRect().top < element.getBoundingClientRect().bottom) {
-            return true;
-        }
-        return false;
+            this._element.getBoundingClientRect().top < element.getBoundingClientRect().bottom;
     }
     interact() {
         const gasoline = document.getElementById('gasoline');

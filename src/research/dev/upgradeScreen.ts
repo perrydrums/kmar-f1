@@ -1,14 +1,15 @@
-import { Game } from './game.js';
-import { Upgrade } from './upgrade.js';
+import {Game} from './game.js';
+import {Upgrade} from './upgrade.js';
 
 export class UpgradeScreen {
 
     private static instance: UpgradeScreen;
-    private start:HTMLElement;
-    private upgrades:Upgrade[] = [];
-    private btnContainer:HTMLElement;
+    private start: HTMLElement;
+    private upgrades: Upgrade[] = [];
+    private btnContainer: HTMLElement;
 
-    private constructor() {}
+    private constructor() {
+    }
 
     public static getInstance() {
         if (!this.instance) {
@@ -34,6 +35,6 @@ export class UpgradeScreen {
     }
 
     public getButtonContainer() {
-      return this.btnContainer;
+        return this.btnContainer;
     }
 }

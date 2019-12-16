@@ -1,11 +1,11 @@
 export class Message {
 
-    private element:HTMLElement;
-    private readonly message:string;
-    private readonly subtitle:string;
-    private readonly extraClass:string;
+    private element: HTMLElement;
+    private readonly message: string;
+    private readonly subtitle: string;
+    private readonly extraClass: string;
 
-    public constructor(message:string, subtitle:string, extraClass:string) {
+    public constructor(message: string, subtitle: string, extraClass: string) {
         this.message = message;
         this.subtitle = subtitle;
         this.extraClass = extraClass;

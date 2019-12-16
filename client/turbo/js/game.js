@@ -33,8 +33,7 @@ export class Game {
     }
     randomWord() {
         const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatie", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag"];
-        let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-        return randomWord;
+        return wordArray[Math.floor(Math.random() * wordArray.length)];
     }
     showWord() {
         let word = document.createElement("div");

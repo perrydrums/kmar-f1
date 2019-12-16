@@ -1,6 +1,7 @@
-import { Car } from '../car.js';
+import {Car} from '../car.js';
 
 export interface Behavior {
-    car:Car
-    update():void
+    car: Car
+
+    update(): void
 }
