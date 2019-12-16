@@ -80,6 +80,14 @@ export class Game {
           }
       });
 
+      this.socket.on('server:turbo:turbo', (data:any) => {
+          this.speed += .5;
+
+          setTimeout(() => {
+              this.speed -= .5;
+          }, 5000);
+      });
+
       this.socket.on('server:pitstop:done', (data:any) => {
         this.lap ++;
         this.lapText = 'Ronde ' + this.lap + ' van 4';
@@ -88,6 +96,7 @@ export class Game {
         this.inPitstop = false;
         this.pitstopObject.hide();
         this.pitstopObject = null;
+        this.setAnimationState('running');
       });
 
       this.scoreElement = document.createElement('div');
@@ -208,7 +217,9 @@ export class Game {
     this.socket.emit('driver:pitstop');
     this.inPitstop = true;
 
-    this.socket.emit('driver:lap', {
+      this.setAnimationState('paused');
+
+      this.socket.emit('driver:lap', {
         lap: this.lap,
         time: this.lapTime,
     });
@@ -225,7 +236,10 @@ export class Game {
           ) {
               if (!document.querySelector('.opponentHit')) {
                   this._car.hit = true;
-                  this.speed -= .1;
+                  const oldSpeed = this.speed;
+                  this.speed = 0;
+                  this.setAnimationState('paused');
+
                   this.opponentHit = document.createElement('img');
                   this.opponentHit.classList.add('opponentHit');
                   this.opponentHit.src = "";
@@ -233,14 +247,30 @@ export class Game {
                   document.body.appendChild(this.opponentHit);
                   this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                   this._car._element.classList.add('blinking');
+
                   setTimeout(() => {
                       this.opponentHit.remove();
                       this._car.hit = false;
                       this._car._element.classList.remove('blinking');
+                      this.speed = oldSpeed;
+                      this.setAnimationState('running');
                   }, 3000);
               }
           }
       }
+  }
+
+  public setAnimationState(state:string):void {
+      const kerbs = document.querySelectorAll('.kerb');
+      const lines = document.querySelectorAll('.line');
+
+      kerbs.forEach((kerb:HTMLElement) => {
+          kerb.style.webkitAnimationPlayState = state;
+      });
+
+      lines.forEach((line:HTMLElement) => {
+          line.style.webkitAnimationPlayState = state;
+      });
   }
 
   /**

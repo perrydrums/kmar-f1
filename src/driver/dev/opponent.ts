@@ -1,16 +1,16 @@
 import { Game } from './game.js';
 
 export class Opponent {
-    
+
     protected _element: HTMLElement
     public posy:number = -200;
     public posx:number
     protected speed:number
     protected game:Game
-        
+
     constructor() {
         this.posx = Math.floor(Math.random() * 780) + 400;
-        this.speed = Math.random() * 20 + 15;
+        this.speed = (Math.random() * 5 + 15) * (Game.getInstance().speed || 1);
         this.game = Game.getInstance();
         this._element = document.createElement("div");
         this._element.classList.add('opponent')
