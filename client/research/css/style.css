@@ -69,6 +69,8 @@ button {
   height: 100vh;
   z-index: 3;
   position: absolute;
+  top: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -137,20 +139,20 @@ button {
   background-position: 50% 25%;
 }
 
-.icon-upgrade2 {
+.icon-engine-upgrade{
   background-image: url(../img/engine-bg2.jpg);
   background-position: 50% 30%;
 }
 
-.icon-upgrade3 {
+.icon-turbo-upgrade {
   background-image: url(../img/turbo-bg.jpg);
 }
 
-.icon-upgrade4 {
+.icon-aero-upgrade {
   background-image: url(../img/aerodinamics.jpg);
 }
 
-.icon-upgrade5 {
+.icon-fuel-upgrade {
   background-image: url(../img/fuel-bg.jpg);
   background-position: 50% 80%;
 }

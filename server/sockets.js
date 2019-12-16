@@ -79,6 +79,9 @@ const initializeSockets = (http) => {
          */
         socket.on('driver:start', async data => {
             setUUID('driver', data.uuid);
+
+            const upgrades = await getStat('upgrades');
+            socket.emit('server:driver:upgrades', {upgrades});
         });
 
         socket.on('driver:pitstop', async data => {
