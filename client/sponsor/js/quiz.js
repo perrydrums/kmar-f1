@@ -6,32 +6,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Question } from './question.js';
+import { Difficulty } from './difficulty.js';
 export class Quiz {
     constructor() {
         this.myQuestions = [];
+        this.jsonData = [];
+        this.myDifficulties = [];
         this.score = 0;
-        this.loaded = false;
         this.quizElement = document.createElement("div");
         this.quizElement.classList.add('quiz');
         document.body.appendChild(this.quizElement);
         console.log('QUIZ');
     }
-    setQuestions() {
+    setDifficulties() {
         return __awaiter(this, void 0, void 0, function* () {
             const file = yield fetch('./questions.json');
-            console.log(file);
             const json = yield file.json();
-            for (let id in json) {
-                this.myQuestions[id] = new Question(id, json[id].question, json[id].choices, json[id].correctAnswer);
+            this.jsonData = Object.entries(json);
+            console.log("jsonD", this.jsonData);
+            for (const [difficultyName, questionData] of this.jsonData) {
+                this.myDifficulties[difficultyName] = new Difficulty(difficultyName, questionData);
+                console.log("QD: ", questionData);
             }
-        });
-    }
-    showProgress() {
-    }
-    showScores() {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log("Score.");
+            console.log("diffs: ", this.myDifficulties["medium"]);
+            console.log("questions van extreme: ", this.myDifficulties["extreme"].getQuestions());
         });
     }
     getQuestion(id) {

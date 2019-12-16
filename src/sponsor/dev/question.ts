@@ -1,5 +1,4 @@
 export class Question {
-
     public id:string;
         question:string;
         choices:Array<string>;
