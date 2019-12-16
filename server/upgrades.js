@@ -3,7 +3,9 @@ const {setStat, getStat} = require('./db');
 const upgradeList = [
     {upgrade: 'rain-tires'},
     {upgrade: 'engine-upgrade'},
-    {upgrade: 'shotgun'},
+    {upgrade: 'turbo-upgrade'},
+    {upgrade: 'aero-upgrade'},
+    {upgrade: 'fuel-upgrade'},
 ];
 
 /**

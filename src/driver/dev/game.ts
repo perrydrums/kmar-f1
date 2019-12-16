@@ -8,9 +8,6 @@ export class Game {
 
     private static _instance: Game;
 
-    /**
-     * The speed, in frames per second, the game runs at.
-     */
     private _fps: number = 30;
 
     private _fpsInterval: number;
@@ -18,8 +15,6 @@ export class Game {
     private _then: number;
 
     public _car: Car;
-
-    private _carTime: number = 0;
 
     private running: boolean = false;
 
@@ -50,9 +45,12 @@ export class Game {
     private lapText: string = 'Ronde 1 van 4';
 
     private scoreElement: HTMLElement;
+
     private distanceElement: HTMLElement;
 
     private currentMessage: Message;
+
+    private turboUpgrade: boolean = false;
 
     /**
      * Make the constructor private.
@@ -68,6 +66,24 @@ export class Game {
             uuid: this.getCookie('uuid'),
         });
 
+        this.socket.on('server:driver:upgrades', (data:any) => {
+            if (data.upgrades['engine-upgrade']) this.speed += .3;
+            if (data.upgrades['turbo-upgrade']) this.turboUpgrade = true;
+            if (data.upgrades['aero-upgrade']) this.speed += .3;
+        });
+
+        this.socket.on('server:research:unlock:engine-upgrade', (data:any) => {
+            this.speed += .3;
+        });
+
+        this.socket.on('server:research:unlock:turbo-upgrade', (data:any) => {
+            this.turboUpgrade = true;
+        });
+
+        this.socket.on('server:research:unlock:aero-upgrade', (data:any) => {
+            this.speed += .3;
+        });
+
         this.socket.on('server:aero:boost', (data: any) => {
             this.currentMessage = new Message('Aerodynamische boost!', '+ 10% snelheid', 'good');
             this.speed += .1;
@@ -81,7 +97,7 @@ export class Game {
         });
 
         this.socket.on('server:turbo:turbo', (data: any) => {
-            this.speed += .5;
+            this.speed += this.turboUpgrade ? 1 : .5;
 
             setTimeout(() => {
                 this.speed -= .5;
