@@ -73,14 +73,17 @@ export class Game {
         });
 
         this.socket.on('server:research:unlock:engine-upgrade', (data:any) => {
+            this.currentMessage = new Message('Motor upgrade!', '+ 30% snelheid', 'good');
             this.speed += .3;
         });
 
         this.socket.on('server:research:unlock:turbo-upgrade', (data:any) => {
+            this.currentMessage = new Message('Turbo upgrade!', 'Turbo geeft 2x meer snelheid!', 'good');
             this.turboUpgrade = true;
         });
 
         this.socket.on('server:research:unlock:aero-upgrade', (data:any) => {
+            this.currentMessage = new Message('Aerodynamische upgrade!', '+ 30% snelheid', 'good');
             this.speed += .3;
         });
 
