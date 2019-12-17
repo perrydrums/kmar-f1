@@ -1,5 +1,6 @@
 import { Anvil } from './anvil.js';
 import { Game } from './game.js';
+import { Tire } from './tire.js';
 
 export class Food {
 

@@ -145,18 +145,18 @@ foreground {
     font-family: 'F1';
 }
 
-food {
-    width:150px; height:115px;;
+/* food {
+    width:150px; height:115px;
     background-image: url(../images/bomb.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
     position: absolute;
     top: -200px;
-}
+} */
 
 fuel {
-    width:150px; height:100px;
+    width:170px; height:120px;
     background-image: url(../images/fuel-big.png);
     background-size:contain;
     background-position: center;
@@ -167,17 +167,20 @@ fuel {
 }
 
 .fuel1 {
-    width:150px; height:100px;
+    width:170px; height:120px;
+    background-image: url(../images/fuel-big.png);
     z-index: 999;
 }
 
 .fuel2 {
     width:140px; height:90px;
+    background-image: url(../images/fuel-big2-d.png);
     z-index: 998;
 }
 
 .fuel3 {
-    width:130px; height:80px;
+    width:110px; height:70px;
+    background-image: url(../images/fuel-big3-d.png);
     z-index: 997;
 }
 
@@ -204,15 +207,18 @@ tire {
 
 .tire1 {
     width:150px; height:150px;
+    background-image: url(../images/tire.png);
 }
 
 .tire2 {
     width:130px; height:130px;
+    background-image: url(../images/tire2-d.png);
     z-index: 998;
 }
 
 .tire3 {
-    width:110px; height:110px;;
+    width:110px; height:110px;
+    background-image: url(../images/tire3-d.png);
     z-index: 997;
 }
 
@@ -229,15 +235,18 @@ rain-tire {
 
 .rain-tire1 {
     width:150px; height:150px;
+    background-image: url(../images/rain-tire.png);
 }
 
 .rain-tire2 {
     width:130px; height:130px;
+    background-image: url(../images/rain-tire2-d.png);
     z-index: 998;
 }
 
 .rain-tire3 {
     width:110px; height:110px;
+    background-image: url(../images/rain-tire3-d.png);
     z-index: 997;
 }
 
@@ -255,15 +264,18 @@ anvil {
 .anvil1 {
     width:150px; height:115px;
     background-image: url(../images/anvil.png);
+    z-index: 999;
 }
 
 .anvil2 {
     width:130px; height:95px;
+    background-image: url(../images/anvil2-d.png);
     z-index: 998;
 }
 
 .anvil3 {
-    width:110px; height:75px;;
+    width:110px; height:75px;
+    background-image: url(../images/anvil3-d.png);
     z-index: 997;
 }
 
