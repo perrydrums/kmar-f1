@@ -83,8 +83,7 @@ export class Game {
                 this.dialog = Dialog.getInstance();
                 this.dialog.setHTML(
                     '<h1>KMar F1 - Aerodynamica</h1>' +
-                    '<p>Jij bent verantwoordelijk voor de aerodynamica. Kijk goed naar de reeksen</p>' +
-                    '<p>en klik het getal aan dat op het vraagteken hoort te staan.</p>' +
+                    '<p>Jij bent verantwoordelijk voor de aerodynamica. Kijk goed naar de reeksen en klik het getal aan dat op het vraagteken hoort te staan.</p>' +
                     '<p>Door foute antwoorden gaat de auto langzamer, door goede antwoorden sneller.</p>'
                 );
                 this.dialog.addButton();
