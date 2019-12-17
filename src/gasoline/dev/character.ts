@@ -37,7 +37,6 @@ export class Character {
         this.behaviour.update();
         this.noPowerup();
         this.htmlElement.style.transform = `translate(${this.posx += this.speed}px, ${this.posy}px)`;
-        console.log(this.characterLane);
 
         if(this.characterLane === 1){
             this.htmlElement.style.zIndex = "999";
@@ -133,7 +132,7 @@ export class Character {
             if(!this.hit){
                 if(this.characterLane != 3){
                     this.characterLane += 1;
-                    this.posy -= 50;
+                    this.posy -= 80;
                 } else {
                     this.posy -= 0;
                 }
@@ -150,7 +149,7 @@ export class Character {
             if(!this.hit){
                 if(this.characterLane != 1){
                     this.characterLane -= 1;
-                    this.posy += 50;
+                    this.posy += 80;
                 } else {
                     this.posy += 0;
                 }
