@@ -6,7 +6,6 @@ import { Message } from "./message.js";
 export class Game {
     constructor() {
         this._fps = 30;
-        this._carTime = 0;
         this.running = false;
         this.sequenceCount = 0;
         this.opponent = [];
@@ -15,12 +14,34 @@ export class Game {
         this.speed = 1;
         this.lap = 1;
         this.lapTime = {};
+        this.lapText = 'Ronde 1 van 4';
+        this.turboUpgrade = false;
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.createCar();
         this.socket = io({ timeout: 60000 });
         this.socket.emit('driver:start', {
             uuid: this.getCookie('uuid'),
+        });
+        this.socket.on('server:driver:upgrades', (data) => {
+            if (data.upgrades['engine-upgrade'])
+                this.speed += .3;
+            if (data.upgrades['turbo-upgrade'])
+                this.turboUpgrade = true;
+            if (data.upgrades['aero-upgrade'])
+                this.speed += .3;
+        });
+        this.socket.on('server:research:unlock:engine-upgrade', (data) => {
+            this.currentMessage = new Message('Motor upgrade!', '+ 30% snelheid', 'good');
+            this.speed += .3;
+        });
+        this.socket.on('server:research:unlock:turbo-upgrade', (data) => {
+            this.currentMessage = new Message('Turbo upgrade!', 'Turbo geeft 2x meer snelheid!', 'good');
+            this.turboUpgrade = true;
+        });
+        this.socket.on('server:research:unlock:aero-upgrade', (data) => {
+            this.currentMessage = new Message('Aerodynamische upgrade!', '+ 30% snelheid', 'good');
+            this.speed += .3;
         });
         this.socket.on('server:aero:boost', (data) => {
             this.currentMessage = new Message('Aerodynamische boost!', '+ 10% snelheid', 'good');
@@ -32,17 +53,25 @@ export class Game {
                 this.speed -= .1;
             }
         });
+        this.socket.on('server:turbo:turbo', (data) => {
+            this.speed += this.turboUpgrade ? 1 : .5;
+            setTimeout(() => {
+                this.speed -= .5;
+            }, 5000);
+        });
         this.socket.on('server:pitstop:done', (data) => {
             this.lap++;
+            this.lapText = 'Ronde ' + this.lap + ' van 4';
+            this.scoreElement.innerText = this.lapText;
             this.startTime = Date.now();
-            this.scoreElement.innerText = this.lap.toString();
             this.inPitstop = false;
             this.pitstopObject.hide();
             this.pitstopObject = null;
+            this.setAnimationState('running');
         });
         this.scoreElement = document.createElement('div');
         this.scoreElement.classList.add('lap');
-        this.scoreElement.innerText = this.lap.toString();
+        this.scoreElement.innerText = this.lapText;
         document.body.appendChild(this.scoreElement);
         this.distanceElement = document.createElement('div');
         this.distanceElement.classList.add('distance');
@@ -60,7 +89,7 @@ export class Game {
         this.startTime = Date.now();
     }
     finish() {
-        console.log('RACE FINISHED!!!');
+        alert('Race finished!!!!!!');
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
@@ -123,6 +152,7 @@ export class Game {
         console.log(this.lapTime);
         this.socket.emit('driver:pitstop');
         this.inPitstop = true;
+        this.setAnimationState('paused');
         this.socket.emit('driver:lap', {
             lap: this.lap,
             time: this.lapTime,
@@ -130,22 +160,44 @@ export class Game {
     }
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
-            if (this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
+            if (!this._car.hit &&
+                this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
                 this._car._element.getBoundingClientRect().right > this.opponent[i].element.getBoundingClientRect().left &&
                 this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
                 this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
                 if (!document.querySelector('.opponentHit')) {
-                    this.opponentHit = document.createElement('div');
+                    this._car.hit = true;
+                    const oldSpeed = this.speed;
+                    this.speed = 0;
+                    this.setAnimationState('paused');
+                    this.opponentHit = document.createElement('img');
                     this.opponentHit.classList.add('opponentHit');
+                    this.opponentHit.src = "";
+                    this.opponentHit.src = "./img/explosion.gif";
                     document.body.appendChild(this.opponentHit);
-                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY - 200}px)`;
+                    this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
+                    this._car._element.classList.add('blinking');
+                    this.opponent[i]._element.remove();
                     setTimeout(() => {
                         this.opponentHit.remove();
                         this._car.hit = false;
-                    }, 5000);
+                        this._car._element.classList.remove('blinking');
+                        this.speed = oldSpeed;
+                        this.setAnimationState('running');
+                    }, 3000);
                 }
             }
         }
+    }
+    setAnimationState(state) {
+        const kerbs = document.querySelectorAll('.kerb');
+        const lines = document.querySelectorAll('.line');
+        kerbs.forEach((kerb) => {
+            kerb.style.webkitAnimationPlayState = state;
+        });
+        lines.forEach((line) => {
+            line.style.webkitAnimationPlayState = state;
+        });
     }
     getCookie(name) {
         const value = "; " + document.cookie;

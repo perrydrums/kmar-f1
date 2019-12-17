@@ -1,27 +1,27 @@
-import { Game } from './game.js';
+import {Game} from './game.js';
 
 export class Opponent {
-    
-    protected _element: HTMLElement
-    public posy:number = -200;
-    public posx:number
-    protected speed:number
-    protected game:Game
-        
+
+    public _element: HTMLElement;
+    public posy: number = -200;
+    public posx: number;
+    protected speed: number;
+    protected game: Game;
+
     constructor() {
         this.posx = Math.floor(Math.random() * 780) + 400;
-        this.speed = Math.random() * 20 + 15;
+        this.speed = (Math.random() * 5 + 15) * (Game.getInstance().speed || 1);
         this.game = Game.getInstance();
         this._element = document.createElement("div");
-        this._element.classList.add('opponent')
+        this._element.classList.add('opponent');
         let randomColor = Math.random() * 360;
-        this._element.style.webkitFilter = "hue-rotate("+randomColor+"deg)";
-        this._element.style.filter = "hue-rotate("+randomColor+"deg)";
+        this._element.style.webkitFilter = "hue-rotate(" + randomColor + "deg)";
+        this._element.style.filter = "hue-rotate(" + randomColor + "deg)";
         document.body.appendChild(this._element);
     }
 
-    public update():void {
-        if(this.posy >= window.innerHeight){
+    public update(): void {
+        if (this.posy >= window.innerHeight) {
             this.remove();
             const index = this.game.opponent.indexOf(this);
             this.game.opponent.splice(index, 1);
@@ -31,13 +31,12 @@ export class Opponent {
         }
     }
 
-    get element():HTMLElement {
+    get element(): HTMLElement {
         return this._element;
     }
 
-    public remove(){
+    public remove() {
         this._element.remove();
     }
 
-    public action(){}
 }

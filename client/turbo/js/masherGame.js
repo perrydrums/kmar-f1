@@ -1,4 +1,5 @@
 import { TurboMeter } from './turboMeter.js';
+import { Game } from "./game.js";
 export class MasherGame {
     constructor() {
     }
@@ -21,6 +22,7 @@ export class MasherGame {
             this.button = document.createElement('button');
             this.button.classList.add('turbo-button');
             this.button.innerText = 'TURBO';
+            this.button.addEventListener('click', () => Game.getInstance().turbo());
             MasherGame.getInstance().getElement().appendChild(this.button);
             return true;
         }

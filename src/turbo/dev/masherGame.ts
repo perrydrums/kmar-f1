@@ -1,24 +1,25 @@
-import { TurboMeter } from './turboMeter.js';
+import {TurboMeter} from './turboMeter.js';
+import {Game} from "./game.js";
 
 export class MasherGame {
 
-    private static instance:MasherGame;
-    private element:HTMLElement;
-    private button:HTMLElement;
-    private turboMeter:TurboMeter;
+    private static instance: MasherGame;
+    private element: HTMLElement;
+    private button: HTMLElement;
+    private turboMeter: TurboMeter;
 
     private constructor() {
 
     }
 
-    public static getInstance():MasherGame {
+    public static getInstance(): MasherGame {
         if (!this.instance) {
             this.instance = new MasherGame();
         }
         return this.instance;
     }
 
-    public show():void {
+    public show(): void {
         this.element = document.createElement('div');
         this.element.classList.add('masher-game-container');
         this.element.innerText = 'Druk op spatiebalk om de turbometer te vullen!';
@@ -28,11 +29,12 @@ export class MasherGame {
         this.turboMeter.show();
     }
 
-    public update():boolean {
+    public update(): boolean {
         if (this.turboMeter.update()) {
             this.button = document.createElement('button');
             this.button.classList.add('turbo-button');
             this.button.innerText = 'TURBO';
+            this.button.addEventListener('click', () => Game.getInstance().turbo());
             MasherGame.getInstance().getElement().appendChild(this.button);
 
             return true;
@@ -41,9 +43,8 @@ export class MasherGame {
         return false;
     }
 
-    public getElement():HTMLElement {
+    public getElement(): HTMLElement {
         return this.element;
     }
-
 
 }

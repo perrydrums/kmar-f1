@@ -1,22 +1,22 @@
-import { Vehicle } from './vehicle.js';
-import { Forward } from './strategy/forward.js';
+import {Vehicle} from './vehicle.js';
+import {Forward} from './strategy/forward.js';
 
 export class Car extends Vehicle {
 
-    private randomWord:string
-    private splitted:string[] = [];
-    private currentLetter:number = 0;
+    private randomWord: string;
+    private splitted: string[] = [];
+    private currentLetter: number = 0;
 
     constructor() {
-        super()
+        super();
 
-        this.element = document.createElement("car")
-        let foreground = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this.element)
-        window.addEventListener("keydown", (e:KeyboardEvent) => this.onKeyDown(e))
-        this.check = this.game.generateRandom()
+        this.element = document.createElement("car");
+        let foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.element);
+        window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
+        this.check = this.game.generateRandom();
         this.posy = 580;
-        this.behavior = new Forward(this)
+        this.behavior = new Forward(this);
         this.makeWord();
     }
 
@@ -25,34 +25,30 @@ export class Car extends Vehicle {
         this.game.setWord(this.randomWord);
     }
 
-    private onKeyDown(event:KeyboardEvent):void {
+    private onKeyDown(event: KeyboardEvent): void {
 
         const keyCode = this.randomWord.charAt(this.currentLetter).toUpperCase().charCodeAt(0);
 
-        switch(event.keyCode){
-            case keyCode:
-                if (this.currentLetter === this.randomWord.length - 1) {
-                    this.currentLetter = 0;
-                    this.speed += 0.10;
-                    if (this.speed > 0){
-                        this.behavior = new Forward(this)
-                    }
-                    this.makeWord();
+        if (event.keyCode === keyCode) {
+            if (this.currentLetter === this.randomWord.length - 1) {
+                this.currentLetter = 0;
+                this.speed += 0.10;
+                if (this.speed > 0) {
+                    this.behavior = new Forward(this)
                 }
-                else {
-                    const letterSpans = document.getElementById('word').childNodes;
-                    letterSpans[this.currentLetter].classList.add('correct');
-                    this.currentLetter ++;
-                }
-                break;
-
-                default: this.speed-=0.10;
-
-
+                this.makeWord();
+            } else {
+                const letterSpans = document.getElementById('word').childNodes;
+                // @ts-ignore.
+                letterSpans[this.currentLetter].classList.add('correct');
+                this.currentLetter++;
             }
+        } else {
+            this.speed -= 0.10;
+        }
     }
 
-    public update():void{
+    public update(): void {
         this.behavior.update()
     }
 }

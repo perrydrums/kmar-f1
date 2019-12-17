@@ -1,63 +1,102 @@
+@font-face {
+    src: url('../font/digits.ttf');
+    font-family: 'Digits';
+  }
+  
+  @font-face {
+    src: url('../font/f1.ttf');
+    font-family: 'F1';
+  }
+  
 body {
-    background-color: #413D3D;
+    background-image: url('../img/bg.png');
+    background-size: cover;
+}
+
+.sponsor{
+    background-image: url('../img/lady.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 700px;
+}
+
+.quiz{
+    background-color: #2b2b2b;
+    background-size: scale;
+    padding-bottom: 10px;
 }
  
 .grid {
-    width: 1920px;
-    height: 1080px;
+    display: grid;
+    grid-column-gap: 10px;
+    font-family: 'F1';
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
-    background-color: #fff;
-    padding: 10px 50px 50px 50px;
-    border: 2px solid #cbcbcb;
-    
-}
- 
-.grid h1 {
-    font-family: "sans-serif";
-    background-color: #01BBFF;
-    font-size: 60px;
     text-align: center;
-    color: #ffffff;
-    padding: 2px 0px;
-    
+}
+
+.question {
+    margin: 5px 200px;
 }
  
-#score {
-    color: #01BBFF;
-    text-align: center;
-    font-size: 30px;
-}
- 
-.grid #question {
-    font-family: "monospace";
-    font-size: 30px;
-    color: #01BBFF;
-}
- 
+
 .buttons {
-    margin-top: 30px;
+    margin-top: 20px;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#question, #difficulty{
+    padding-top: 10px;
+    margin: 5px 5px;
+    font-size: 30px;
+    color: #01BBFF;
 }
  
 #btna, #btnb, #btnc, #btnd {
     background-color: #01BBFF;
+    font-family: 'F1';
     width: 250px;
     font-size: 20px;
     color: #fff;
-    border: 1px solid #1D3C6A;
-    margin: 10px 40px 10px 0px;
-    padding: 10px 10px;
+    border: 2px solid #1D3C6A;
+    margin: 5px 40px 10px 0px;
+    padding: 20px 10px;
 }
  
-#btn0:hover, #btn1:hover, #btn2:hover, #btn3:hover {
+#btna:hover, #btnb:hover, #btnc:hover, #btnd:hover {
     cursor: pointer;
-    background-color: #01BBFF;
+    background-color: rgb(0, 100, 136);
 }
  
-#btn0:focus, #btn1:focus, #btn2:focus, #btn3:focus {
-    outline: 0;
+#btna:focus, #btnb:focus, #btnc:focus, #btnd:focus {
+    outline: 10;
 }
  
-#progress {
-    color: #2b2b2b;
-    font-size: 18px;
+#score, #streak {
+    color: #01BBFF;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Digits';
+    margin: 5px 50px 5px 0px;
+}
+
+#difficulty {
+    font-size: 20px;
+}
+
+#textbubble {
+    background-image: url('../img/fout.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 300px;
+    margin-top: 250px;
+    margin-left: 750px;
 }

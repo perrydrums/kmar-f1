@@ -1,0 +1,24 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm install
+      - run: |
+          for d in ./src/*/dev/; do
+              cd "$d" || exit
+              echo "Building $d ..."
+              tsc
+              cd ../../..
+          done
+
+          echo "Build complete!"
+

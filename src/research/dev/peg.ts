@@ -1,11 +1,11 @@
 export class Peg {
 
-    public answer:number;
-    public htmlElement :HTMLElement;
+    public answer: number;
+    public htmlElement: HTMLElement;
     public amount: number = 0;
     public oldAmount: number;
 
-    constructor(answer:number){
+    constructor(answer: number) {
         this.answer = answer;
 
         this.htmlElement = document.createElement('button');
@@ -19,7 +19,7 @@ export class Peg {
     }
 
     public clickHandler() {
-        if(this.amount === 4){
+        if (this.amount === 4) {
             this.amount = 1;
             this.htmlElement.classList.remove('color-4');
             this.htmlElement.classList.add('color-' + this.amount);

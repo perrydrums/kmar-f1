@@ -15,7 +15,7 @@ export class Game {
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.quiz = new Quiz();
-        this.questionId = "1:0";
+        this.questionId = "1:2";
         this.generateQuiz();
         this.gameLoop();
     }

@@ -13,8 +13,8 @@ export class Car {
         this.done = false;
         this.drawn = false;
         this.correct = false;
-        this.sequences = [];
-        this.currentSequence = [];
+        this.sequences = {};
+        this.currentSequence = {};
         this._element = document.createElement('div');
         this._element.classList.add('car');
         document.body.appendChild(this._element);
@@ -80,8 +80,7 @@ export class Car {
         return __awaiter(this, void 0, void 0, function* () {
             const file = yield fetch('sequences.json');
             this.sequences = yield file.json();
-            const sendSequence = this.sequences['sequences'][number];
-            return sendSequence;
+            return this.sequences['sequences'][number];
         });
     }
     checkAnswer(number) {
@@ -100,8 +99,8 @@ export class Car {
             this.x += 35;
             this._element.style.left = this.x + 'px';
             this.carOverlay.remove();
-            const numberdivs = document.querySelectorAll(".number");
-            for (const number of numberdivs) {
+            const numberDivs = document.querySelectorAll(".number");
+            for (const number of numberDivs) {
                 number.remove();
             }
         }

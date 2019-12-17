@@ -1,22 +1,22 @@
-import { Subject } from './interfaces/subject.js';
-import { Observer } from './interfaces/observer.js';
+import {Subject} from './interfaces/subject.js';
+import {Observer} from './interfaces/observer.js';
 
-export class Speed implements Subject{
+export class Speed implements Subject {
 
-    observers:Observer[] = []
+    observers: Observer[] = [];
 
-    private speed:number = 0
+    private speed: number = 0;
 
-    constructor(){
+    constructor() {
     }
 
-    public subscribe(c:Observer):void{
+    public subscribe(c: Observer): void {
         this.observers.push(c)
     }
 
-    public update():void{
-        this.speed += 0.0005
-        for(let c of this.observers){
+    public update(): void {
+        this.speed += 0.0005;
+        for (let c of this.observers) {
             c.notify(this.speed)
         }
     }

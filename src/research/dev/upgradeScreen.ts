@@ -1,14 +1,15 @@
-import { Game } from './game.js';
-import { Upgrade } from './upgrade.js';
+import {Game} from './game.js';
+import {Upgrade} from './upgrade.js';
 
 export class UpgradeScreen {
 
     private static instance: UpgradeScreen;
-    private start:HTMLElement;
-    private upgrades:Upgrade[] = [];
-    private btnContainer:HTMLElement;
+    private start: HTMLElement;
+    private upgrades: Upgrade[] = [];
+    private btnContainer: HTMLElement;
 
-    private constructor() {}
+    private constructor() {
+    }
 
     public static getInstance() {
         if (!this.instance) {
@@ -27,13 +28,13 @@ export class UpgradeScreen {
         this.start.appendChild(this.btnContainer);
 
         this.upgrades.push(new Upgrade(1, 'rain-tires', 'Regenbanden', 3));
-        this.upgrades.push(new Upgrade(2, 'upgrade2', 'Motor', 4));
-        this.upgrades.push(new Upgrade(3, 'upgrade3', 'Turbo', 4));
-        this.upgrades.push(new Upgrade(4, 'upgrade4', 'Aerodynamica', 5));
-        this.upgrades.push(new Upgrade(4, 'upgrade5', 'Super brandstof', 6));
+        this.upgrades.push(new Upgrade(2, 'engine-upgrade', 'Motor', 4));
+        this.upgrades.push(new Upgrade(3, 'turbo-upgrade', 'Turbo', 4));
+        this.upgrades.push(new Upgrade(4, 'aero-upgrade', 'Aerodynamica', 5));
+        this.upgrades.push(new Upgrade(5, 'fuel-upgrade', 'Super brandstof', 6));
     }
 
     public getButtonContainer() {
-      return this.btnContainer;
+        return this.btnContainer;
     }
 }

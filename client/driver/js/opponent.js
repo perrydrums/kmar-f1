@@ -3,7 +3,7 @@ export class Opponent {
     constructor() {
         this.posy = -200;
         this.posx = Math.floor(Math.random() * 780) + 400;
-        this.speed = Math.random() * 20 + 15;
+        this.speed = (Math.random() * 5 + 15) * (Game.getInstance().speed || 1);
         this.game = Game.getInstance();
         this._element = document.createElement("div");
         this._element.classList.add('opponent');
@@ -29,5 +29,4 @@ export class Opponent {
     remove() {
         this._element.remove();
     }
-    action() { }
 }
