@@ -54,6 +54,7 @@ export class Game {
             }
         });
         this.socket.on('server:turbo:turbo', (data) => {
+            this.currentMessage = new Message('TURBO', 'TURBOOOO', 'good');
             this.speed += this.turboUpgrade ? 1 : .5;
             setTimeout(() => {
                 this.speed -= .5;
