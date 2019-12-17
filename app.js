@@ -37,7 +37,8 @@ app.get('/', async (req, res) => {
 
     let skip = false;
 
-    // Pick a game for the player.
+    // Pick a random game for the player.
+    games.sort(() => Math.random() - 0.5);
     games.forEach(game => {
         if (!uuids[game]) {
             res.redirect('/' + game);
@@ -54,7 +55,7 @@ app.get('/', async (req, res) => {
 app.use('/', express.static(__dirname + '/client'));
 
 app.get('/reset', async (req, res) => {
-    resetUUIDs();
+    await resetUUIDs();
     return res.json({message: 'Game reset!'});
 });
 
