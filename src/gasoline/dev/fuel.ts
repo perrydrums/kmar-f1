@@ -12,6 +12,9 @@ export class Fuel extends Food {
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this._element);
 
+        this._shadowElement = document.createElement("fuel")
+        foreground.appendChild(this._shadowElement);
+
         if(this.lane === 1){
             this._element.classList.add("fuel1")
         } else if(this.lane === 2){
