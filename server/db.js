@@ -63,4 +63,11 @@ const getUUIDs = async () => {
     return snapshot.val() || {};
 };
 
-module.exports = {setStat, getStat, setUUID, getUUIDs};
+/**
+ * Reset all UUIDs to start a new game.
+ */
+const resetUUIDs = async () => {
+    database.ref('/uuids').set({});
+};
+
+module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs};

@@ -9,7 +9,16 @@ export class Food {
         this.game = Game.getInstance();
     }
     update() {
-        if (this.posy >= window.innerHeight + 200) {
+        if (this.lane === 1) {
+            this.stopLaneHeight = 0;
+        }
+        else if (this.lane === 2) {
+            this.stopLaneHeight = -80;
+        }
+        else if (this.lane === 3) {
+            this.stopLaneHeight = -160;
+        }
+        if (this.posy >= window.innerHeight + this.stopLaneHeight) {
             if (this instanceof Anvil) {
                 this.remove();
                 this.subject.unsubscribe(this);
