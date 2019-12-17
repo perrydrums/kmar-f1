@@ -48,6 +48,10 @@ export class Game {
 
     private distanceElement: HTMLElement;
 
+    private speedElement: HTMLElement;
+
+    private informationElement: HTMLElement;
+
     private currentMessage: Message;
 
     private turboUpgrade: boolean = false;
@@ -120,14 +124,22 @@ export class Game {
             this.setAnimationState('running');
         });
 
+        this.informationElement = document.createElement('div');
+        this.informationElement.classList.add('information');
+        document.body.appendChild(this.informationElement);
+
         this.scoreElement = document.createElement('div');
         this.scoreElement.classList.add('lap');
         this.scoreElement.innerText = this.lapText;
-        document.body.appendChild(this.scoreElement);
+        this.informationElement.appendChild(this.scoreElement);
 
         this.distanceElement = document.createElement('div');
         this.distanceElement.classList.add('distance');
-        document.body.appendChild(this.distanceElement);
+        this.informationElement.appendChild(this.distanceElement);
+
+        this.speedElement = document.createElement('div');
+        this.speedElement.classList.add('distance');
+        this.informationElement.appendChild(this.speedElement);
 
         this.gameLoop();
     }
@@ -186,7 +198,8 @@ export class Game {
                 }
 
                 this.distance += this.speed;
-                this.distanceElement.innerHTML = this.distance < 1000 ? (1000 - this.distance).toFixed(0).toString() + '<br>' + (this.speed * 200).toFixed(0).toString() + ' km/h' : '0';
+                this.distanceElement.innerHTML = this.distance < 1000 ? 'Resterend aantal meter:  ' + (1000 - this.distance).toFixed().toString() : '';
+                this.speedElement.innerHTML = this.distance < 1000 ? (this.speed * 200).toFixed(0).toString() + ' km/u' : '0';
 
                 if (this.distance > 1000) {
                     if (this.lap >= 4) {
