@@ -11,7 +11,7 @@ export class Message {
         this.extraClass = extraClass;
 
         this.show();
-        setTimeout(() => this.hide(), 5000);
+        setTimeout(() => this.hide(), 120000);
     }
 
     public show() {
