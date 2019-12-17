@@ -3,7 +3,7 @@ import {Game} from './game.js';
 export class Opponent {
 
     public _element: HTMLElement;
-    public posy: number = -200;
+    public posy: number = -400;
     public posx: number;
     protected speed: number;
     protected game: Game;
