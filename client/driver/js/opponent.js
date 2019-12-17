@@ -1,7 +1,7 @@
 import { Game } from './game.js';
 export class Opponent {
     constructor() {
-        this.posy = -200;
+        this.posy = -400;
         this.posx = Math.floor(Math.random() * 780) + 400;
         this.speed = (Math.random() * 5 + 15) * (Game.getInstance().speed || 1);
         this.game = Game.getInstance();
