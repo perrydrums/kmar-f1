@@ -81,9 +81,8 @@ export class Game {
             this.dialog = Dialog.getInstance();
             this.dialog.setHTML(
                 '<h1>KMar F1 - Research & Development</h1>' +
-                '<p>Jij bent verantwoordelijk voor de pitstop. Probeer de snelste tijd neer te zetten.</p>' +
-                '<p>Beweeg met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>' +
-                '<p>Zet de banden op de auto en vul de auto met benzine.</p>'
+                '<p>Jij bent verantwoordelijk voor de upgrades. Klik op de rondjes om een andere afbeelding te kiezen.</p>' +
+                '<p>Wanneer je de puzzel niet haalt binnen de 4 pogingen ga je terug naar het overzicht.</p>'
             );
             this.dialog.addButton();
         }

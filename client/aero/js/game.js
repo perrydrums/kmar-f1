@@ -37,9 +37,9 @@ export class Game {
             if (!this.dialog) {
                 this.dialog = Dialog.getInstance();
                 this.dialog.setHTML('<h1>KMar F1 - Aerodynamica</h1>' +
-                    '<p>Jij bent verantwoordelijk voor de pitstop. Probeer de snelste tijd neer te zetten.</p>' +
-                    '<p>Beweeg met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>' +
-                    '<p>Zet de banden op de auto en vul de auto met benzine.</p>');
+                    '<p>Jij bent verantwoordelijk voor de aerodynamica. Kijk goed naar de reeksen</p>' +
+                    '<p>en klik het getal aan dat op het vraagteken hoort te staan.</p>' +
+                    '<p>Door foute antwoorden gaat de auto langzamer, door goede antwoorden sneller.</p>');
                 this.dialog.addButton();
             }
         }
