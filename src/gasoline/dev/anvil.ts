@@ -30,8 +30,6 @@ export class Anvil extends Food implements Observer {
         } else if(this.lane === 3){
             this._element.classList.add("anvil3")
         }
-
-
     }
 
     public action(){
