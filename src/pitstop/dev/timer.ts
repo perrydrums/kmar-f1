@@ -43,6 +43,10 @@ export class Timer {
         }
     }
 
+    public getTime() {
+        return this.time;
+    }
+
     /**
      * Add time.
      */

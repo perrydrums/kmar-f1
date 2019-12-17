@@ -245,7 +245,6 @@ export class Game {
     private pitstop() {
         this.lapTime[this.lap] = Date.now() - this.startTime;
         console.log(this.lapTime);
-        this.socket.emit('driver:pitstop');
         this.inPitstop = true;
 
         this.setAnimationState('paused');

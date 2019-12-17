@@ -1,6 +1,6 @@
 const socketIO = require('socket.io');
 const {setStat, getStat, setUUID, getUUIDs} = require('./db');
-const {addUpgrade, resetUpgrades} = require('./upgrades');
+const {addUpgrade} = require('./upgrades');
 
 /**
  * Sets up all socket connections.
@@ -18,7 +18,7 @@ const initializeSockets = (http) => {
          * Init sockets.
          */
         socket.on('client:start', data => {
-            resetUpgrades();
+
         });
 
         socket.on('client:startGame', async data => {
@@ -33,22 +33,27 @@ const initializeSockets = (http) => {
 
         });
 
+        socket.on('game:finish', async data => {
+
+        });
+
         /**
          * Pitstop sockets.
          */
-        socket.on('pitstop:start', data => {
-            setUUID('pitstop', data.uuid);
+        socket.on('pitstop:start', async data => {
+            await setUUID('pitstop', data.uuid);
         });
 
-        socket.on('pitstop:done', data => {
-            socket.broadcast.emit('server:pitstop:done', {});
+        socket.on('pitstop:done', async data => {
+            socket.broadcast.emit('server:pitstop:done', data);
+            await setStat('pitstopTimes', data.time);
         });
 
         /**
          * Gasoline sockets.
          */
         socket.on('gasoline:start', async data => {
-            setUUID('gasoline', data.uuid);
+            await setUUID('gasoline', data.uuid);
 
             const upgrades = await getStat('upgrades');
             socket.emit('server:gasoline:upgrades', {upgrades});
@@ -84,8 +89,11 @@ const initializeSockets = (http) => {
             socket.emit('server:driver:upgrades', {upgrades});
         });
 
-        socket.on('driver:pitstop', async data => {
-            socket.broadcast.emit('server:driver:pitstop', {});
+        socket.on('driver:lap', async data => {
+            socket.broadcast.emit('server:driver:pitstop', data);
+
+            setStat('lapTimes', data.time);
+            setStat('currentLap', data.lap);
         });
 
         /**
@@ -101,18 +109,6 @@ const initializeSockets = (http) => {
 
         socket.on('aero:slow', async data => {
             socket.broadcast.emit('server:aero:slow', {});
-        });
-
-        /**
-         * Driver sockets.
-         */
-        socket.on('driver:start', async data => {
-            setUUID('driver', data.uuid);
-        });
-
-        socket.on('driver:lap', async data => {
-            setStat('lapTimes', data.time);
-            setStat('currentLap', data.lap);
         });
 
         /**

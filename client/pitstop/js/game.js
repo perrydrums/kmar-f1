@@ -11,6 +11,7 @@ export class Game {
         this._carTime = 0;
         this.tires = [];
         this.running = false;
+        this.pitstopTimes = {};
         this._fpsInterval = 1000 / this._fps;
         this._then = Date.now();
         this.player = new Player();
@@ -29,6 +30,7 @@ export class Game {
                 this.addTire(true);
         });
         this.socket.on('server:driver:pitstop', (data) => {
+            this.currentLap = data.lap;
             if (!this._car) {
                 this._car = new Car();
                 this.timer.start();
@@ -88,7 +90,8 @@ export class Game {
             if (this._car.done) {
                 this._car = null;
                 this.timer.stop();
-                this.socket.emit('pitstop:done', {});
+                this.pitstopTimes[this.currentLap] = this.timer.getTime();
+                this.socket.emit('pitstop:done', { time: this.pitstopTimes });
             }
         }
     }

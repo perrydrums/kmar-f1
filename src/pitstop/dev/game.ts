@@ -37,6 +37,10 @@ export class Game {
 
     public socket: SocketIOClient.Socket;
 
+    private currentLap: number;
+
+    private pitstopTimes: any = {};
+
     /**
      * Make the constructor private.
      */
@@ -61,6 +65,7 @@ export class Game {
         });
 
         this.socket.on('server:driver:pitstop', (data: any) => {
+            this.currentLap = data.lap;
             if (!this._car) {
                 this._car = new Car();
                 this.timer.start();
@@ -154,8 +159,9 @@ export class Game {
             if (this._car.done) {
                 this._car = null;
                 this.timer.stop();
+                this.pitstopTimes[this.currentLap] = this.timer.getTime();
 
-                this.socket.emit('pitstop:done', {});
+                this.socket.emit('pitstop:done', {time: this.pitstopTimes});
             }
         }
     }

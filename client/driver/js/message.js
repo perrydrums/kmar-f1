@@ -4,7 +4,7 @@ export class Message {
         this.subtitle = subtitle;
         this.extraClass = extraClass;
         this.show();
-        setTimeout(() => this.hide(), 120000);
+        setTimeout(() => this.hide(), 5000);
     }
     show() {
         this.element = document.createElement('div');

@@ -7,6 +7,7 @@ const uuidv1 = require('uuid/v1');
 const dotenv = require('dotenv').config();
 const {initializeSockets} = require('./server/sockets');
 const {getUUIDs, resetUUIDs} = require('./server/db');
+const {resetUpgrades} = require('./server/upgrades');
 
 // Contains all available games.
 const games = ['pitstop', 'gasoline', 'research', 'turbo', 'aero', 'driver'];
@@ -56,6 +57,7 @@ app.use('/', express.static(__dirname + '/client'));
 
 app.get('/reset', async (req, res) => {
     await resetUUIDs();
+    await resetUpgrades();
     return res.json({message: 'Game reset!'});
 });
 

@@ -137,10 +137,9 @@ export class Game {
         else {
             if (!this.dialog) {
                 this.dialog = Dialog.getInstance();
-                this.dialog.setHTML('<h1>KMar F1 - Aerodynamica</h1>' +
-                    '<p>Jij bent verantwoordelijk voor de pitstop. Probeer de snelste tijd neer te zetten.</p>' +
-                    '<p>Beweeg met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>' +
-                    '<p>Zet de banden op de auto en vul de auto met benzine.</p>');
+                this.dialog.setHTML('<h1>KMar F1 - Driver</h1>' +
+                    '<p>Jij bent de coureur. Probeer zo veel mogelijk tegenstanders te ontwijken.</p>' +
+                    '<p>Beweeg de auto met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>');
                 this.dialog.addButton();
             }
         }
@@ -158,7 +157,6 @@ export class Game {
     pitstop() {
         this.lapTime[this.lap] = Date.now() - this.startTime;
         console.log(this.lapTime);
-        this.socket.emit('driver:pitstop');
         this.inPitstop = true;
         this.setAnimationState('paused');
         this.socket.emit('driver:lap', {
