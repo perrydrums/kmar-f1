@@ -6,11 +6,8 @@ const io = require('socket.io')(http);
 const uuidv1 = require('uuid/v1');
 const dotenv = require('dotenv').config();
 const {initializeSockets} = require('./server/sockets');
-const {getUUIDs, resetUUIDs} = require('./server/db');
+const {getUUIDs, resetUUIDs, resetStats, isRunning, setStat, getStat} = require('./server/db');
 const {resetUpgrades} = require('./server/upgrades');
-
-// Contains all available games.
-const games = ['pitstop', 'gasoline', 'research', 'turbo', 'aero', 'driver'];
 
 app.use(cookieParser());
 
@@ -18,6 +15,8 @@ app.use(cookieParser());
  * Determine to which game the player will be sent to.
  */
 app.get('/', async (req, res) => {
+    let skip = false;
+
     // Contains all UUIDs currently in the game.
     const uuids = await getUUIDs();
 
@@ -27,6 +26,7 @@ app.get('/', async (req, res) => {
         const game = Object.keys(uuids).find(key => uuids[key] === req.cookies.uuid);
         if (game) {
             res.redirect('/' + game);
+            skip = true;
             return;
         }
     }
@@ -36,30 +36,37 @@ app.get('/', async (req, res) => {
         res.cookie('uuid', uuid);
     }
 
-    let skip = false;
-
-    // Pick a random game for the player.
-    games.sort(() => Math.random() - 0.5);
-    games.forEach(game => {
-        if (!uuids[game]) {
-            res.redirect('/' + game);
-            skip = true;
-        }
-    });
-
     // Don't send headers twice.
     if (!skip) {
-        res.sendFile(__dirname + '/client/index.html');
+        if (await getStat('running')) {
+            res.redirect('/start/waiting');
+        } else {
+            res.sendFile(__dirname + '/client/index.html');
+        }
     }
 });
 
-app.use('/', express.static(__dirname + '/client'));
+app.get('/new', async (req, res) => {
+    const amountOfPlayers = req.param('players');
+    if (!amountOfPlayers) {
+        res.redirect('/');
+        return;
+    }
+
+    setStat('amountOfPlayers', parseInt(amountOfPlayers));
+    setStat('running', true);
+
+    res.redirect('/start/waiting');
+});
 
 app.get('/reset', async (req, res) => {
     await resetUUIDs();
     await resetUpgrades();
+    await resetStats();
     return res.json({message: 'Game reset!'});
 });
+
+app.use('/', express.static(__dirname + '/client'));
 
 initializeSockets(http);
 

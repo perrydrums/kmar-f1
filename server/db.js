@@ -70,4 +70,20 @@ const resetUUIDs = async () => {
     database.ref('/uuids').set({});
 };
 
-module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs};
+/**
+ * Reset all statistics.
+ */
+const resetStats = async () => {
+    database.ref('/stats').set({});
+};
+
+/**
+ * TRUE if there's already a game going on.
+ *
+ * @returns {Promise<boolean>}
+ */
+const isRunning = async () => {
+    return !! await getStat('running');
+};
+
+module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs, resetStats, isRunning};
