@@ -22,10 +22,17 @@ app.get('/', async (req, res) => {
 
     // If the player has already logged in once.
     if (req.cookies.uuid) {
-        // Check if the UUID is already playing the game, if so, redirect them to their game.
-        const game = Object.keys(uuids).find(key => uuids[key] === req.cookies.uuid);
-        if (game) {
-            res.redirect('/' + game);
+        if (await getStat('started')) {
+            // Check if the UUID is already playing the game, if so, redirect them to their game.
+            const game = Object.keys(uuids).find(key => uuids[key] === req.cookies.uuid);
+            if (game) {
+                res.redirect('/' + game);
+                skip = true;
+                return;
+            }
+        }
+        else {
+            res.redirect('/start/waiting');
             skip = true;
             return;
         }

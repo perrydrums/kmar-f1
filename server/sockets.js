@@ -94,6 +94,37 @@ const initializeSockets = (http) => {
             });
         });
 
+        socket.on('client:waiting:ready', async data => {
+            setStat(`ready/${data.uuid}`, data.ready);
+
+            // Check if all players are ready.
+            if (data.ready) {
+                const players = await getStat('ready');
+                const amountOfPlayers = await getStat('amountOfPlayers');
+
+                const entries = Object.entries(players);
+                let readyPlayers = 0;
+                for (const [uuid, ready] of entries) {
+                    if (ready) readyPlayers ++;
+                    if (readyPlayers === amountOfPlayers) {
+                        // Start Game!
+                        setStat('started', true);
+
+                        socket.emit('server:waiting:startCountdown');
+                        socket.broadcast.emit('server:waiting:startCountdown');
+                    }
+                }
+            }
+
+            socket.emit('server:waiting:ready', {
+                uuids: await getStat('ready'),
+            });
+
+            socket.broadcast.emit('server:waiting:ready', {
+                uuids: await getStat('ready'),
+            });
+        });
+
         /**
          * Pitstop sockets.
          */
