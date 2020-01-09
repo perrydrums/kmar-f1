@@ -96,7 +96,8 @@ export class Game {
         this.startTime = Date.now();
     }
     finish() {
-        alert('Race finished!!!!!!');
+        this.socket.emit('finish');
+        window.location.href = '/finish';
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());

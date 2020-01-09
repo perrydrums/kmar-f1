@@ -19,6 +19,10 @@ export class Game {
         this.quiz = new Quiz();
         this.currentDifficulty = "easy";
         this.questionId = "1:1";
+        this.socket = io();
+        this.socket.on('finish', (data) => {
+            window.location.href = '/finish';
+        });
         this.generateQuiz();
         this.gameLoop();
     }

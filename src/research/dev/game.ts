@@ -30,6 +30,10 @@ export class Game {
             this.completed = data.upgrades;
         });
 
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
+
         this.gameLoop();
     }
 

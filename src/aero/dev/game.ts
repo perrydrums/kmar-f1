@@ -39,6 +39,10 @@ export class Game {
             uuid: this.getCookie('uuid'),
         });
 
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
+
         this.gameLoop();
     }
 

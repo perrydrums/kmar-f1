@@ -36,6 +36,9 @@ export class Game {
                 this.timer.start();
             }
         });
+        this.socket.on('finish', (data) => {
+            window.location.href = '/finish';
+        });
         this.gameLoop();
     }
     static getInstance() {

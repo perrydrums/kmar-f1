@@ -32,9 +32,11 @@ export class Game {
 
   public streak:number = 0;
 
+  private socket: SocketIOClient.Socket;
+
   /**
    * Make the constructor private.
-   */ 
+   */
   private constructor() {
     this._fpsInterval = 1000 / this._fps;
     this._then = Date.now();
@@ -42,13 +44,19 @@ export class Game {
     this.currentDifficulty = "easy";
     this.questionId = "1:1";
 
+    this.socket = io();
+
+    this.socket.on('finish', (data:any) => {
+      window.location.href = '/finish';
+    });
+
     this.generateQuiz();
     this.gameLoop();
   }
 
   /**
    * There can always only be one Game instance.
-   * 
+   *
    * @returns {Game}
    */
   public static getInstance():Game {
@@ -83,9 +91,9 @@ export class Game {
   public setQuestions(questions) {
     for (let id in questions) {
       this.currentSetQuestions[id] = new Question(
-        id, 
-        questions[id].question, 
-        questions[id].choices, 
+        id,
+        questions[id].question,
+        questions[id].choices,
         questions[id].correctAnswer
       );
     }
@@ -115,7 +123,7 @@ export class Game {
     }
   }
 
-  public isEnded():boolean {  
+  public isEnded():boolean {
     return false;
     // return this.question.id === this.quiz.myQuestions.finalQuestionId;
   }
@@ -145,7 +153,7 @@ export class Game {
 
     console.log("Next question!")
   }
-  
+
   public submit(id, answer, nextQuestionId) {
     let button = document.getElementById(id);
     let correctAnswer = this.currentSetQuestions[this.questionId].getCorrectAnswer();
@@ -177,7 +185,7 @@ export class Game {
         Game.getInstance().quiz.score = Game.getInstance().quiz.score - 2;
         Game.getInstance().streak = 0;
       }
-      
+
       Game.getInstance().getNextQuestion(nextQuestionId);
     }
   }
@@ -223,7 +231,7 @@ export class Game {
     var element = document.getElementById("streak");
     element.innerHTML = "Reeks: " + this.streak.toString();
   }
-  
+
   /**
    * Runs approx. {this._fps} times a second.
    */
@@ -239,7 +247,7 @@ export class Game {
 
       if (elapsed > this._fpsInterval) {
         // this.player.update();
-          
+
         // Get ready for next frame by setting then=now, but...
         // Also, adjust for fpsInterval not being multiple of 16.67
         this._then = now - (elapsed % this._fpsInterval);

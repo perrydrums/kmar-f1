@@ -29,6 +29,9 @@ export class Game {
         this.socket.on('server:research:unlock:rain-tires', (data) => {
             this.rainTiresUnlocked = true;
         });
+        this.socket.on('finish', (data) => {
+            window.location.href = '/finish';
+        });
     }
     start() {
         this.food = this.createFood(4);
