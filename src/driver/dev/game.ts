@@ -162,7 +162,8 @@ export class Game {
     }
 
     public finish(): void {
-        alert('Race finished!!!!!!');
+        this.socket.emit('finish');
+        window.location.href = '/finish';
     }
 
     /**

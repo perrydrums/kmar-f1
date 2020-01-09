@@ -72,6 +72,10 @@ export class Game {
             }
         });
 
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
+
         this.gameLoop();
     }
 

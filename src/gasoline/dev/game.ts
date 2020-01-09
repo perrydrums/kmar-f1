@@ -51,6 +51,10 @@ export class Game {
         this.socket.on('server:research:unlock:rain-tires', (data:any) => {
           this.rainTiresUnlocked = true;
         });
+
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
     }
 
     public start() {
@@ -126,7 +130,7 @@ export class Game {
         let food:Food[] = [];
         for (let i = 0; i < amount; i ++) {
             const random = Math.floor(Math.random() * 100);
-            
+
             if (random > 0 && random < 45) {
                 let randomLane = Math.floor(Math.random() * 3) + 1;
                 food.push(new Anvil(this.subject, randomLane));

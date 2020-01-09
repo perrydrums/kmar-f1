@@ -13,6 +13,9 @@ export class Game {
         this.socket.on('server:research:update', (data) => {
             this.completed = data.upgrades;
         });
+        this.socket.on('finish', (data) => {
+            window.location.href = '/finish';
+        });
         this.gameLoop();
     }
     static getInstance() {

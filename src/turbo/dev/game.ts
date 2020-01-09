@@ -26,6 +26,10 @@ export class Game implements Observer {
         this.socket.emit('turbo:start', {
             uuid: this.getCookie('uuid'),
         });
+
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
     }
 
     public initialize(): void {
