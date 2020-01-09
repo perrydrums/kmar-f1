@@ -12,6 +12,9 @@ export class Game {
         this.socket.emit('aero:start', {
             uuid: this.getCookie('uuid'),
         });
+        this.socket.on('finish', (data) => {
+            window.location.href = '/finish';
+        });
         this.gameLoop();
     }
     static getInstance() {
