@@ -25,7 +25,7 @@ export class Character {
         this.htmlElement.style.transform = `translate(${this.posx += this.speed}px, ${this.posy}px)`;
         if (this.characterLane === 1) {
             this.htmlElement.style.zIndex = "999";
-            this.htmlElement.style.height = "200px";
+            this.htmlElement.style.height = "210px";
             this.htmlElement.style.width = "150px";
         }
         else if (this.characterLane === 2) {

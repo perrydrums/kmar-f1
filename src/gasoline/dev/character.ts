@@ -22,7 +22,6 @@ export class Character {
     constructor(){
         this._htmlElement = document.createElement("div")
         document.body.appendChild(this.htmlElement).className = "character";
-        // this.powerup = new Powerup(this);
         this.food = Game.getInstance().food;
         this.posx = window.innerWidth / 2 - 100;
         this.posy = window.innerHeight - 150;
@@ -40,7 +39,7 @@ export class Character {
 
         if(this.characterLane === 1){
             this.htmlElement.style.zIndex = "999";
-            this.htmlElement.style.height = "200px";
+            this.htmlElement.style.height = "210px";
             this.htmlElement.style.width = "150px";
         } else if(this.characterLane === 2){
             this.htmlElement.style.zIndex = "998";
@@ -68,7 +67,7 @@ export class Character {
                     this.food[i].remove();
                     Game.getInstance().food.splice(i, 1);
                 } else if (this.food[i].lane === 2 && this.characterLane === 2){
-                    
+
                     if (this instanceof Anvil) {
                         this.subject.unsubscribe(this);
                     }
@@ -76,7 +75,7 @@ export class Character {
                     this.food[i].remove();
                     Game.getInstance().food.splice(i, 1);
                 } else if (this.food[i].lane === 3 && this.characterLane === 3) {
-                    
+
                     if (this instanceof Anvil) {
                         this.subject.unsubscribe(this);
                     }
@@ -109,7 +108,7 @@ export class Character {
 
     public noPowerup(){
         if(!this.hit){
-            this.behaviour = new Walking(this);   
+            this.behaviour = new Walking(this);
         } else {
             this.behaviour = new StopWalking(this);
         }
@@ -154,10 +153,10 @@ export class Character {
                     this.posy += 0;
                 }
             }
-            break;    
+            break;
         }
     }
-    
+
     public onKeyUp(event:KeyboardEvent):void {
         switch(event.keyCode){
         case 37:

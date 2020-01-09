@@ -28,7 +28,7 @@ foreground {
 .character {
     position: absolute;
     z-index: 1;
-    background-image: url("../images/pitstopman_side_view.png");
+    background-image: url("../images/pitstopman_front_view.png");
     width: 150px;
     height: 200px;
     background-size: cover;
