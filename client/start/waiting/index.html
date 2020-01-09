@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Wachten op spelers...</title>
+</head>
+<body>
+
+Wachten op andere spelers...
+
+<br><br>
+
+<label for="name-field"> Wat is je naam?</label>
+<input type="text" name="name" id="name-field">
+<p id="name-result"></p>
+
+<p>Ben je er klaar voor?</p>
+<button id="ready-button" onclick="toggleReady()">JA!</button>
+
+<br><br>
+
+<p id="role-result"></p>
+
+<br><br>
+
+<p>Spelers:</p>
+<ul id="player-list"></ul>
+
+<p id="countdown"></p>
+
+</body>
+</html>
+
+<script>
+
+  const socket = io();
+  const uuid = Cookies.get('uuid');
+
+  socket.emit('client:waiting', {uuid});
+
+  let send = true;
+  let ready = false;
+
+  const nameField = document.getElementById('name-field');
+  nameField.addEventListener('input', e => {
+    if (send) {
+      send = false;
+
+      setTimeout(() => {
+        send = true;
+
+        socket.emit('client:waiting:setName', {
+          name: nameField.value,
+          uuid,
+        });
+
+        document.getElementById('name-result').innerText = 'Hallo, ' + nameField.value + '!';
+      }, 2000);
+    }
+  });
+
+  const playerList = document.getElementById('player-list');
+  const roleResult = document.getElementById('role-result');
+
+  let roleByUUID = {};
+
+  socket.on('server:waiting:update', data => {
+    playerList.innerHTML = '';
+
+    if (data.uuids) {
+      const uuidEntries = Object.entries(data.uuids);
+
+      for (const [gameValue, uuidValue] of uuidEntries) {
+        roleByUUID[uuidValue] = gameValue;
+      }
+
+      roleResult.innerText = roleByUUID[uuid];
+    }
+
+    if (data.names) {
+      const entries = Object.entries(data.names);
+
+      for (const [uuidName, name] of entries) {
+        const listItem = document.createElement('li');
+        listItem.id = uuidName;
+        listItem.innerText = name;
+        if (roleByUUID[uuidName]) {
+          listItem.innerText += `   [${roleByUUID[uuidName]}]`;
+        }
+        playerList.appendChild(listItem);
+
+        if (uuidName === uuid) {
+          nameField.value = name;
+        }
+      }
+    }
+  });
+
+  socket.on('server:waiting:ready', data => {
+    const entries = Object.entries(data.uuids);
+
+    for (const [uuid, ready] of entries) {
+      if (ready) {
+        document.getElementById(uuid).classList.add('ready');
+      }
+      else {
+        document.getElementById(uuid).classList.remove('ready');
+      }
+    }
+  });
+
+  socket.on('server:waiting:startCountdown', data => {
+    console.log('COUntDOWN');
+
+    const countdown = document.getElementById('countdown');
+    let time = 5;
+    countdown.innerText = time.toString();
+
+    setInterval(() => {
+      if (time === -1) {
+        window.location.href = '/';
+      }
+
+      countdown.innerText = time.toString();
+
+      time--;
+    }, 1000)
+
+  });
+
+  function toggleReady(e) {
+    ready = !ready;
+    document.getElementById('ready-button').innerText = ready ? 'Nee!' : 'Ja!';
+
+    socket.emit('client:waiting:ready', { uuid, ready });
+  }
+
+</script>

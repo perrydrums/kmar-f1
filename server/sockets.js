@@ -2,6 +2,9 @@ const socketIO = require('socket.io');
 const {setStat, getStat, setUUID, getUUIDs} = require('./db');
 const {addUpgrade} = require('./upgrades');
 
+// Contains all available games.
+const games = ['pitstop', 'gasoline', 'research', 'turbo', 'aero', 'driver'];
+
 /**
  * Sets up all socket connections.
  *
@@ -17,24 +20,109 @@ const initializeSockets = (http) => {
         /**
          * Init sockets.
          */
-        socket.on('client:start', data => {
-
+        socket.on('client:start', async data => {
+            const running = await getStat('running');
+            socket.emit('server:client:checkGame', {running});
         });
 
         socket.on('client:startGame', async data => {
+            const running = await getStat('running');
+            socket.emit('server:client:checkGame', {running});
 
-            const uuids = await getUUIDs();
-
-            // Start the game when all mini-games are active.
-            if (uuids.length === 8) {
-                setStat('running', true);
-                setStat('startTime', Date.now());
-            }
+            // const uuids = await getUUIDs();
 
         });
 
         socket.on('game:finish', async data => {
 
+        });
+
+        socket.on('client:waiting', async data => {
+            if (!data.uuid) {
+                return;
+            }
+
+            const uuids = await getUUIDs();
+            const entries = Object.entries(uuids);
+
+            let pickNewGame = true;
+
+            for (const [gameValue, uuidValue] of entries) {
+                // A game has already been picked for the player.
+                if (uuidValue === data.uuid) {
+                    pickNewGame = false;
+                }
+            }
+
+            if (pickNewGame) {
+                // Pick a random game for the player.
+                games.sort(() => Math.random() - 0.5);
+                games.forEach(game => {
+                    if (!uuids[game]) {
+                        setUUID(game, data.uuid);
+                    }
+                });
+            }
+
+            const names = await getStat('names');
+            const newUuids = await getUUIDs();
+
+            // Update player names and roles.
+            socket.broadcast.emit('server:waiting:update', {
+                names,
+                uuids: newUuids,
+            });
+            socket.emit('server:waiting:update', {
+                names,
+                uuids: newUuids,
+            });
+        });
+
+        socket.on('client:waiting:setName', async data => {
+            if (!data.uuid || !data.name) {
+                return;
+            }
+
+            setStat(`names/${data.uuid}`, data.name);
+
+            socket.broadcast.emit('server:waiting:update', {
+                names: await getStat('names'),
+            });
+
+            socket.emit('server:waiting:update', {
+                names: await getStat('names'),
+            });
+        });
+
+        socket.on('client:waiting:ready', async data => {
+            setStat(`ready/${data.uuid}`, data.ready);
+
+            // Check if all players are ready.
+            if (data.ready) {
+                const players = await getStat('ready');
+                const amountOfPlayers = await getStat('amountOfPlayers');
+
+                const entries = Object.entries(players);
+                let readyPlayers = 0;
+                for (const [uuid, ready] of entries) {
+                    if (ready) readyPlayers ++;
+                    if (readyPlayers === amountOfPlayers) {
+                        // Start Game!
+                        setStat('started', true);
+
+                        socket.emit('server:waiting:startCountdown');
+                        socket.broadcast.emit('server:waiting:startCountdown');
+                    }
+                }
+            }
+
+            socket.emit('server:waiting:ready', {
+                uuids: await getStat('ready'),
+            });
+
+            socket.broadcast.emit('server:waiting:ready', {
+                uuids: await getStat('ready'),
+            });
         });
 
         /**
