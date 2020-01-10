@@ -17,8 +17,7 @@
   socket.on('server:client:checkGame', data => {
     if (data.running) {
       document.getElementById('start-link').innerText = 'Meedoen met bestaand spel';
-    }
-    else {
+    } else {
       document.getElementById('start-link').innerText = 'Nieuw spel';
     }
   });

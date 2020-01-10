@@ -1,169 +1,169 @@
 @font-face {
-  src: url('../font/digits.ttf');
-  font-family: 'Digits';
+    src: url('../font/digits.ttf');
+    font-family: 'Digits';
 }
 
 @font-face {
-  src: url('../font/f1.ttf');
-  font-family: 'F1';
+    src: url('../font/f1.ttf');
+    font-family: 'F1';
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 body {
-  background-color: gray;
+    background-color: gray;
 }
 
 .number {
-  position: absolute;
-  transform: rotate(90deg);
-  font-family: 'F1';
-  color: white;
-  font-size: 26px;
-  text-shadow: 2px 2px black;
+    position: absolute;
+    transform: rotate(90deg);
+    font-family: 'F1';
+    color: white;
+    font-size: 26px;
+    text-shadow: 2px 2px black;
 }
 
 .number-1 {
-  top: 445px;
-  left: 340px;
+    top: 445px;
+    left: 340px;
 }
 
 .number-2 {
-  top: 340px;
-  left: 305px;
+    top: 340px;
+    left: 305px;
 }
 
 .number-3 {
-  top: 230px;
-  left: 335px;
+    top: 230px;
+    left: 335px;
 }
 
 .number-4 {
-  top: 135px;
-  left: 355px;
+    top: 135px;
+    left: 355px;
 }
 
 .number-5 {
-  top: 40px;
-  left: 350px;
+    top: 40px;
+    left: 350px;
 }
 
 .question-mark {
-  font-size: 40px;
-  top: -45px;
-  left: 345px;
-  width: auto;
-  height: auto;
+    font-size: 40px;
+    top: -45px;
+    left: 345px;
+    width: auto;
+    height: auto;
 }
 
 .answers {
-  display: flex;
-  justify-content: center;
-  font-family: F1;
-  color: white;
-  font-size: 80px;
-  padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: F1;
+    color: white;
+    font-size: 80px;
+    padding: 20px;
 }
 
 .answer {
-  padding: 20px;
-  border: 5px solid white;
-  border-radius: 10px;
-  margin-right: 20px;
-  background: #555555;
-  text-shadow: 4px 4px black;
-  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.5);
+    padding: 20px;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin-right: 20px;
+    background: #555555;
+    text-shadow: 4px 4px black;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 .correct {
-  background: limegreen;
+    background: limegreen;
 }
 
 .incorrect {
-  background: tomato;
+    background: tomato;
 }
 
 .car-overlay {
-  background-image: url('../img/wind.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 400px;
-  height: 600px;
+    background-image: url('../img/wind.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 600px;
 }
 
 .car {
-  background-image: url('../img/carbig.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  transform: rotate(270deg);
-  width: 400px;
-  height: 600px;
-  overflow: visible;
-  position: absolute;
-  top: 20%;
+    background-image: url('../img/carbig.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(270deg);
+    width: 400px;
+    height: 600px;
+    overflow: visible;
+    position: absolute;
+    top: 20%;
 
-  left: -300px;
+    left: -300px;
 }
 
 .dialog {
-  width: 800px;
-  height: 500px;
+    width: 800px;
+    height: 500px;
 
-  z-index: 4;
+    z-index: 4;
 
-  position: absolute;
-  left: 50%;
-  top: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
 
-  margin-left: -400px;
-  margin-top: -250px;
+    margin-left: -400px;
+    margin-top: -250px;
 
-  background-color: aqua;
+    background-color: aqua;
 
-  padding: 50px;
-  box-sizing: border-box;
+    padding: 50px;
+    box-sizing: border-box;
 
-  font-family: 'F1';
+    font-family: 'F1';
 
-  text-align: center;
+    text-align: center;
 }
 
 .dialog h1 {
-  font-size: 40px;
-  text-align: center;
-  border-bottom: 2px solid black;
-  margin-bottom: 50px;
-  line-height: 60px;
+    font-size: 40px;
+    text-align: center;
+    border-bottom: 2px solid black;
+    margin-bottom: 50px;
+    line-height: 60px;
 }
 
 .dialog p {
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .dialog button {
-  border: none;
-  width: 100px;
-  height: 40px;
-  margin: 0 auto;
-  background: #0069ed;
-  color: #ffffff;
-  cursor: pointer;
-  text-align: center;
+    border: none;
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+    background: #0069ed;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
 }
 
 .overlay {
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
 
-  z-index: 3;
+    z-index: 3;
 
-  position: absolute;
+    position: absolute;
 
-  background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }

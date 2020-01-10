@@ -1,299 +1,299 @@
 @font-face {
-  src: url('../font/digits.ttf');
-  font-family: 'Digits';
+    src: url('../font/digits.ttf');
+    font-family: 'Digits';
 }
 
 @font-face {
-  src: url('../font/f1.ttf');
-  font-family: 'F1';
+    src: url('../font/f1.ttf');
+    font-family: 'F1';
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 body {
-  background-image: url('../img/bg2.jpg');
-  background-size: cover;
+    background-image: url('../img/bg2.jpg');
+    background-size: cover;
 }
 
 button {
-  outline: none;
+    outline: none;
 }
 
 .dialog {
-  width: 800px;
-  height: 500px;
-  z-index: 4;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -400px;
-  margin-top: -250px;
-  background-color: aqua;
-  padding: 50px;
-  box-sizing: border-box;
-  font-family: 'F1';
-  text-align: center;
+    width: 800px;
+    height: 500px;
+    z-index: 4;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -400px;
+    margin-top: -250px;
+    background-color: aqua;
+    padding: 50px;
+    box-sizing: border-box;
+    font-family: 'F1';
+    text-align: center;
 }
 
 .dialog h1 {
-  font-size: 40px;
-  text-align: center;
-  border-bottom: 2px solid black;
-  margin-bottom: 50px;
-  line-height: 60px;
+    font-size: 40px;
+    text-align: center;
+    border-bottom: 2px solid black;
+    margin-bottom: 50px;
+    line-height: 60px;
 }
 
 .dialog p {
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .dialog button {
-  border: none;
-  width: 100px;
-  height: 40px;
-  margin: 0 auto;
-  background: #0069ed;
-  color: #ffffff;
-  cursor: pointer;
-  text-align: center;
+    border: none;
+    width: 100px;
+    height: 40px;
+    margin: 0 auto;
+    background: #0069ed;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
 }
 
 .overlay {
-  width: 100vw;
-  height: 100vh;
-  z-index: 3;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .inner-container {
-  height: 500px;
-  width: 700px;
-  background-color:red;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 500px;
+    width: 700px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-container {
-  width: 100vw;
+    width: 100vw;
 }
 
 .button-upgrade {
-  padding: 35px;
-  border: 0;
-  cursor: pointer;
-  width: 100vw;
-  position: relative;
-  text-align: left;
-  height: auto;
-  background-size: cover;
-  background-position: 50% 50%;
-  color: #fff;
-  font-style: italic;
-  margin-bottom: 10px;
-  transition: padding-left 0.25s ease-in-out;
+    padding: 35px;
+    border: 0;
+    cursor: pointer;
+    width: 100vw;
+    position: relative;
+    text-align: left;
+    height: auto;
+    background-size: cover;
+    background-position: 50% 50%;
+    color: #fff;
+    font-style: italic;
+    margin-bottom: 10px;
+    transition: padding-left 0.25s ease-in-out;
 }
 
 .button-upgrade:hover {
-  padding-left: 70px;
+    padding-left: 70px;
 }
 
-.button-upgrade:before{
-  background-image: linear-gradient(to right, #000000, #00000047, transparent);
-  width: 100%;
-  height: 100%;
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
+.button-upgrade:before {
+    background-image: linear-gradient(to right, #000000, #00000047, transparent);
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .button-upgrade span {
-  position: relative;
-  z-index: 1;
-  text-shadow: 3px 3px #000;
-  text-transform: uppercase;
-  font-size: 60px;
-  font-family: 'F1';
+    position: relative;
+    z-index: 1;
+    text-shadow: 3px 3px #000;
+    text-transform: uppercase;
+    font-size: 60px;
+    font-family: 'F1';
 }
 
 .icon-rain-tires {
-  background-image: url(../img/pirelli-bg.jpg);
-  background-position: 50% 25%;
+    background-image: url(../img/pirelli-bg.jpg);
+    background-position: 50% 25%;
 }
 
-.icon-engine-upgrade{
-  background-image: url(../img/engine-bg2.jpg);
-  background-position: 50% 30%;
+.icon-engine-upgrade {
+    background-image: url(../img/engine-bg2.jpg);
+    background-position: 50% 30%;
 }
 
 .icon-turbo-upgrade {
-  background-image: url(../img/turbo-bg.jpg);
+    background-image: url(../img/turbo-bg.jpg);
 }
 
 .icon-aero-upgrade {
-  background-image: url(../img/aerodinamics.jpg);
+    background-image: url(../img/aerodinamics.jpg);
 }
 
 .icon-fuel-upgrade {
-  background-image: url(../img/fuel-bg.jpg);
-  background-position: 50% 80%;
+    background-image: url(../img/fuel-bg.jpg);
+    background-position: 50% 80%;
 }
 
 .container-puzzle {
-  height: 100vh;
-  width: 100vw;
-  background-color:#bbbbbb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  background-image: url('../img/bg2.jpg');
-  background-size: cover;
-  z-index: 2;
+    height: 100vh;
+    width: 100vw;
+    background-color: #bbbbbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    background-image: url('../img/bg2.jpg');
+    background-size: cover;
+    z-index: 2;
 }
 
 .container-pegs {
-  z-index: 1;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pegContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  min-width: auto;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: grey;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: auto;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: grey;
+    margin-bottom: 20px;
 }
 
 .peg {
-  border-radius: 100%;
-  background-color: #fff;
-  width: 60px;
-  height: 60px;
-  z-index: 1;
-  outline: none;
-  background-image: url('../img/click.png');
-  background-size: cover;
-  cursor: pointer;
-  margin: 5px;
+    border-radius: 100%;
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    z-index: 1;
+    outline: none;
+    background-image: url('../img/click.png');
+    background-size: cover;
+    cursor: pointer;
+    margin: 5px;
 }
 
 .color-1 {
-  background-color: red;
-  background-image: url('../img/tire.png');
-  background-size: cover;
+    background-color: red;
+    background-image: url('../img/tire.png');
+    background-size: cover;
 }
 
 .color-2 {
-  background-color: green;
-  background-image: url('../img/hammer.png');
-  background-size: cover;
+    background-color: green;
+    background-image: url('../img/hammer.png');
+    background-size: cover;
 }
 
 .color-3 {
-  background-color: yellow;
-  background-image: url('../img/cloud.png');
-  background-size: cover;
+    background-color: yellow;
+    background-image: url('../img/cloud.png');
+    background-size: cover;
 }
 
 .color-4 {
-  background-color: pink;
-  background-image: url('../img/fuel.png');
-  background-size: cover;
+    background-color: pink;
+    background-image: url('../img/fuel.png');
+    background-size: cover;
 }
 
 .button-submit {
-  margin: auto;
-  display: block;
-  padding: 15px;
-  border-radius: 5px;
-  background-color: #2b2b2b;
-  border: 0px;
-  color: #fff;
-  cursor: pointer;
-  font-family: 'F1';
+    margin: auto;
+    display: block;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    border: 0px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'F1';
 }
 
 .button-submit:hover {
-  background-color: #444444;
+    background-color: #444444;
 }
 
 .correct-peg {
-  border: 5px solid green;
+    border: 5px solid green;
 }
 
 .almost-peg {
-  border: 5px solid orange;
+    border: 5px solid orange;
 }
 
 .wrong-peg {
-  border: 5px solid red;
+    border: 5px solid red;
 }
 
 .success-gif {
-  background-image: url(../img/succes-gif-purple.gif);
-  height: 500px;
-  width: 700px;
-  position: absolute;
-  background-size: cover;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
+    background-image: url(../img/succes-gif-purple.gif);
+    height: 500px;
+    width: 700px;
+    position: absolute;
+    background-size: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
 }
 
 .unlocked {
-  color: limegreen;
+    color: limegreen;
 }
 
 .backButton {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #2b2b2b;
-  border: 0px;
-  color: #fff;
-  cursor: pointer;
-  font-family: 'F1';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    border: 0px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'F1';
 }
 
 .backButton:hover {
-  background-color: #444444;
+    background-color: #444444;
 }
 
 .try-count {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: #fff;
-  font-size: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    font-size: 20px;
     font-family: 'F1', sans-serif;
 }
 

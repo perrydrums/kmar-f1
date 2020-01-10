@@ -1,9 +1,10 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    color:black;
-    overflow:hidden;
-    margin:0px; padding:0px;
-    background-color:#333;
+    color: black;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    background-color: #333;
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -13,35 +14,38 @@ body {
 }
 
 game {
-    width:100vw; height:100vh;
-    background-color:black;
-    overflow:hidden;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    overflow: hidden;
 }
 
 game * {
     position: absolute;
     display: block;
-    margin:0px; padding:0px;
+    margin: 0px;
+    padding: 0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
 }
 
 car {
-    width:397px;
-    height:194px;
+    width: 397px;
+    height: 194px;
     background-image: url(../images/kmar.png);
     cursor: pointer;
 }
 
 truck {
-    width:397px;
-    height:194px;
+    width: 397px;
+    height: 194px;
     background-image: url(../images/truck.png);
     cursor: pointer;
 }
 
 background {
-    width:100%; height:100%;
+    width: 100%;
+    height: 100%;
     background-color: #0482ff;
     background-image: url(../images/bg.png);
     background-repeat: repeat-x;
@@ -67,8 +71,8 @@ background {
 }
 
 .wrongWord {
-    background: red!important;
-    box-shadow: inset 0 0 25px red, 0 1px 0 red, 0 2px 0 red, 0 2px 3px red!important;
+    background: red !important;
+    box-shadow: inset 0 0 25px red, 0 1px 0 red, 0 2px 0 red, 0 2px 3px red !important;
 }
 
 speed {
@@ -82,13 +86,15 @@ speed {
 
 cloud {
     background-image: url(../images/cloud.png);
-    width: 480px; height: 480px;
+    width: 480px;
+    height: 480px;
     animation: movecloud 12s linear infinite;
 }
 
 tree {
     background-image: url(../images/tree.png);
-    width: 192px; height: 408px;
+    width: 192px;
+    height: 408px;
     animation: movetree 3s linear infinite;
 }
 
@@ -117,23 +123,23 @@ tree {
     font-family: 'F1';
 
     text-align: center;
-  }
+}
 
-  .dialog h1 {
+.dialog h1 {
     font-size: 40px;
     text-align: center;
     border-bottom: 2px solid black;
     margin-bottom: 50px;
     line-height: 60px;
-  }
+}
 
-  .dialog p {
+.dialog p {
     font-size: 20px;
     text-align: center;
     margin-bottom: 20px;
-  }
+}
 
-  .dialog button {
+.dialog button {
     border: none;
     width: 100px;
     height: 40px;
@@ -142,9 +148,9 @@ tree {
     color: #ffffff;
     cursor: pointer;
     text-align: center;
-  }
+}
 
-  .overlay {
+.overlay {
     width: 100vw;
     height: 100vh;
 
@@ -153,7 +159,7 @@ tree {
     position: absolute;
 
     background-color: rgba(0, 0, 0, 0.5);
-  }
+}
 
 @keyframes movecloud {
     from {
@@ -175,8 +181,8 @@ tree {
 
 .masher-game-container {
     padding: 50px;
-    background: rgb(0,0,0);
-    background: radial-gradient(circle, rgba(0,0,0,.85) 26%, rgba(151,0,0,.7) 64%, rgba(255,0,0,0.5) 100%);
+    background: rgb(0, 0, 0);
+    background: radial-gradient(circle, rgba(0, 0, 0, .85) 26%, rgba(151, 0, 0, .7) 64%, rgba(255, 0, 0, 0.5) 100%);
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -191,8 +197,8 @@ tree {
     height: 50px;
     padding: 2px;
     margin: 100px auto;
-    background: rgb(167,161,0);
-    background: linear-gradient(90deg, rgba(167,161,0,1) 0%, rgba(198,171,0,1) 21%, rgba(218,108,15,1) 65%, rgba(255,0,0,1) 100%);
+    background: rgb(167, 161, 0);
+    background: linear-gradient(90deg, rgba(167, 161, 0, 1) 0%, rgba(198, 171, 0, 1) 21%, rgba(218, 108, 15, 1) 65%, rgba(255, 0, 0, 1) 100%);
 }
 
 .turbo-meter-inner {
@@ -206,8 +212,8 @@ tree {
     width: 200px;
     height: 200px;
     border: 5px solid red;
-    background: rgb(255,0,0);
-    background: radial-gradient(circle, rgba(255,0,0,1) 35%, rgb(251, 227, 0) 100%);
+    background: rgb(255, 0, 0);
+    background: radial-gradient(circle, rgba(255, 0, 0, 1) 35%, rgb(251, 227, 0) 100%);
     outline: none;
     border-radius: 50%;
     font-family: F1, sans-serif;
@@ -216,7 +222,10 @@ tree {
 
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 
     box-shadow: 0 0 0 0 rgba(255, 139, 0, 0.8);
     animation: pulse 1.5s infinite;
