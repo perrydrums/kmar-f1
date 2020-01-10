@@ -21,7 +21,7 @@ Wachten op andere spelers...
 <p id="name-result"></p>
 
 <p>Ben je er klaar voor?</p>
-<button id="ready-button" onclick="toggleReady()">JA!</button>
+<button id="ready-button" onclick="ready()">JA!</button>
 
 <br><br>
 
@@ -45,7 +45,6 @@ Wachten op andere spelers...
   socket.emit('client:waiting', {uuid});
 
   let send = true;
-  let ready = false;
 
   const nameField = document.getElementById('name-field');
   nameField.addEventListener('input', e => {
@@ -115,30 +114,29 @@ Wachten op andere spelers...
     }
   });
 
+  let started = false;
   socket.on('server:waiting:startCountdown', data => {
-    console.log('COUntDOWN');
-
-    const countdown = document.getElementById('countdown');
-    let time = 5;
-    countdown.innerText = time.toString();
-
-    setInterval(() => {
-      if (time === -1) {
-        window.location.href = '/';
-      }
-
+    if (!started) {
+      started = true;
+      const countdown = document.getElementById('countdown');
+      let time = 5;
       countdown.innerText = time.toString();
 
-      time--;
-    }, 1000)
+      setInterval(() => {
+        if (time === -1) {
+          window.location.href = '/';
+        }
 
+        countdown.innerText = time.toString();
+
+        time--;
+      }, 1000)
+    }
   });
 
-  function toggleReady(e) {
-    ready = !ready;
-    document.getElementById('ready-button').innerText = ready ? 'Nee!' : 'Ja!';
-
-    socket.emit('client:waiting:ready', { uuid, ready });
+  function ready(e) {
+    document.getElementById('ready-button').disabled = 'disabled';
+    socket.emit('client:waiting:ready', { uuid, ready: true });
   }
 
 </script>
