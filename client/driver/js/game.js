@@ -168,10 +168,10 @@ export class Game {
     checkCollision() {
         for (let i = 0; i < this.opponent.length; i++) {
             if (!this._car.hit &&
-                this._car._element.getBoundingClientRect().left < this.opponent[i].element.getBoundingClientRect().right &&
-                this._car._element.getBoundingClientRect().right > this.opponent[i].element.getBoundingClientRect().left &&
-                this._car._element.getBoundingClientRect().bottom > this.opponent[i].element.getBoundingClientRect().top &&
-                this._car._element.getBoundingClientRect().top < this.opponent[i].element.getBoundingClientRect().bottom) {
+                this._car._element.getBoundingClientRect().left + 20 < this.opponent[i].element.getBoundingClientRect().right &&
+                this._car._element.getBoundingClientRect().right - 20 > this.opponent[i].element.getBoundingClientRect().left &&
+                this._car._element.getBoundingClientRect().bottom - 20 > this.opponent[i].element.getBoundingClientRect().top &&
+                this._car._element.getBoundingClientRect().top + 20 < this.opponent[i].element.getBoundingClientRect().bottom) {
                 if (!document.querySelector('.opponentHit')) {
                     this._car.hit = true;
                     const oldSpeed = this.speed;
