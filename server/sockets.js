@@ -47,11 +47,13 @@ const initializeSockets = (http) => {
             }
 
             if (pickNewGame) {
-                games.splice(0, await getStat('amountOfPlayers'));
+                const gameList = games.slice(0, await getStat('amountOfPlayers'));
+
+                console.log('games', gameList);
 
                 // Pick a random game for the player.
-                games.sort(() => Math.random() - 0.5);
-                games.forEach(game => {
+                gameList.sort(() => Math.random() - 0.5);
+                gameList.forEach(game => {
                     if (!uuids[game]) {
                         setUUID(game, data.uuid);
                     }
