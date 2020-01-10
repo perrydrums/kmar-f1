@@ -9,6 +9,7 @@ export class Game {
         this.running = false;
         this.masher = null;
         this.complete = false;
+        this.turboCount = 0;
         this.socket = io({ timeout: 60000 });
         this.socket.emit('turbo:start', {
             uuid: this.getCookie('uuid'),
@@ -35,7 +36,7 @@ export class Game {
         return Math.floor(Math.random() * (90 - 65 + 1) + 65);
     }
     randomWord() {
-        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatie", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag"];
+        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatiegestuurd", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag", "gebiedsgebonden", "districtsstaven", "koninklijke", "criminaliteit", "terrorisme", "grensoverschrijdend"];
         return wordArray[Math.floor(Math.random() * wordArray.length)];
     }
     showWord() {
@@ -64,7 +65,10 @@ export class Game {
         }
     }
     turbo() {
-        this.socket.emit('turbo:turbo');
+        if (this.turboCount == 0) {
+            this.socket.emit('turbo:turbo');
+            this.turboCount = 1;
+        }
         setTimeout(() => {
             location.reload();
         }, 3000);

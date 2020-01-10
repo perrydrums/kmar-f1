@@ -17,7 +17,7 @@ export class Game implements Observer {
     private running: boolean = false;
     private masher: MasherGame = null;
     private complete: boolean = false;
-
+    public turboCount: number = 0;
     public socket: SocketIOClient.Socket;
 
     private constructor() {
@@ -53,7 +53,7 @@ export class Game implements Observer {
     }
 
     public randomWord(): string {
-        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatie", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag"];
+        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatiegestuurd", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag", "gebiedsgebonden", "districtsstaven", "koninklijke", "criminaliteit", "terrorisme", "grensoverschrijdend" ];
         return wordArray[Math.floor(Math.random() * wordArray.length)];
     }
 
@@ -87,7 +87,11 @@ export class Game implements Observer {
     }
 
     public turbo(): void {
-        this.socket.emit('turbo:turbo');
+        if(this.turboCount == 0){
+            this.socket.emit('turbo:turbo');
+            this.turboCount = 1;
+        }
+
         setTimeout(() => {
             location.reload();
         }, 3000);

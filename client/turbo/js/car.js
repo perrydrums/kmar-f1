@@ -21,6 +21,8 @@ export class Car extends Vehicle {
     onKeyDown(event) {
         const keyCode = this.randomWord.charAt(this.currentLetter).toUpperCase().charCodeAt(0);
         if (event.keyCode === keyCode) {
+            let word = document.getElementById('word');
+            word.classList.remove("wrongWord");
             if (this.currentLetter === this.randomWord.length - 1) {
                 this.currentLetter = 0;
                 this.speed += 0.10;
@@ -37,6 +39,8 @@ export class Car extends Vehicle {
         }
         else {
             this.speed -= 0.10;
+            let word = document.getElementById('word');
+            word.classList.add("wrongWord");
         }
     }
     update() {
