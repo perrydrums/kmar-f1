@@ -140,7 +140,7 @@ export class Game {
                 this.dialog = Dialog.getInstance();
                 this.dialog.setHTML('<h1>KMar F1 - Driver</h1>' +
                     '<p>Jij bent de coureur. Probeer zo veel mogelijk tegenstanders te ontwijken.</p>' +
-                    '<p>Beweeg de auto met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>');
+                    '<p>Beweeg de auto met de pijltjestoetsen.</p>');
                 this.dialog.addButton();
             }
         }
