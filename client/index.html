@@ -22,6 +22,10 @@
       document.getElementById('start-link').innerText = 'Nieuw spel';
     }
   });
+
+  socket.on('server:start:start', () => {
+    window.location.href = '/';
+  });
 </script>
 </body>
 </html>
