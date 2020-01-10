@@ -80,6 +80,7 @@ export class Game {
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
+        window.addEventListener("keydown", (e) => this.onKeyDown(e));
         if (this.running) {
             for (let v of this.vehicle) {
                 v.update();
@@ -97,10 +98,15 @@ export class Game {
                 this.dialog = Dialog.getInstance();
                 this.dialog.setHTML('<h1>KMar F1 - Turbo</h1>' +
                     '<p>Jij bent verantwoordelijk voor de turbo. Probeer zo snel mogelijk de woorden in te typen die in het beeld verschijnen.</p>' +
-                    '<p>Let op, door verkeerde aanslagen gaat je auto achteruit!</p>' +
+                    '<p>Let op, door verkeerde aanslagen gaat je auto achteruit! Bij typ fouten hoeft de backspace knop niet ingedrukt te worden.</p>' +
                     '<p>Probeer van de oranje bus te winnen!</p>');
                 this.dialog.addButton();
             }
+        }
+    }
+    onKeyDown(event) {
+        if (event.keyCode == 8) {
+            event.preventDefault();
         }
     }
     notify(p) {
