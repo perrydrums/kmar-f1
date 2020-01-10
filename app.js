@@ -32,9 +32,11 @@ app.get('/', async (req, res) => {
             }
         }
         else {
-            res.redirect('/start/waiting');
-            skip = true;
-            return;
+            if (await getStat('running')) {
+                res.redirect('/start/waiting');
+                skip = true;
+                return;
+            }
         }
     }
     // Create a unique ID for the player and save in cookie.

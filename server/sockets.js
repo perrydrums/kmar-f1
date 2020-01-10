@@ -76,6 +76,9 @@ const initializeSockets = (http) => {
                 names,
                 uuids: newUuids,
             });
+
+            // Redirect all players that are still on the /start page.
+            socket.broadcast.emit('server:start:start');
         });
 
         socket.on('client:waiting:setName', async data => {
