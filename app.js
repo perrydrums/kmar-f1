@@ -6,7 +6,7 @@ const io = require('socket.io')(http);
 const uuidv1 = require('uuid/v1');
 const dotenv = require('dotenv').config();
 const {initializeSockets} = require('./server/sockets');
-const {getUUIDs, resetUUIDs, resetStats, isRunning, setStat, getStat} = require('./server/db');
+const {getUUIDs, resetUUIDs, resetStats, setStat, getStat} = require('./server/db');
 const {resetUpgrades} = require('./server/upgrades');
 
 app.use(cookieParser());
