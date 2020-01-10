@@ -20,6 +20,9 @@ export class Game {
         this.currentDifficulty = "easy";
         this.questionId = "1:1";
         this.socket = io();
+        this.socket.emit('sponsor:start', {
+            uuid: this.getCookie('uuid'),
+        });
         this.socket.on('finish', (data) => {
             window.location.href = '/finish';
         });
@@ -174,6 +177,13 @@ export class Game {
                 this._then = now - (elapsed % this._fpsInterval);
             }
         }
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
+        return null;
     }
 }
 window.addEventListener("load", () => {

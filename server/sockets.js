@@ -25,14 +25,6 @@ const initializeSockets = (http) => {
             socket.emit('server:client:checkGame', {running});
         });
 
-        socket.on('client:startGame', async data => {
-            const running = await getStat('running');
-            socket.emit('server:client:checkGame', {running});
-
-            // const uuids = await getUUIDs();
-
-        });
-
         socket.on('game:finish', async data => {
 
         });
@@ -213,6 +205,13 @@ const initializeSockets = (http) => {
 
         socket.on('turbo:turbo', async data => {
             socket.broadcast.emit('server:turbo:turbo', {});
+        });
+
+        /**
+         * Sponsor sockets.
+         */
+        socket.on('sponsor:start', async data => {
+            setUUID('sponsor', data.uuid);
         });
     });
 };
