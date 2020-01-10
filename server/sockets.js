@@ -25,14 +25,6 @@ const initializeSockets = (http) => {
             socket.emit('server:client:checkGame', {running});
         });
 
-        socket.on('client:startGame', async data => {
-            const running = await getStat('running');
-            socket.emit('server:client:checkGame', {running});
-
-            // const uuids = await getUUIDs();
-
-        });
-
         socket.on('game:finish', async data => {
 
         });
@@ -163,7 +155,8 @@ const initializeSockets = (http) => {
             setUUID('research', data.uuid);
 
             const upgrades = await getStat('upgrades');
-            socket.emit('server:research:update', {upgrades});
+            const tokens = await getStat('tokens');
+            socket.emit('server:research:update', {upgrades, tokens});
         });
 
         socket.on('research:unlock', async data => {
@@ -213,6 +206,25 @@ const initializeSockets = (http) => {
 
         socket.on('turbo:turbo', async data => {
             socket.broadcast.emit('server:turbo:turbo', {});
+        });
+
+        /**
+         * Sponsor sockets.
+         */
+        socket.on('sponsor:start', async data => {
+            setUUID('sponsor', data.uuid);
+        });
+
+        socket.on('sponsor:update-tokens', async data => {
+            console.log('sponsor:update-tokens');
+            const currentTokens = await getStat('tokens');
+            if (!currentTokens || currentTokens < data.tokens) {
+                setStat('tokens', data.tokens);
+            }
+
+            socket.broadcast.emit('server:sponsor:update-tokens', {
+                tokens: data.tokens,
+            });
         });
     });
 };

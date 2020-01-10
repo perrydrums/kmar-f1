@@ -1,8 +1,9 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -20,6 +21,9 @@ export class Game {
         this.currentDifficulty = "easy";
         this.questionId = "1:1";
         this.socket = io();
+        this.socket.emit('sponsor:start', {
+            uuid: this.getCookie('uuid'),
+        });
         this.socket.on('finish', (data) => {
             window.location.href = '/finish';
         });
@@ -99,7 +103,7 @@ export class Game {
     submit(id, answer, nextQuestionId) {
         let button = document.getElementById(id);
         let correctAnswer = this.currentSetQuestions[this.questionId].getCorrectAnswer();
-        button.onclick = function () {
+        button.onclick = () => {
             if (correctAnswer === answer) {
                 console.log("Correct!");
                 Game.getInstance().streak++;
@@ -118,6 +122,9 @@ export class Game {
                 else if (Game.getInstance().currentDifficulty == "extreme") {
                     Game.getInstance().quiz.score = Game.getInstance().quiz.score + 5;
                 }
+                this.socket.emit('sponsor:update-tokens', {
+                    tokens: Math.floor(Game.getInstance().quiz.score / 10),
+                });
             }
             else {
                 console.log("Wrong...");
@@ -174,6 +181,13 @@ export class Game {
                 this._then = now - (elapsed % this._fpsInterval);
             }
         }
+    }
+    getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2)
+            return parts.pop().split(";").shift();
+        return null;
     }
 }
 window.addEventListener("load", () => {

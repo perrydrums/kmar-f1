@@ -3,25 +3,27 @@ import {Game} from "./game.js";
 
 export class Upgrade {
 
-    private level: number;
-    private name: string;
-    private title: string;
-    private numberOfPegs: number;
-    private htmlElement: HTMLElement;
-    private spanElement: HTMLElement;
+    private readonly level: number;
+    private readonly name: string;
+    private readonly title: string;
+    private readonly numberOfPegs: number;
+    private readonly htmlElement: HTMLElement;
+    private readonly spanElement: HTMLElement;
+    private readonly cost: number;
     private unlocked: boolean = false;
 
-    constructor(level: number, name: string, title: string, numberOfPegs: number) {
+    constructor(level: number, name: string, title: string, numberOfPegs: number, cost: number) {
         this.level = level;
         this.name = name;
         this.title = title;
         this.numberOfPegs = numberOfPegs;
+        this.cost = cost;
 
         this.htmlElement = document.createElement('button');
         this.htmlElement.classList.add('button-upgrade');
         this.htmlElement.classList.add('icon-' + this.name);
         this.spanElement = document.createElement('span');
-        this.spanElement.innerText = this.title;
+        this.spanElement.innerHTML = `${title} <small>${cost.toString()}</small>`;
         this.htmlElement.appendChild(this.spanElement);
 
         const btnContainer = UpgradeScreen.getInstance().getButtonContainer();
@@ -36,7 +38,7 @@ export class Upgrade {
     }
 
     private clickHandler(upgrade: Upgrade) {
-        if (!this.unlocked) {
+        if (!this.unlocked && Game.getInstance().getTokens() >= this.cost) {
             Game.getInstance().newPuzzle(upgrade);
         }
     }
@@ -79,6 +81,10 @@ export class Upgrade {
 
     public getNumberOfPegs() {
         return this.numberOfPegs;
+    }
+
+    public getCost() {
+        return this.cost;
     }
 
     public getElement() {

@@ -10,6 +10,7 @@ export class Game {
     private upgrade: UpgradeScreen;
     private puzzle: Puzzle;
     private socket: SocketIOClient.Socket;
+    private tokens: number;
     public completed: any = {};
 
     /**
@@ -28,8 +29,17 @@ export class Game {
         // Update the buttons if they're unlocked.
         this.socket.on('server:research:update', (data: any) => {
             this.completed = data.upgrades;
+            if (data.tokens) {
+                this.tokens = data.tokens;
+            }
         });
 
+        // Update amount of upgrade tokens.
+        this.socket.on('server:sponsor:update-tokens', (data:any) => {
+            this.tokens = data.tokens;
+        });
+
+        // Redirect when the game is finished.
         this.socket.on('finish', (data:any) => {
             window.location.href = '/finish';
         });
@@ -71,8 +81,20 @@ export class Game {
         this.socket.emit('research:unlock', {upgrade: upgrade.getName()});
     }
 
-    public startGame(): void {
+    /**
+     * Return current amount of tokens.
+     */
+    public getTokens(): number {
+        return this.tokens;
+    }
 
+    /**
+     * Decrease amount of tokens.
+     *
+     * @param amount
+     */
+    public spendTokens(amount:number): void {
+        this.tokens -= amount;
     }
 
     /**
@@ -80,6 +102,11 @@ export class Game {
      */
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
+
+        // Update tokens.
+        if (this.tokens) {
+            document.getElementById('tokens').innerText = 'Upgrade tokens: ' + this.tokens.toString();
+        }
 
         if (!this.dialog) {
             this.dialog = Dialog.getInstance();

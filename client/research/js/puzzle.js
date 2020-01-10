@@ -40,7 +40,6 @@ export class Puzzle {
     }
     show() {
         this.createPegs(this.upgrade.getNumberOfPegs());
-        console.log('answer', this.answer);
     }
     hide() {
         this.start.remove();
@@ -87,6 +86,7 @@ export class Puzzle {
         this.successGif = document.createElement('div');
         this.successGif.classList.add('success-gif');
         document.body.appendChild(this.successGif);
+        Game.getInstance().spendTokens(this.upgrade.getCost());
         setTimeout(() => {
             this.successGif.remove();
             this.hide();

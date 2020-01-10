@@ -1,4 +1,3 @@
-import { Game } from './game.js';
 export class Dialog {
     constructor() {
         this.overlay = document.createElement('div');
@@ -27,7 +26,6 @@ export class Dialog {
         this.element.appendChild(this.button);
     }
     startGame() {
-        Game.getInstance().startGame();
         this.element.remove();
         this.overlay.remove();
     }
