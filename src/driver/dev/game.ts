@@ -119,6 +119,10 @@ export class Game {
             this.scoreElement.innerText = this.lapText;
             this.startTime = Date.now();
             this.inPitstop = false;
+            this.opponent.forEach(opponent => {
+                opponent.remove();
+            });
+            this.opponent = [];
             this.pitstopObject.hide();
             this.pitstopObject = null;
             this.setAnimationState('running');

@@ -66,6 +66,10 @@ export class Game {
             this.scoreElement.innerText = this.lapText;
             this.startTime = Date.now();
             this.inPitstop = false;
+            this.opponent.forEach(opponent => {
+                opponent.remove();
+            });
+            this.opponent = [];
             this.pitstopObject.hide();
             this.pitstopObject = null;
             this.setAnimationState('running');
@@ -170,8 +174,8 @@ export class Game {
             if (!this._car.hit &&
                 this._car._element.getBoundingClientRect().left + 20 < this.opponent[i].element.getBoundingClientRect().right &&
                 this._car._element.getBoundingClientRect().right - 20 > this.opponent[i].element.getBoundingClientRect().left &&
-                this._car._element.getBoundingClientRect().bottom - 20 > this.opponent[i].element.getBoundingClientRect().top &&
-                this._car._element.getBoundingClientRect().top + 20 < this.opponent[i].element.getBoundingClientRect().bottom) {
+                this._car._element.getBoundingClientRect().bottom - 30 > this.opponent[i].element.getBoundingClientRect().top &&
+                this._car._element.getBoundingClientRect().top + 30 < this.opponent[i].element.getBoundingClientRect().bottom) {
                 if (!document.querySelector('.opponentHit')) {
                     this._car.hit = true;
                     const oldSpeed = this.speed;
