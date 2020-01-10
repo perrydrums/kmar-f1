@@ -1,7 +1,6 @@
 import {Quiz} from './quiz.js';
 import {Question} from './question.js';
 import {Difficulty} from './difficulty.js';
-import {threadId} from 'worker_threads';
 
 export class Game {
 
@@ -161,15 +160,18 @@ export class Game {
         let button = document.getElementById(id);
         let correctAnswer = this.currentSetQuestions[this.questionId].getCorrectAnswer();
 
-        button.onclick = function () {
+        button.onclick = () => {
+            // Answer is correct.
             if (correctAnswer === answer) {
                 console.log("Correct!");
                 Game.getInstance().streak++;
 
+                // Add more score in case of a streak.
                 if (Game.getInstance().streak >= 3) {
                     Game.getInstance().quiz.score++;
                 }
 
+                // Raise score based on difficulty.
                 if (Game.getInstance().currentDifficulty == "very easy" || Game.getInstance().currentDifficulty == "easy") {
                     Game.getInstance().quiz.score++;
                 } else if (Game.getInstance().currentDifficulty == "medium" || Game.getInstance().currentDifficulty == "hard") {
@@ -179,7 +181,14 @@ export class Game {
                 } else if (Game.getInstance().currentDifficulty == "extreme") {
                     Game.getInstance().quiz.score = Game.getInstance().quiz.score + 5;
                 }
-            } else {
+
+                // Add upgrade points.
+                this.socket.emit('sponsor:update-tokens', {
+                    tokens: Math.floor(Game.getInstance().quiz.score / 10),
+                });
+            }
+            // Answer is incorrect.
+            else {
                 console.log("Wrong...");
                 Game.getInstance().quiz.score = Game.getInstance().quiz.score - 2;
                 Game.getInstance().streak = 0;

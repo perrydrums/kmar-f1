@@ -102,7 +102,7 @@ export class Game {
     submit(id, answer, nextQuestionId) {
         let button = document.getElementById(id);
         let correctAnswer = this.currentSetQuestions[this.questionId].getCorrectAnswer();
-        button.onclick = function () {
+        button.onclick = () => {
             if (correctAnswer === answer) {
                 console.log("Correct!");
                 Game.getInstance().streak++;
@@ -121,6 +121,9 @@ export class Game {
                 else if (Game.getInstance().currentDifficulty == "extreme") {
                     Game.getInstance().quiz.score = Game.getInstance().quiz.score + 5;
                 }
+                this.socket.emit('sponsor:update-tokens', {
+                    tokens: Math.floor(Game.getInstance().quiz.score / 10),
+                });
             }
             else {
                 console.log("Wrong...");

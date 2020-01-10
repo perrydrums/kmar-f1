@@ -1,4 +1,3 @@
-import {Game} from './game.js';
 import {Upgrade} from './upgrade.js';
 
 export class UpgradeScreen {
@@ -27,11 +26,11 @@ export class UpgradeScreen {
         this.btnContainer.classList.add('btn-container');
         this.start.appendChild(this.btnContainer);
 
-        this.upgrades.push(new Upgrade(1, 'rain-tires', 'Regenbanden', 3));
-        this.upgrades.push(new Upgrade(2, 'engine-upgrade', 'Motor', 4));
-        this.upgrades.push(new Upgrade(3, 'turbo-upgrade', 'Turbo', 4));
-        this.upgrades.push(new Upgrade(4, 'aero-upgrade', 'Aerodynamica', 5));
-        this.upgrades.push(new Upgrade(5, 'fuel-upgrade', 'Super brandstof', 6));
+        this.upgrades.push(new Upgrade(1, 'rain-tires', 'Regenbanden', 3, 1));
+        this.upgrades.push(new Upgrade(2, 'engine-upgrade', 'Motor', 4, 2));
+        this.upgrades.push(new Upgrade(3, 'turbo-upgrade', 'Turbo', 4, 2));
+        this.upgrades.push(new Upgrade(4, 'aero-upgrade', 'Aerodynamica', 5, 2));
+        this.upgrades.push(new Upgrade(5, 'fuel-upgrade', 'Super brandstof', 6, 3));
     }
 
     public getButtonContainer() {

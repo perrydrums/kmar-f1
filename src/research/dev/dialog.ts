@@ -49,7 +49,6 @@ export class Dialog {
     }
 
     public startGame(): void {
-        Game.getInstance().startGame();
         this.element.remove();
         this.overlay.remove();
     }
