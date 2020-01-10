@@ -49,7 +49,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     width: 200px;
-    height: 100px;
+    height: 55px;
 
     position: absolute;
     left: 200px;
@@ -63,7 +63,8 @@ body {
 .tirerack--rain {
     bottom: 400px;
     background-image: url("../img/rack_rain.png");
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .tire {
