@@ -2,8 +2,8 @@ const socketIO = require('socket.io');
 const {setStat, getStat, setUUID, getUUIDs} = require('./db');
 const {addUpgrade} = require('./upgrades');
 
-// Contains all available games.
-const games = ['pitstop', 'gasoline', 'research', 'turbo', 'aero', 'driver'];
+// Contains all available games, sorted on priority.
+const games = ['driver', 'gasoline', 'pitstop', 'turbo', 'aero', 'research', 'sponsor'];
 
 /**
  * Sets up all socket connections.
@@ -55,9 +55,11 @@ const initializeSockets = (http) => {
             }
 
             if (pickNewGame) {
+                const gameList = games.splice(0, await getStat('amountOfPlayers'));
+
                 // Pick a random game for the player.
-                games.sort(() => Math.random() - 0.5);
-                games.forEach(game => {
+                gameList.sort(() => Math.random() - 0.5);
+                gameList.forEach(game => {
                     if (!uuids[game]) {
                         setUUID(game, data.uuid);
                     }
@@ -76,6 +78,9 @@ const initializeSockets = (http) => {
                 names,
                 uuids: newUuids,
             });
+
+            // Redirect all players that are still on the /start page.
+            socket.broadcast.emit('server:start:start');
         });
 
         socket.on('client:waiting:setName', async data => {

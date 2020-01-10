@@ -50,9 +50,21 @@ export class Car {
                 break;
             case 38:
                 this.speedY = -15;
+                if (!this.canGoRight) {
+                    this.speedX = 0;
+                }
+                if (!this.canGoLeft) {
+                    this.speedX = 0;
+                }
                 break;
             case 40:
                 this.speedY = 15;
+                if (!this.canGoRight) {
+                    this.speedX = 0;
+                }
+                if (!this.canGoLeft) {
+                    this.speedX = 0;
+                }
                 break;
             case 39:
                 if (this.canGoRight) {
