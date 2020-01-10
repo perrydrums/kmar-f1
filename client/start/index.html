@@ -12,13 +12,14 @@
 
 <div class="container">
     <h1>KMar Formule 1 Game</h1>
+    <label for="team-name">Onze team naam is:</label>
+    <input type="text" name="teamName" id="team-name" oninput="updateName()"/>
     <p>Met hoeveel spelers wordt het spel gespeeld?</p>
     <div class="button-container">
-        <a href="/new?players=4">4</a>
-        <a href="/new?players=5">5</a>
-        <a href="/new?players=6">6</a>
-        <a href="/new?players=7">7</a>
-<!--        <a href="/new?players=8">8</a>-->
+        <a class="link" href="/new?players=4">4</a>
+        <a class="link" href="/new?players=5">5</a>
+        <a class="link" href="/new?players=6">6</a>
+        <a class="link" href="/new?players=7">7</a>
     </div>
 </div>
 
@@ -32,5 +33,13 @@
   socket.on('server:start:start', () => {
     window.location.href = '/';
   });
+
+  function updateName() {
+    const links = document.querySelectorAll('.link');
+
+    for (let i = 0; i < links.length; i++) {
+      links[i].href = '/new?players=' + (i + 4).toString() + '&teamname=' + document.getElementById('team-name').value;
+    }
+  }
 
 </script>

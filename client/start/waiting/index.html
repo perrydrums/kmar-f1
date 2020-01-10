@@ -12,6 +12,10 @@
 </head>
 <body>
 
+<p id="team-name"></p>
+
+<br><br>
+
 Wachten op andere spelers...
 
 <br><br>
@@ -66,11 +70,14 @@ Wachten op andere spelers...
 
   const playerList = document.getElementById('player-list');
   const roleResult = document.getElementById('role-result');
+  const teamName = document.getElementById('team-name');
 
   let roleByUUID = {};
 
   socket.on('server:waiting:update', data => {
     playerList.innerHTML = '';
+
+    teamName.innerText = data.teamName;
 
     if (data.uuids) {
       const uuidEntries = Object.entries(data.uuids);
