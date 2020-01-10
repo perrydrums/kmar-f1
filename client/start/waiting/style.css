@@ -1,3 +1,66 @@
 .ready {
     color: green;
 }
+
+@font-face {
+    src: url('../../resources/f1.ttf');
+    font-family: 'F1';
+}
+
+* {
+    overflow: hidden;
+}
+
+body {
+    background-image: url('../../resources/bg2.jpg');
+    background-size: cover;
+    color: white;
+    padding: 50px;
+
+    font-family: F1, sans-serif;
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.container-left {
+    flex: 1;
+}
+
+.container-right {
+    flex: 2;
+}
+
+.name-container {
+    border: 2px solid white;
+    padding: 20px;
+    margin: 20px;
+}
+
+input[type='text'] {
+    width: 300px;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 20px 0 0 0;
+    font-family: F1, sans-serif;
+    display: block;
+}

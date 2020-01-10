@@ -12,31 +12,42 @@
 </head>
 <body>
 
-<p id="team-name"></p>
+<div class="header">
+    <h1>Wachten op andere spelers...</h1>
+    <h2>Welkom in team <span id="team-name"></span></h2>
+</div>
+<div class="container">
+    <div class="container-left">
+        <div class="name-container">
+            <label for="name-field"> Wat is je naam?</label>
+            <input type="text" name="name" id="name-field">
+            <p id="name-result"></p>
+        </div>
 
-<br><br>
+        <div class="ready-container">
+            <p>Ben je er klaar voor?</p>
+            <button id="ready-button" onclick="ready()">JA!</button>
+        </div>
 
-Wachten op andere spelers...
+        <div class="player-container">
+            <p>Spelers:</p>
+            <ul id="player-list"></ul>
+        </div>
 
-<br><br>
-
-<label for="name-field"> Wat is je naam?</label>
-<input type="text" name="name" id="name-field">
-<p id="name-result"></p>
-
-<p>Ben je er klaar voor?</p>
-<button id="ready-button" onclick="ready()">JA!</button>
-
-<br><br>
-
-<p id="role-result"></p>
-
-<br><br>
-
-<p>Spelers:</p>
-<ul id="player-list"></ul>
-
-<p id="countdown"></p>
+        <p id="countdown"></p>
+    </div>
+    <div class="container-right">
+        <div class="tutorial-container">
+            <h3>Jij bent de <span id="role-result"></span>!</h3>
+            <p>
+                DESCRIPTION ROLE
+            </p>
+            <p>
+                (VIDEO) TUTORIAL GAME, CONTROLS ETC...
+            </p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
