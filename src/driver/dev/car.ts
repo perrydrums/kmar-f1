@@ -106,10 +106,10 @@ export class Car {
      */
     public update() {
         const blockRight = document.querySelector('.block-right');
-        this.canGoRight = this._element.getBoundingClientRect().right <= blockRight.getBoundingClientRect().left;
+        this.canGoRight = this._element.getBoundingClientRect().right < blockRight.getBoundingClientRect().left - 20;
 
         const blockLeft = document.querySelector('.block-left');
-        this.canGoLeft = this._element.getBoundingClientRect().left >= blockLeft.getBoundingClientRect().right;
+        this.canGoLeft = this._element.getBoundingClientRect().left > blockLeft.getBoundingClientRect().right + 20;
 
         this.posX += this.speedX;
         this.posY += this.speedY;
