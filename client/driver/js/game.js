@@ -100,8 +100,10 @@ export class Game {
         this.startTime = Date.now();
     }
     finish() {
-        this.socket.emit('finish');
-        window.location.href = '/finish';
+        this.socket.emit('driver:finish');
+        setTimeout(() => {
+            window.location.href = '/finish';
+        }, 3000);
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());

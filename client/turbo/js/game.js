@@ -36,7 +36,7 @@ export class Game {
         return Math.floor(Math.random() * (90 - 65 + 1) + 65);
     }
     randomWord() {
-        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "informatiegestuurd", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag", "gebiedsgebonden", "districtsstaven", "koninklijke", "criminaliteit", "terrorisme", "grensoverschrijdend"];
+        const wordArray = ["marechaussee", "kmar", "schiphol", "drugs", "paspoort", "tobs", "kazerne", "veiligheid", "nederland", "grenscontrole", "defensie", "commandant", "baret", "controle", "paresto", "wapen", "wapendag", "koninklijke", "criminaliteit", "terrorisme"];
         return wordArray[Math.floor(Math.random() * wordArray.length)];
     }
     showWord() {
