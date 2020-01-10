@@ -5,7 +5,7 @@ import {Upgrade} from './upgrade.js';
 export class Puzzle {
 
     private static instance: Puzzle;
-    private upgrade: Upgrade;
+    private readonly upgrade: Upgrade;
     private start: HTMLElement;
     public container: HTMLElement;
     public tryCount: number = 4;
@@ -61,9 +61,6 @@ export class Puzzle {
 
     public show() {
         this.createPegs(this.upgrade.getNumberOfPegs());
-
-        // @TODO: Remove before launch.
-        console.log('answer', this.answer);
     }
 
     public hide() {
@@ -124,10 +121,15 @@ export class Puzzle {
      * Runs if the puzzle is completed.
      */
     public success() {
+        // Show success animation.
         this.successGif = document.createElement('div');
         this.successGif.classList.add('success-gif');
         document.body.appendChild(this.successGif);
 
+        // Decrease amount of tokens.
+        Game.getInstance().spendTokens(this.upgrade.getCost());
+
+        // Go back to upgrade screen.
         setTimeout(() => {
             this.successGif.remove();
             this.hide();

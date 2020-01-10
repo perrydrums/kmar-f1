@@ -1,10 +1,10 @@
 export class Question {
-    public id:string;
-        question:string;
-        choices:Array<string>;
-        correctAnswer:string;
+    public id: string;
+    question: string;
+    choices: Array<string>;
+    correctAnswer: string;
 
-    constructor(id:string, question:string, choices:Array<string>, correctAnswer:string) {
+    constructor(id: string, question: string, choices: Array<string>, correctAnswer: string) {
         this.id = id;
         this.question = question;
         this.choices = choices;
@@ -27,7 +27,7 @@ export class Question {
         return this.correctAnswer;
     }
 
-    isCorrectAnswer(choice:string): boolean {
+    isCorrectAnswer(choice: string): boolean {
         return this.correctAnswer === choice;
     }
 }

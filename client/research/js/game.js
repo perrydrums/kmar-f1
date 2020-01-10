@@ -12,6 +12,12 @@ export class Game {
         });
         this.socket.on('server:research:update', (data) => {
             this.completed = data.upgrades;
+            if (data.tokens) {
+                this.tokens = data.tokens;
+            }
+        });
+        this.socket.on('server:sponsor:update-tokens', (data) => {
+            this.tokens = data.tokens;
         });
         this.socket.on('finish', (data) => {
             window.location.href = '/finish';
@@ -33,10 +39,17 @@ export class Game {
         upgrade.unlockButton();
         this.socket.emit('research:unlock', { upgrade: upgrade.getName() });
     }
-    startGame() {
+    getTokens() {
+        return this.tokens;
+    }
+    spendTokens(amount) {
+        this.tokens -= amount;
     }
     gameLoop() {
         requestAnimationFrame(() => this.gameLoop());
+        if (this.tokens) {
+            document.getElementById('tokens').innerText = 'Upgrade tokens: ' + this.tokens.toString();
+        }
         if (!this.dialog) {
             this.dialog = Dialog.getInstance();
             this.dialog.setHTML('<h1>KMar F1 - Research & Development</h1>' +
