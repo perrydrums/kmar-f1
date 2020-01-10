@@ -57,12 +57,14 @@ app.get('/', async (req, res) => {
 
 app.get('/new', async (req, res) => {
     const amountOfPlayers = req.param('players');
-    if (!amountOfPlayers) {
+    const teamName = req.param('teamname');
+    if (!amountOfPlayers || !teamName) {
         res.redirect('/');
         return;
     }
 
     setStat('amountOfPlayers', parseInt(amountOfPlayers));
+    setStat('teamName', teamName);
     setStat('running', true);
 
     res.redirect('/start/waiting');

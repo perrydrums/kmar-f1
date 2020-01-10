@@ -15,7 +15,6 @@ const initializeSockets = (http) => {
     const io = socketIO(http);
 
     io.sockets.on('connection', async socket => {
-        console.log('Socket connected with Client.');
 
         /**
          * Init sockets.
@@ -49,8 +48,6 @@ const initializeSockets = (http) => {
             if (pickNewGame) {
                 const gameList = games.slice(0, await getStat('amountOfPlayers'));
 
-                console.log('games', gameList);
-
                 // Pick a random game for the player.
                 gameList.sort(() => Math.random() - 0.5);
                 gameList.forEach(game => {
@@ -61,15 +58,18 @@ const initializeSockets = (http) => {
             }
 
             const names = await getStat('names');
+            const teamName = await getStat('teamName');
             const newUuids = await getUUIDs();
 
             // Update player names and roles.
             socket.broadcast.emit('server:waiting:update', {
                 names,
+                teamName,
                 uuids: newUuids,
             });
             socket.emit('server:waiting:update', {
                 names,
+                teamName,
                 uuids: newUuids,
             });
 
@@ -86,10 +86,12 @@ const initializeSockets = (http) => {
 
             socket.broadcast.emit('server:waiting:update', {
                 names: await getStat('names'),
+                teamName: await getStat('teamName'),
             });
 
             socket.emit('server:waiting:update', {
                 names: await getStat('names'),
+                teamName: await getStat('teamName'),
             });
         });
 
@@ -222,7 +224,6 @@ const initializeSockets = (http) => {
         });
 
         socket.on('sponsor:update-tokens', async data => {
-            console.log('sponsor:update-tokens');
             const currentTokens = await getStat('tokens');
             if (!currentTokens || currentTokens < data.tokens) {
                 setStat('tokens', data.tokens);
