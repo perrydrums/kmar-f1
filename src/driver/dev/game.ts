@@ -166,8 +166,11 @@ export class Game {
     }
 
     public finish(): void {
-        this.socket.emit('finish');
-        window.location.href = '/finish';
+        this.socket.emit('driver:finish');
+
+        setTimeout(() => {
+            window.location.href = '/finish';
+        }, 3000);
     }
 
     /**

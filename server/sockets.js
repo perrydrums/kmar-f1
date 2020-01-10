@@ -184,6 +184,10 @@ const initializeSockets = (http) => {
             setStat('currentLap', data.lap);
         });
 
+        socket.on('driver:finish', async data => {
+            socket.broadcast.emit('finish');
+        });
+
         /**
          * Aero sockets.
          */
