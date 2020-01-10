@@ -69,7 +69,7 @@ export class Game {
                 this.dialog.setHTML('<h1>KMar F1 - Pitstop</h1>' +
                     '<p>Jij bent verantwoordelijk voor de pitstop. Probeer de snelste tijd neer te zetten.</p>' +
                     '<p>Beweeg met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>' +
-                    '<p>Zet de banden op de auto en vul de auto met benzine.</p>');
+                    '<p>Zet 4 banden op de auto en vul de auto met benzine.</p>');
                 this.dialog.addButton();
             }
         }
