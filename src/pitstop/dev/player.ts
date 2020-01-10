@@ -41,6 +41,7 @@ export class Player {
 
         // Check if player holds gasoline.
         this.hasGasoline ? this._element.classList.add('has-gasoline') : this._element.classList.remove('has-gasoline');
+        this.hasGasoline ? document.getElementById("gasoline").classList.add('withoutHose') : document.getElementById("gasoline").classList.remove('withoutHose');
     }
 
     /**

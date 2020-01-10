@@ -252,7 +252,7 @@ rain-tire {
 
 anvil {
     width:150px; height:115px;
-    background-image: url(../images/anvil.png);
+    background-image: url(../images/anvil2.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -263,19 +263,19 @@ anvil {
 
 .anvil1 {
     width:150px; height:115px;
-    background-image: url(../images/anvil.png);
+    background-image: url(../images/anvil2.png);
     z-index: 999;
 }
 
 .anvil2 {
     width:130px; height:95px;
-    background-image: url(../images/anvil2-d.png);
+    background-image: url(../images/anvil2.png);
     z-index: 998;
 }
 
 .anvil3 {
     width:110px; height:75px;
-    background-image: url(../images/anvil3-d.png);
+    background-image: url(../images/anvil2.png);
     z-index: 997;
 }
 

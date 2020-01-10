@@ -21,6 +21,7 @@ export class Player {
         this._element.style.transform = `translate(${this.posX += this.speedX}px, ${this.posY += this.speedY}px) scaleX(${scaleX})`;
         this.currentTire ? this._element.classList.add('has-tire') : this._element.classList.remove('has-tire');
         this.hasGasoline ? this._element.classList.add('has-gasoline') : this._element.classList.remove('has-gasoline');
+        this.hasGasoline ? document.getElementById("gasoline").classList.add('withoutHose') : document.getElementById("gasoline").classList.remove('withoutHose');
     }
     onKeyDown(e) {
         switch (e.keyCode) {
