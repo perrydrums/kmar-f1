@@ -271,18 +271,22 @@ export class Game {
                     this.speed = 0;
                     this.setAnimationState('paused');
 
+                    const opponentHitWrapper = document.createElement('div');
+                    opponentHitWrapper.id = 'opponentHitWrapper';
                     this.opponentHit = document.createElement('img');
                     this.opponentHit.classList.add('opponentHit');
                     this.opponentHit.src = "";
-                    this.opponentHit.src = "./img/explosion.gif";
-                    document.body.appendChild(this.opponentHit);
+                    this.opponentHit.src = "./img/explosion.gif?a=" + Math.random().toString();
                     this.opponentHit.style.transform = `translate(${this._car.posX - 80}px, ${this._car.posY}px)`;
                     this._car._element.classList.add('blinking');
 
                     this.opponent[i]._element.remove();
 
+                    opponentHitWrapper.appendChild(this.opponentHit);
+                    document.body.appendChild(opponentHitWrapper);
+
                     setTimeout(() => {
-                        this.opponentHit.remove();
+                        document.getElementById('opponentHitWrapper').remove();
                         this._car.hit = false;
                         this._car._element.classList.remove('blinking');
                         this.speed = oldSpeed;
