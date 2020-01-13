@@ -16,8 +16,6 @@ export class Quiz {
         this.quizElement = document.createElement("div");
         this.quizElement.classList.add('quiz');
         document.body.appendChild(this.quizElement);
-
-        console.log('QUIZ');
     }
 
     public async setDifficulties() {
@@ -26,19 +24,12 @@ export class Quiz {
         
         this.jsonData = Object.entries(json);
 
-        console.log("jsonD", this.jsonData);
-
         for (const [difficultyName, questionData] of this.jsonData) {
             this.myDifficulties[difficultyName] = new Difficulty(
                 difficultyName,
                 questionData
             );
-
-            console.log("QD: ", questionData);
         }
-
-        console.log("diffs: ", this.myDifficulties["medium"]);
-        console.log("questions van extreme: ", this.myDifficulties["extreme"].getQuestions());
     }
 
     // public setQuestions(questionData) {

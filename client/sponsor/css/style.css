@@ -18,7 +18,7 @@ body {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 700px;
+    height: 500px;
 }
 
 .quiz{
@@ -39,6 +39,14 @@ body {
 
 .question {
     margin: 5px 200px;
+}
+
+.correct {
+    background-color: #1cd34a !important;
+}
+
+.incorrect {
+    background-color: #e72929 !important;
 }
  
 
@@ -79,10 +87,18 @@ body {
     outline: 10;
 }
  
-#score, #streak {
+#score, #streak, #timer {
     color: #01BBFF;
     text-align: center;
     font-size: 25px;
+    font-family: 'Digits';
+    margin: 5px 50px 5px 0px;
+}
+
+#timer {
+    color: #01BBFF;
+    text-align: center;
+    font-size: 30px;
     font-family: 'Digits';
     margin: 5px 50px 5px 0px;
 }

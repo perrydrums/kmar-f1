@@ -1,6 +1,7 @@
 import {Quiz} from './quiz.js';
 import {Question} from './question.js';
 import {Difficulty} from './difficulty.js';
+import {Timer} from './timer.js';
 import { threadId } from 'worker_threads';
 
 export class Game {
@@ -30,7 +31,11 @@ export class Game {
 
   public questionId:string;
 
+  public nextQuestionId:string;
+
   public streak:number = 0;
+
+  public timer:Timer;
 
   /**
    * Make the constructor private.
@@ -39,9 +44,11 @@ export class Game {
     this._fpsInterval = 1000 / this._fps;
     this._then = Date.now();
     this.quiz = new Quiz();
+    this.timer = new Timer();
     this.currentDifficulty = "easy";
     this.questionId = "1:1";
 
+    this.timer.start();
     this.generateQuiz();
     this.gameLoop();
   }
@@ -63,18 +70,10 @@ export class Game {
   }
 
   public showQuestion() {
-    let currentDifficulty = this.quiz.myDifficulties[this.currentDifficulty].getDifficulty();
-
-    console.log("Current diff: ", currentDifficulty);
     let questions = this.quiz.myDifficulties[this.currentDifficulty].getQuestions();
-    console.log("questions van easy: ", questions);
-
     this.setQuestions(questions);
-    console.log("set questions", this.currentSetQuestions["1:1"]);
 
     let currentQuestion = this.currentSetQuestions[this.questionId];
-
-    console.log("currentQuestion:", currentQuestion);
 
     let element = document.getElementById("question");
     element.innerHTML = currentQuestion.getQuestion();
@@ -106,18 +105,17 @@ export class Game {
       }
 
       let answer = choiceData.answer;
-      let nextQuestionId = choiceData.nextQuestionId;
+      this.nextQuestionId = choiceData.nextQuestionId;
 
       let element = document.getElementById("choice" + i);
       element.innerHTML = choiceData.answer;
 
-      this.submit("btn" + i, answer, nextQuestionId);
+      this.submit("btn" + i, answer, this.nextQuestionId);
     }
   }
 
   public isEnded():boolean {  
     return false;
-    // return this.question.id === this.quiz.myQuestions.finalQuestionId;
   }
 
   public async generateQuiz() {
@@ -126,6 +124,7 @@ export class Game {
     }
     else {
       await this.quiz.setDifficulties();
+      this.isUndifinedQuestionId();
       this.showQuestion();
       this.showChoices();
       this.showDifficulty();
@@ -142,11 +141,49 @@ export class Game {
     this.showScore();
     this.showStreak();
     this.showDifficulty();
-
+    this.timer.reset();
     console.log("Next question!")
   }
+
+  public isTimeIsUp() {
+    if (this.timer.timeIsUp == true) {
+      this.timer.isRunning = false;
+      console.log("tijd op");
+
+      this.givePenalty();
+      this.timer.timeIsUp = false;
+    }
+  }
+
+  public givePenalty() {
+    console.log("penalty");
+    this.quiz.score = Game.getInstance().quiz.score - 2;
+    this.streak = 0;
+    this.getNextQuestion(this.nextQuestionId);
+  }
+
+  public showCorrectOrIncorrect(correctAnswer, answer, button) {
+    this.timer.reset();
+
+    if (correctAnswer === answer) {
+      button.classList.toggle("correct");
   
-  public submit(id, answer, nextQuestionId) {
+      setTimeout(() => {
+        Game.getInstance().getNextQuestion(this.nextQuestionId);
+        button.classList.toggle("correct");
+      }, 1000);
+    }
+    else {
+      button.classList.toggle("incorrect");
+
+      setTimeout(() => {
+        button.classList.toggle("incorrect");
+        Game.getInstance().givePenalty();
+      }, 1000);
+    }
+  }
+  
+  public submit(id, answer) {
     let button = document.getElementById(id);
     let correctAnswer = this.currentSetQuestions[this.questionId].getCorrectAnswer();
 
@@ -161,51 +198,59 @@ export class Game {
 
         if (Game.getInstance().currentDifficulty == "very easy" || Game.getInstance().currentDifficulty == "easy") {
           Game.getInstance().quiz.score ++;
+          Game.getInstance().showCorrectOrIncorrect(correctAnswer, answer, button);
         }
         else if (Game.getInstance().currentDifficulty == "medium" || Game.getInstance().currentDifficulty == "hard") {
           Game.getInstance().quiz.score = Game.getInstance().quiz.score + 2;
+          Game.getInstance().showCorrectOrIncorrect(correctAnswer, answer, button);
+
         }
         else if (Game.getInstance().currentDifficulty == "very hard") {
           Game.getInstance().quiz.score = Game.getInstance().quiz.score + 3;
+          Game.getInstance().showCorrectOrIncorrect(correctAnswer, answer, button);
+
         }
         else if (Game.getInstance().currentDifficulty == "extreme") {
           Game.getInstance().quiz.score = Game.getInstance().quiz.score + 5;
+          Game.getInstance().showCorrectOrIncorrect(correctAnswer, answer, button);
         }
       }
       else {
-        console.log("Wrong...")
-        Game.getInstance().quiz.score = Game.getInstance().quiz.score - 2;
-        Game.getInstance().streak = 0;
+        Game.getInstance().showCorrectOrIncorrect(correctAnswer, answer, button);
       }
-      
-      Game.getInstance().getNextQuestion(nextQuestionId);
+    }
+  }
+
+  public isUndifinedQuestionId(){
+    if (Game.getInstance().questionId == undefined){
+      Game.getInstance().questionId = "1:1";
     }
   }
 
   public changeDifficulty() {
     if (this.quiz.score < 0) {
       Game.getInstance().currentDifficulty = "very easy";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
     if (this.quiz.score >= 10) {
       Game.getInstance().currentDifficulty = "easy";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
     if (this.quiz.score >= 20) {
       Game.getInstance().currentDifficulty = "medium";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
     if (this.quiz.score >= 40) {
       Game.getInstance().currentDifficulty = "hard";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
     if (this.quiz.score >= 65) {
       Game.getInstance().currentDifficulty = "very hard";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
     if (this.quiz.score >= 85) {
       Game.getInstance().currentDifficulty = "extreme";
-      Game.getInstance().questionId = "1:1";
+      this.isUndifinedQuestionId();
     }
   }
 
@@ -229,9 +274,13 @@ export class Game {
    */
   gameLoop() {
     requestAnimationFrame(() => this.gameLoop());
+    console.log("run")
+    this.isTimeIsUp();
 
     // Calculate elapsed time.
     const now = Date.now();
+    this.timer.update();
+
     const elapsed = now - this._then;
 
     if (this.running) {
@@ -258,7 +307,6 @@ export class Game {
   //     }
   //   }
   // }
-
   }
 }
 
