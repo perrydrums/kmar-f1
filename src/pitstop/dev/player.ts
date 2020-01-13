@@ -130,7 +130,7 @@ export class Player {
         const car = Game.getInstance()._car;
         if (car) {
             if (this.isCollision(car._element)) {
-                if (this.currentTire) {
+                if (this.currentTire && car.tires.length < 4) {
                     car.addTire(this.currentTire);
                     this.currentTire = null;
                 }

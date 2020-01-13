@@ -21,8 +21,6 @@ export class Game {
 
     public _car: Car;
 
-    private _carTime: number = 0;
-
     public tires: Tire[] = [];
 
     private player: Player;

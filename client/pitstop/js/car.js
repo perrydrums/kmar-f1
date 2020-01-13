@@ -31,7 +31,7 @@ export class Car {
         }
     }
     update() {
-        if (this.tires.length !== 4 || this.gas <= 45) {
+        if (this.tires.length < 4 || this.gas < 80) {
             this.enter();
         }
         else {

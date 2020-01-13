@@ -8,7 +8,6 @@ import { RainTire } from './rainTire.js';
 export class Game {
     constructor() {
         this._fps = 30;
-        this._carTime = 0;
         this.tires = [];
         this.running = false;
         this.pitstopTimes = {};
