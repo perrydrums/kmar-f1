@@ -3,10 +3,15 @@
     <title>F1 Game</title>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-<a id="start-link" href="/start">Nieuw spel</a>
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+    <a id="start-link" href="/start">Nieuw spel</a>
+</div>
 
 <script>
   const socket = io();
