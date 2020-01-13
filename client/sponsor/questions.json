@@ -108,7 +108,7 @@
             "choices": {
                 "a": { "answer": "Trainingen Op Bijlessen Scholen", "nextQuestionId": "1:4" },
                 "b": { "answer": "Tomaat Op Boter Smeren", "nextQuestionId": "1:4" },
-                "c": { "answer": "Tactisch en Onderoudend Belegeringssysteem ", "nextQuestionId": "1:4" },
+                "c": { "answer": "Tactisch en Onderhoudend Belegeringssysteem ", "nextQuestionId": "1:4" },
                 "d": { "answer": "Tactisch en Operationeel Bevelvoering Systeem", "nextQuestionId": "1:4" }
             },
             "correctAnswer": "Tactisch en Operationeel Bevelvoering Systeem"
