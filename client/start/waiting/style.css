@@ -38,6 +38,7 @@ h3 {
 .container {
     width: 100%;
     display: flex;
+    position: relative;
 }
 
 .container-left {
@@ -65,6 +66,7 @@ input[type='text'] {
     margin: 20px 0 0 0;
     font-family: F1, sans-serif;
     display: block;
+    outline: none;
 }
 
 .ready {
@@ -81,9 +83,41 @@ input[type='text'] {
     background-color: rgba(0, 0, 0, 0.5);
     border: 2px solid white;
     color: white;
+    font-size: 16px;
 }
 
 #ready-button:disabled {
+    opacity: 50%;
+}
+
+#ready-button.ready {
+    color: white;
+    opacity: 100% !important;
     background-color: rgba(74, 255, 0, 0.5);
     border: 2px solid limegreen;
+}
+
+.justify-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#player-list {
+    margin-top: 10px;
+}
+
+#countdown {
+    height: 300px;
+    width: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+
+    font-size: 200px;
 }

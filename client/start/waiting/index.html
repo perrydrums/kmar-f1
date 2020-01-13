@@ -21,16 +21,15 @@
         <div class="block">
             <label for="name-field"> Wat is je naam?</label>
             <input type="text" name="name" id="name-field">
-            <p id="name-result"></p>
+        </div>
+
+        <div class="block justify-content">
+            <h3>Ben je er klaar voor?</h3>
+            <button id="ready-button" onclick="ready()" disabled>JA!</button>
         </div>
 
         <div class="block">
-            Ben je er klaar voor?
-            <button id="ready-button" onclick="ready()">JA!</button>
-        </div>
-
-        <div class="block">
-            <p>Spelers:</p>
+            <h3>Spelers:</h3>
             <ul id="player-list"></ul>
         </div>
 
@@ -63,6 +62,13 @@
 
   const nameField = document.getElementById('name-field');
   nameField.addEventListener('input', e => {
+    if (nameField.value === '') {
+      document.getElementById('ready-button').disabled = 'disabled';
+    }
+    else {
+      document.getElementById('ready-button').disabled = null;
+    }
+
     if (send) {
       send = false;
 
@@ -74,7 +80,6 @@
           uuid,
         });
 
-        document.getElementById('name-result').innerText = 'Hallo, ' + nameField.value + '!';
       }, 2000);
     }
   });
@@ -141,19 +146,22 @@
       countdown.innerText = time.toString();
 
       setInterval(() => {
-        if (time === -1) {
-          window.location.href = '/';
+        if (time >= 0) {
+          if (time === 0) {
+            window.location.href = '/';
+          }
+
+          countdown.innerText = time.toString();
+
+          time--;
         }
-
-        countdown.innerText = time.toString();
-
-        time--;
       }, 1000)
     }
   });
 
   function ready(e) {
     document.getElementById('ready-button').disabled = 'disabled';
+    document.getElementById('ready-button').classList.add('ready');
     socket.emit('client:waiting:ready', { uuid, ready: true });
   }
 
