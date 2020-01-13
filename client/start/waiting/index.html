@@ -12,31 +12,41 @@
 </head>
 <body>
 
-<p id="team-name"></p>
+<div class="header">
+    <h1>Wachten op andere spelers...</h1>
+    <h2>Welkom in team <span id="team-name"></span></h2>
+</div>
+<div class="container">
+    <div class="container-left">
+        <div class="block">
+            <label for="name-field"> Wat is je naam?</label>
+            <input type="text" name="name" id="name-field">
+        </div>
 
-<br><br>
+        <div class="block justify-content">
+            <h3>Ben je er klaar voor?</h3>
+            <button id="ready-button" onclick="ready()" disabled>JA!</button>
+        </div>
 
-Wachten op andere spelers...
+        <div class="block">
+            <h3>Spelers:</h3>
+            <ul id="player-list"></ul>
+        </div>
 
-<br><br>
-
-<label for="name-field"> Wat is je naam?</label>
-<input type="text" name="name" id="name-field">
-<p id="name-result"></p>
-
-<p>Ben je er klaar voor?</p>
-<button id="ready-button" onclick="ready()">JA!</button>
-
-<br><br>
-
-<p id="role-result"></p>
-
-<br><br>
-
-<p>Spelers:</p>
-<ul id="player-list"></ul>
-
-<p id="countdown"></p>
+        <p id="countdown"></p>
+    </div>
+    <div class="container-right">
+        <div class="block">
+            <h3>Jij bent de <span id="role-result"></span>!</h3>
+            <p>
+                DESCRIPTION ROLE
+            </p>
+            <p>
+                (VIDEO) TUTORIAL GAME, CONTROLS ETC...
+            </p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
@@ -52,6 +62,13 @@ Wachten op andere spelers...
 
   const nameField = document.getElementById('name-field');
   nameField.addEventListener('input', e => {
+    if (nameField.value === '') {
+      document.getElementById('ready-button').disabled = 'disabled';
+    }
+    else {
+      document.getElementById('ready-button').disabled = null;
+    }
+
     if (send) {
       send = false;
 
@@ -63,7 +80,6 @@ Wachten op andere spelers...
           uuid,
         });
 
-        document.getElementById('name-result').innerText = 'Hallo, ' + nameField.value + '!';
       }, 2000);
     }
   });
@@ -130,19 +146,22 @@ Wachten op andere spelers...
       countdown.innerText = time.toString();
 
       setInterval(() => {
-        if (time === -1) {
-          window.location.href = '/';
+        if (time >= 0) {
+          if (time === 0) {
+            window.location.href = '/';
+          }
+
+          countdown.innerText = time.toString();
+
+          time--;
         }
-
-        countdown.innerText = time.toString();
-
-        time--;
       }, 1000)
     }
   });
 
   function ready(e) {
     document.getElementById('ready-button').disabled = 'disabled';
+    document.getElementById('ready-button').classList.add('ready');
     socket.emit('client:waiting:ready', { uuid, ready: true });
   }
 
