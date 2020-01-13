@@ -1,5 +1,6 @@
 import {Game} from "./game.js"
 import {Tire} from "./tire.js"
+import {RainTire} from "./rainTire.js";
 
 export class Player {
 
@@ -14,6 +15,8 @@ export class Player {
 
     private currentTire: Tire;
     private hasGasoline: boolean = false;
+
+    private occupied: boolean = false;
 
     public constructor() {
         this._element = document.createElement('div');
@@ -108,21 +111,43 @@ export class Player {
      * Handles collision and interacts with various items.
      */
     private interact(): void {
+        this.occupied = false;
+
         // Gasoline collision detection.
         const gasoline = document.getElementById('gasoline');
         if (this.isCollision(gasoline) && !this.currentTire) {
             this.hasGasoline = !this.hasGasoline;
+            this.occupied = true;
+        }
+
+        // Tire-rack collision detection.
+        const tirerack = document.getElementById('tirerack');
+        const tirerackRain = document.getElementById('tirerack--rain');
+        if (this.isCollision(tirerack) && this.currentTire && !this.occupied) {
+            if (Game.getInstance().tires.length < 4) {
+                Game.getInstance().tires.push(new Tire());
+            }
+            this.currentTire = null;
+            this.occupied = true;
+        }
+        if (this.isCollision(tirerackRain) && this.currentTire instanceof RainTire && !this.occupied) {
+            if (Game.getInstance().tires.length < 4) {
+                Game.getInstance().tires.push(new RainTire());
+            }
+            this.currentTire = null;
+            this.occupied = true;
         }
 
         // Tire collision detection.
         const tires = Game.getInstance().tires;
         for (let i = 0; i < tires.length; i++) {
-            if (this.isCollision(tires[i]._element) && !this.hasGasoline) {
+            if (this.isCollision(tires[i]._element) && !this.hasGasoline && !this.occupied) {
                 if (!this.currentTire) {
                     tires[i].grabbed();
                     this.currentTire = tires[i];
                     Game.getInstance().tires.splice(i, 1);
                 }
+                this.occupied = true;
             }
         }
 
@@ -134,6 +159,7 @@ export class Player {
                     car.addTire(this.currentTire);
                     this.currentTire = null;
                 }
+                this.occupied = true;
             }
         }
     }
