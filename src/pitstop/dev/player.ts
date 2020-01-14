@@ -121,21 +121,27 @@ export class Player {
         }
 
         // Tire-rack collision detection.
+        let tireCount = 0;
+        let rainTireCount = 0;
+        Game.getInstance().tires.forEach((tire: Tire) => {
+            tire instanceof RainTire ? rainTireCount++ : tireCount++;
+        });
+
         const tirerack = document.getElementById('tirerack');
         const tirerackRain = document.getElementById('tirerack--rain');
-        if (this.isCollision(tirerack) && this.currentTire && !this.occupied) {
-            if (Game.getInstance().tires.length < 4) {
+        if (this.isCollision(tirerack) && (this.currentTire && this.currentTire !instanceof RainTire) && !this.occupied) {
+            if (tireCount < 4) {
                 Game.getInstance().tires.push(new Tire());
+                this.currentTire = null;
+                this.occupied = true;
             }
-            this.currentTire = null;
-            this.occupied = true;
         }
         if (this.isCollision(tirerackRain) && this.currentTire instanceof RainTire && !this.occupied) {
-            if (Game.getInstance().tires.length < 4) {
+            if (rainTireCount < 4) {
                 Game.getInstance().tires.push(new RainTire());
+                this.currentTire = null;
+                this.occupied = true;
             }
-            this.currentTire = null;
-            this.occupied = true;
         }
 
         // Tire collision detection.
