@@ -1,71 +1,59 @@
+@font-face {
+    src: url('../font/digits.ttf');
+    font-family: 'Digits';
+}
+
+@font-face {
+    src: url('../font/f1.ttf');
+    font-family: 'F1';
+}
+
 body {
     margin: 0;
+    background: #565279;
+    font-family: 'F1';
 }
 
 .container {
-    position: relative;
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    background-color: grey
-}
-
-.container-left {
-    position: relative;
-    left: 0;
-    background-color: #343543;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 0px;
-}
-
-.race {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    background-image: url('../images/temp-race.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.container-weather {
-    position: relative;
-    width: auto;
-    background-color: #30313e;
-    height: 100%;
-    margin: 15px;
-}
-
-.container-weather p {
-    padding: 15px;
-    margin: 0;
-}
-
-.container-right {
-    position: absolute;
-    position: relative;
-    background-color: #343543;
-    width: 100%;
+    /*background-color: grey;*/
     display: flex;
     flex-wrap: wrap;
-}
-
-.container-right__block {
-    height: 200px;
-    width: 50%;
-    background-color: #30313e;
-}
-
-.container-right__inner {
-    /* padding: 15px; */
-}
-
-.container-right__bottom-block {
+    height: 100vh;
+    position: relative;
     width: 100%;
-    height: 50%;
-    background-color: #30313e;
-    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    padding: 15px;
+    width: 20%;
+}
+
+/*body {*/
+/*    margin: 0;*/
+
+/*}*/
+
+.outerWrapper {
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.outerWrapper svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.outerWrapper svg path {
+    fill:none;
+    stroke:#DABDD8;
+    stroke-width:5;
+    stroke-dasharray:10,10;
+}
+
+.outerWrapper svg polygon {
+    fill:orange;
 }
