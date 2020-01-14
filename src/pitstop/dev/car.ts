@@ -9,12 +9,20 @@ export class Car {
     private y: number = -300;
     public tires: Tire[] = [];
     public done: boolean = false;
+    public checkmarks: HTMLElement[] = [];
 
     public constructor() {
         // Create car element.
         this._element = document.createElement('div');
         this._element.classList.add('car');
         document.body.appendChild(this._element);
+
+        for (let i = 0; i < 4; i ++) {
+            const checkmark = document.createElement('div');
+            checkmark.classList.add('checkmark-' + i.toString());
+            this._element.appendChild(checkmark);
+            this.checkmarks.push(checkmark);
+        }
 
         // Create gasmeter elements.
         this.gasmeterElement = document.createElement('div');
@@ -73,6 +81,12 @@ export class Car {
      */
     public addTire(tire: Tire) {
         this.tires.push(tire);
+
+        const className = '.checkmark-' + (this.tires.length - 1).toString();
+        const element = document.querySelector(className);
+
+        // @ts-ignore.
+        element.innerText = '✅';
     }
 
     /**

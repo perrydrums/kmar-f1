@@ -4,9 +4,16 @@ export class Car {
         this.y = -300;
         this.tires = [];
         this.done = false;
+        this.checkmarks = [];
         this._element = document.createElement('div');
         this._element.classList.add('car');
         document.body.appendChild(this._element);
+        for (let i = 0; i < 4; i++) {
+            const checkmark = document.createElement('div');
+            checkmark.classList.add('checkmark-' + i.toString());
+            this._element.appendChild(checkmark);
+            this.checkmarks.push(checkmark);
+        }
         this.gasmeterElement = document.createElement('div');
         this.gasmeterElement.classList.add('car-gasmeter');
         this._element.appendChild(this.gasmeterElement);
@@ -44,6 +51,9 @@ export class Car {
     }
     addTire(tire) {
         this.tires.push(tire);
+        const className = '.checkmark-' + (this.tires.length - 1).toString();
+        const element = document.querySelector(className);
+        element.innerText = '✅';
     }
     fill() {
         this.gas++;
