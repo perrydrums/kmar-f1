@@ -11,7 +11,7 @@
 body, html {
     margin:0; padding:0;
     width:100vw; height:100vh;
-    background-image: url("../images/bg3-01.png");
+    background-image: url("../images/gas_bg_with_lanes.png");
     background-size: cover;
 }
 
@@ -89,7 +89,6 @@ foreground {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.64);
-    /* background-image: url("../images/start.jpg"); */
     background-size:cover;
     display: flex;
     align-items: center;
@@ -145,19 +144,9 @@ foreground {
     font-family: 'F1';
 }
 
-/* food {
-    width:150px; height:115px;
-    background-image: url(../images/bomb.png);
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: -200px;
-} */
-
 fuel {
     width:170px; height:120px;
-    background-image: url(../images/fuel-big.png);
+    background-image: url(../images/jerrycan1.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -168,34 +157,25 @@ fuel {
 
 .fuel1 {
     width:170px; height:120px;
-    background-image: url(../images/fuel-big.png);
+    background-image: url(../images/jerrycan1.png);
     z-index: 999;
 }
 
 .fuel2 {
     width:140px; height:90px;
-    background-image: url(../images/fuel-big2-d.png);
+    background-image: url(../images/jerrycan2.png);
     z-index: 998;
 }
 
 .fuel3 {
     width:110px; height:70px;
-    background-image: url(../images/fuel-big3-d.png);
+    background-image: url(../images/jerrycan3.png);
     z-index: 997;
 }
 
-small-fuel {
-    width:150px; height:100px;
-    background-image: url(../images/small-bottle.png);
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: -200px;
-}
 
 tire {
-    width:150px; height:150px;
+    width:130px; height:130px;
     background-image: url(../images/wheel1.png);
     background-size:contain;
     background-position: center;
@@ -223,7 +203,7 @@ tire {
 }
 
 rain-tire {
-    width:150px; height:150px;
+    width:130px; height:130px;
     background-image: url(../images/wheel_rain1.png);
     background-size:contain;
     background-position: center;
@@ -234,12 +214,12 @@ rain-tire {
 }
 
 .rain-tire1 {
-    width:150px; height:150px;
+    width:130px; height:130px;
     background-image: url(../images/wheel_rain1.png);
 }
 
 .rain-tire2 {
-    width:130px; height:130px;
+    width:120px; height:120px;
     background-image: url(../images/wheel_rain2.png);
     z-index: 998;
 }
@@ -277,23 +257,6 @@ anvil {
     width:110px; height:75px;
     background-image: url(../images/anvil-lane3.png);
     z-index: 997;
-}
-
-powerup {
-    width:150px; height:180px;
-    background-image: url(../images/power-drink-01.png);
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: absolute;
-    -webkit-animation-name: pulse;
-    animation-name: pulse;
-    top: -250px;
-    right: 0;
-}
-
-.powerupLoading {
-    background-image: url(../images/power-drink-loading-01.png)!important;
 }
 
 score {
