@@ -3,7 +3,6 @@ import { Walking } from './walking.js';
 import { StopWalking } from './stopWalking.js';
 import { Movement } from './movement.js';
 import { Food } from './food.js';
-// import { Powerup } from './powerup.js';
 import { Game } from './game.js';
 
 export class Character {
@@ -15,7 +14,6 @@ export class Character {
     public speedRight:number = 5
     public speedLeft:number = -5
     private food:Food[];
-    // public powerup:Powerup
     public hit:boolean = false;
     characterLane:number = 1;
 
@@ -85,17 +83,6 @@ export class Character {
                 }
             }
         }
-
-        // if(
-        //     this.htmlElement.getBoundingClientRect().left < this.powerup.element.getBoundingClientRect().right &&
-        //     this.htmlElement.getBoundingClientRect().right > this.powerup.element.getBoundingClientRect().left &&
-        //     this.htmlElement.getBoundingClientRect().bottom > this.powerup.element.getBoundingClientRect().top &&
-        //     this.htmlElement.getBoundingClientRect().top < this.powerup.element.getBoundingClientRect().bottom &&
-        //     this.powerup.now
-        // ){
-        //     this.powerup.action();
-        //     Game.getInstance().powerup = true;
-        // }
 
         if(this.posx >= window.innerWidth - 120){
             this.speedRight = 0;

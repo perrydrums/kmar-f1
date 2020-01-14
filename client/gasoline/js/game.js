@@ -64,8 +64,6 @@ export class Game {
             this.socket.emit('gasoline:update', { tire: true });
         }
     }
-    showScore() {
-    }
     gameLoop() {
         const now = Date.now();
         const elapsed = now - this._then;
