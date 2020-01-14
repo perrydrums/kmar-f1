@@ -1,15 +1,21 @@
 import { Anvil } from './anvil.js';
 import { Game } from './game.js';
+import { Tire } from './tire.js';
 
 export class Food {
-    
+
     protected _element: HTMLElement
+    protected _shadowElement: HTMLElement
     public posy:number = -200;
     public posx:number
     protected speed:number
     protected game:Game
-        
-    constructor() {
+    lane:number
+    stopLaneHeight:number
+
+    constructor(lane:number) {
+        this.lane = lane;
+
         this.posx = Math.random() * (window.innerWidth - 300);
         this.speed = Math.random() * 5 + 1;
 
@@ -17,8 +23,17 @@ export class Food {
     }
 
     public update():void {
-        if(this.posy >= window.innerHeight){
+        if(this.lane === 1){
+            this.stopLaneHeight = 0;
+        } else if(this.lane === 2){
+            this.stopLaneHeight = -80;
+        } else if(this.lane === 3) {
+            this.stopLaneHeight = -160;
+        }
+
+        if(this.posy >= window.innerHeight + this.stopLaneHeight){
             if (this instanceof Anvil) {
+                this.remove();
                 this.subject.unsubscribe(this);
             }
             this.remove();

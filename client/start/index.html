@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <title>F1 - Start</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>KMar Formule 1 Game</h1>
+    <label for="team-name">Onze team naam is:</label>
+    <input type="text" name="teamName" id="team-name" oninput="updateName()"/>
+    <p>Met hoeveel spelers wordt het spel gespeeld?</p>
+    <div class="button-container">
+        <a class="link" href="/new?players=4">4</a>
+        <a class="link" href="/new?players=5">5</a>
+        <a class="link" href="/new?players=6">6</a>
+        <a class="link" href="/new?players=7">7</a>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+
+  const socket = io();
+
+  socket.on('server:start:start', () => {
+    window.location.href = '/';
+  });
+
+  function updateName() {
+    const links = document.querySelectorAll('.link');
+
+    for (let i = 0; i < links.length; i++) {
+      links[i].href = '/new?players=' + (i + 4).toString() + '&teamname=' + document.getElementById('team-name').value;
+    }
+  }
+
+</script>

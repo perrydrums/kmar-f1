@@ -1,89 +1,138 @@
-import { Dialog } from './dialog.js'
-import { Upgrade } from './upgrade.js'
+import {Dialog} from './dialog.js'
+import {UpgradeScreen} from './upgradeScreen.js'
+import {Puzzle} from './puzzle.js';
+import {Upgrade} from './upgrade.js';
 
 export class Game {
 
-  private static _instance:Game;
+    private static _instance: Game;
+    private dialog: Dialog;
+    private upgrade: UpgradeScreen;
+    private puzzle: Puzzle;
+    private socket: SocketIOClient.Socket;
+    private tokens: number;
+    public completed: any = {};
 
-  /**
-   * The speed, in frames per second, the game runs at.
-   */
-  private _fps:number = 30;
+    /**
+     * Make the constructor private.
+     */
+    private constructor() {
+        this.upgrade = UpgradeScreen.getInstance();
+        this.upgrade.show();
 
-  private _fpsInterval:number;
+        this.socket = io();
 
-  private _then:number;
+        this.socket.emit('research:start', {
+            uuid: this.getCookie('uuid'),
+        });
 
-  private running:boolean = false;
+        // Update the buttons if they're unlocked.
+        this.socket.on('server:research:update', (data: any) => {
+            this.completed = data.upgrades;
+            if (data.tokens) {
+                this.tokens = data.tokens;
+            }
+        });
 
-  private dialog:Dialog;
+        // Update amount of upgrade tokens.
+        this.socket.on('server:sponsor:update-tokens', (data:any) => {
+            this.tokens = data.tokens;
+        });
 
-  private upgrade:Upgrade;
+        // Redirect when the game is finished.
+        this.socket.on('finish', (data:any) => {
+            window.location.href = '/finish';
+        });
 
-  /**
-   * Make the constructor private.
-   */
-  private constructor() {
-      this._fpsInterval = 1000 / this._fps;
-      this._then = Date.now();
-      Upgrade.getInstance().show();
-
-      this.gameLoop();
-  }
-
-  /**
-   * There can always only be one Game instance.
-   * 
-   * @returns {Game}
-   */
-  public static getInstance():Game {
-    if (!this._instance) {
-      this._instance = new Game();
+        this.gameLoop();
     }
-    return this._instance;
-  }
 
-  public startGame():void {
-    
-  }
-  
-  /**
-   * Runs approx. {this._fps} times a second.
-   */
-  gameLoop() {
-    requestAnimationFrame(() => this.gameLoop());
-
-    // Calculate elapsed time.
-    const now = Date.now();
-    const elapsed = now - this._then;
-
-    if (this.running) {
-      // If enough time has elapsed, draw the next frame.
-      if (elapsed > this._fpsInterval) {
-
-        
-
-        // Get ready for next frame by setting then=now, but...
-        // Also, adjust for fpsInterval not being multiple of 16.67
-        this._then = now - (elapsed % this._fpsInterval);
-      }
+    /**
+     * There can always only be one Game instance.
+     *
+     * @returns {Game}
+     */
+    public static getInstance(): Game {
+        if (!this._instance) {
+            this._instance = new Game();
+        }
+        return this._instance;
     }
-    else {
-      if (!this.dialog) {
-        this.dialog = Dialog.getInstance();
-        this.dialog.setHTML(
-          '<h1>KMar F1 - Research & Development</h1>' +
-          '<p>Jij bent verantwoordelijk voor de pitstop. Probeer de snelste tijd neer te zetten.</p>' +
-          '<p>Beweeg met de pijltjestoetsen en pak spullen vast met de spatiebalk.</p>' +
-          '<p>Zet de banden op de auto en vul de auto met benzine.</p>'
-        );
-        this.dialog.addButton();
-      }
+
+    /**
+     * Creates a new puzzle.
+     *
+     * @param upgrade
+     */
+    public newPuzzle(upgrade: Upgrade): void {
+        this.puzzle = new Puzzle(upgrade);
+        this.puzzle.show();
     }
-  }
+
+    /**
+     * Unlocks the upgrade of set level.
+     *
+     * @param {Upgrade} upgrade
+     */
+    public unlock(upgrade: Upgrade): void {
+        this.completed[upgrade.getName()] = true;
+        upgrade.unlockButton();
+
+        this.socket.emit('research:unlock', {upgrade: upgrade.getName()});
+    }
+
+    /**
+     * Return current amount of tokens.
+     */
+    public getTokens(): number {
+        return this.tokens;
+    }
+
+    /**
+     * Decrease amount of tokens.
+     *
+     * @param amount
+     */
+    public spendTokens(amount:number): void {
+        this.tokens -= amount;
+    }
+
+    /**
+     * Runs approx. {this._fps} times a second.
+     */
+    gameLoop() {
+        requestAnimationFrame(() => this.gameLoop());
+
+        // Update tokens.
+        if (this.tokens) {
+            document.getElementById('tokens').innerText = 'Upgrade tokens: ' + this.tokens.toString();
+        }
+
+        if (!this.dialog) {
+            this.dialog = Dialog.getInstance();
+            this.dialog.setHTML(
+                '<h1>KMar F1 - Research & Development</h1>' +
+                '<p>Jij bent verantwoordelijk voor de upgrades. Klik op de rondjes om een andere afbeelding te kiezen.</p>' +
+                '<p>Wanneer je de puzzel niet haalt binnen de 4 pogingen ga je terug naar het overzicht.</p>'
+            );
+            this.dialog.addButton();
+        }
+    }
+
+    /**
+     * Get cookie by name.
+     *
+     * @param name
+     */
+    private getCookie(name: string) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+        return null;
+    }
 
 }
 
 window.addEventListener("load", () => {
-  Game.getInstance()
+    Game.getInstance()
 });

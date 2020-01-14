@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <title>F1 - Sponsor</title>
+</head>
+<body>
+
+<div class="grid">
+    <div class="sponsor">
+        <div id="sponsor"></div>
+        <!-- <div id="textbubble"></div> -->
+    </div>
+    <div id="quiz" class="quiz">
+
+        <div class="question">
+            <p id="difficulty"></p>
+            <p id="question"></p>
+        </div>
+
+        <div id=timer>20</div>
+
+        <div class="buttons">
+            <button id="btna"><span id="choicea"></span></button>
+            <button id="btnb"><span id="choiceb"></span></button>
+            <button id="btnc"><span id="choicec"></span></button>
+            <button id="btnd"><span id="choiced"></span></button>
+        </div>
+
+        <div class="score">
+            <p id="score"></p>
+            <p id="streak"></p>
+        </div>
+    </div>
+</div>
+<script src="./js/game.js" type="module"></script>
+
+</body>
+</html>

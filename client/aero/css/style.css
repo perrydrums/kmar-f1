@@ -19,43 +19,72 @@ body {
 }
 
 .number {
-  width: 30px;
-  height: 30px;
   position: absolute;
   transform: rotate(90deg);
   font-family: 'F1';
   color: white;
   font-size: 26px;
+  text-shadow: 2px 2px black;
 }
 
 .number-1 {
-  top: 455px;
-  left: 330px;
+  top: 445px;
+  left: 340px;
 }
 
 .number-2 {
-  top: 345px;
-  left: 300px;
+  top: 340px;
+  left: 305px;
 }
 
 .number-3 {
-  top: 235px;
-  left: 330px;
+  top: 230px;
+  left: 335px;
 }
 
 .number-4 {
-  top: 140px;
+  top: 135px;
   left: 355px;
 }
 
 .number-5 {
-  top: 45px;
+  top: 40px;
   left: 350px;
 }
 
 .question-mark {
-  top: -35px;
+  font-size: 40px;
+  top: -45px;
   left: 345px;
+  width: auto;
+  height: auto;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+  font-family: F1;
+  color: white;
+  font-size: 80px;
+  padding: 20px;
+}
+
+.answer {
+  padding: 20px;
+  border: 5px solid white;
+  border-radius: 10px;
+  margin-right: 20px;
+  background: #555555;
+  text-shadow: 4px 4px black;
+  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.5);
+}
+
+.correct {
+  background: limegreen;
+}
+
+.incorrect {
+  background: tomato;
 }
 
 .car-overlay {

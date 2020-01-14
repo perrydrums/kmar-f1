@@ -1,18 +1,22 @@
 export class Tire {
 
-  public _element:HTMLElement;
+    public _element: HTMLElement;
 
-  public constructor() {
-    this._element = document.createElement('div');
-    this._element.classList.add('tire');
-    document.getElementById('tirerack').appendChild(this._element);
-  }
+    public constructor() {
+        this.show();
+    }
 
-  /**
-   * Runs if the player has grabbed the tire from the tirerack.
-   */
-  public grabbed() {
-    this._element.remove();
-  }
+    public show() {
+        this._element = document.createElement('div');
+        this._element.classList.add('tire');
+        document.getElementById('tirerack').appendChild(this._element);
+    }
+
+    /**
+     * Runs if the player has grabbed the tire from the tirerack.
+     */
+    public grabbed() {
+        this._element.remove();
+    }
 
 }

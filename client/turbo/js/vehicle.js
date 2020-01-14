@@ -22,6 +22,8 @@ export class Vehicle {
     checkCollision() {
         if (this.posx > window.innerWidth - this.element.clientWidth) {
             this.game.winner(this);
+            this.posx = 0;
+            this.game.stopGame();
         }
     }
     update() {

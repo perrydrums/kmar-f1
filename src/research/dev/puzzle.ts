@@ -1,96 +1,139 @@
-import { Peg } from './peg.js';
+import {Peg} from './peg.js';
+import {Game} from './game.js';
+import {Upgrade} from './upgrade.js';
 
 export class Puzzle {
 
-    private static instance: Puzzle
-    private start:HTMLElement
-    public container:HTMLElement
-    public successGif:HTMLElement
-    public pegs:Peg[] = [];
-    public pegContainer:HTMLElement;
-    public pegDiv:HTMLElement;
-    public button:HTMLElement;
-    private answer:number[] = [];
-    private correct:number[] = [0, 0, 0, 0];
+    private static instance: Puzzle;
+    private readonly upgrade: Upgrade;
+    private start: HTMLElement;
+    public container: HTMLElement;
+    public tryCount: number = 4;
+    public tryCountContainer: HTMLElement;
+    public successGif: HTMLElement;
+    public pegs: Peg[] = [];
+    public pegContainer: HTMLElement;
+    public pegDiv: HTMLElement;
+    public button: HTMLElement;
+    private answer: number[] = [];
+    private correct: number[] = [];
 
-    private constructor() {
-        this.start = document.createElement('div')
-        this.start.classList.add('container-puzzle')
+    constructor(upgrade: Upgrade) {
+        this.upgrade = upgrade;
+
+        this.start = document.createElement('div');
+        this.start.classList.add('container-puzzle');
         document.body.appendChild(this.start);
 
-        this.container = document.createElement('div')
-        this.container.classList.add('inner-container-puzzle')
-        this.start.appendChild(this.container)
+        const backButton = document.createElement('button');
+        backButton.classList.add('backButton');
+        backButton.innerText = 'Terug';
+        backButton.addEventListener('click', () => {
+            this.hide();
+        });
+        this.start.appendChild(backButton);
 
-        this.pegContainer = document.createElement('div')
-        this.pegContainer.classList.add('pegContainer')
-        this.container.appendChild(this.pegContainer)
+        this.tryCountContainer = document.createElement('div');
+        this.tryCountContainer.classList.add('try-count');
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+        this.start.appendChild(this.tryCountContainer);
 
-        this.pegDiv = document.createElement('div')
-        this.container.classList.add('pegs')
-        this.container.appendChild(this.pegDiv)
+        this.container = document.createElement('div');
+        this.container.classList.add('inner-container-puzzle');
+        this.start.appendChild(this.container);
 
-        this.button = document.createElement('button')
-        this.button.classList.add('button-submit')
-        this.button.innerText = "Submit"
-        this.pegDiv.appendChild(this.button)
+        this.pegContainer = document.createElement('div');
+        this.pegContainer.classList.add('pegContainer');
+        this.container.appendChild(this.pegContainer);
+
+        this.pegDiv = document.createElement('div');
+        this.container.classList.add('pegs');
+        this.container.appendChild(this.pegDiv);
+
+        this.button = document.createElement('button');
+        this.button.classList.add('button-submit');
+        this.button.innerText = "Verzenden";
+        this.pegDiv.appendChild(this.button);
         this.button.addEventListener('click', () => {
             this.checkAnswer();
         })
-        
-    }
-
-    public static getInstance() {
-        if (!this.instance) {
-            this.instance = new Puzzle()
-        }
-        return this.instance;
     }
 
     public show() {
-        this.createPegs(4);
-        console.log('answer', this.answer);
-        
+        this.createPegs(this.upgrade.getNumberOfPegs());
     }
 
-    public createPegs(amount:number) {
-        for (let i = 0; i < amount; i ++) {
+    public hide() {
+        this.start.remove();
+        this.container.remove();
+        this.pegContainer.remove();
+        this.pegDiv.remove();
+        this.button.remove();
+    }
+
+    /**
+     * Create {amount} amount of pegs.
+     *
+     * @param {number} amount
+     */
+    public createPegs(amount: number) {
+        for (let i = 0; i < amount; i++) {
             const random: number = Math.floor(Math.random() * 4) + 1;
             this.answer.push(random);
             this.pegs.push(new Peg(random));
         }
     }
 
+    /**
+     * Check if the answer is correct.
+     */
     public checkAnswer() {
+        this.tryCount--;
+        this.tryCountContainer.innerText = 'Pogingen: ' + this.tryCount;
+
+        if (this.tryCount === 0) {
+            this.hide();
+        }
+
         this.pegs.forEach((peg, key) => {
-            peg.htmlElement.classList.remove('correct-peg')
-            peg.htmlElement.classList.remove('almost-peg')
-            peg.htmlElement.classList.remove('wrong-peg')
+            peg.htmlElement.classList.remove('correct-peg');
+            peg.htmlElement.classList.remove('almost-peg');
+            peg.htmlElement.classList.remove('wrong-peg');
 
             if (peg.amount === this.answer[key]) {
                 this.correct[key] = 2;
                 peg.htmlElement.classList.add('correct-peg')
-            }
-            else if (this.answer.includes(peg.amount)) {
+            } else if (this.answer.includes(peg.amount)) {
                 this.correct[key] = 1;
                 peg.htmlElement.classList.add('almost-peg')
-            }
-            else {
+            } else {
                 this.correct[key] = 0;
                 peg.htmlElement.classList.add('wrong-peg')
             }
         });
 
-        if (JSON.stringify(this.correct) === JSON.stringify([2, 2, 2, 2])) {
+        if (!(this.correct.includes(0) || this.correct.includes(1))) {
             this.success();
         }
-
-        console.log('correct', this.correct);
     }
 
-    public success(){
-        this.successGif = document.createElement('div')
-        this.successGif.classList.add('success-gif')
-        document.body.appendChild(this.successGif)
+    /**
+     * Runs if the puzzle is completed.
+     */
+    public success() {
+        // Show success animation.
+        this.successGif = document.createElement('div');
+        this.successGif.classList.add('success-gif');
+        document.body.appendChild(this.successGif);
+
+        // Decrease amount of tokens.
+        Game.getInstance().spendTokens(this.upgrade.getCost());
+
+        // Go back to upgrade screen.
+        setTimeout(() => {
+            this.successGif.remove();
+            this.hide();
+            Game.getInstance().unlock(this.upgrade);
+        }, 2000);
     }
 }

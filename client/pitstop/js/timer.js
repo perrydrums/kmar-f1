@@ -24,6 +24,9 @@ export class Timer {
             }
         }
     }
+    getTime() {
+        return this.time;
+    }
     count() {
         this.time = new Date().getTime() - this.startTime;
     }

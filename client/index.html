@@ -1,23 +1,41 @@
-<html>
-  <head>
+<html lang="en">
+<head>
+    <title>F1 Game</title>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  </head>
-  <body>
-    <a href="/pitstop">PITSTOP</a>
-    <a href="/research">Research & Development</a>
-    <a href="/aero">AERO</a>
-    <a href="/gasoline">GASOLINE</a>
-    <script>
-        const socket = io();
-        const uuid = Cookies.get('uuid');
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
 
-        socket.emit('client:start', { uuid });
+<div class="container">
+    <div class="text">
+        <div class="title">KMar F1 Game</div>
+        <div class="subtitle">Lukt het jouw team om aan de top van het scorebord te komen?</div>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <a id="start-link" href="/start">Nieuw spel</a>
+</div>
 
-        socket.on('server:save_uuid', data => {
-          Cookies.set('uuid', data.uuid);
-        });
-    </script>
-  </body>
+<script>
+  const socket = io();
+  const uuid = Cookies.get('uuid');
+
+  socket.emit('client:start', {uuid});
+
+  socket.on('server:client:checkGame', data => {
+    if (data.running) {
+      document.getElementById('start-link').innerText = 'Meedoen met bestaand spel';
+    }
+    else {
+      document.getElementById('start-link').innerText = 'Nieuw spel';
+    }
+  });
+
+  socket.on('server:start:start', () => {
+    window.location.href = '/';
+  });
+</script>
+</body>
 </html>
 

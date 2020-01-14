@@ -1,0 +1,761 @@
+{
+    "very easy" : {
+        "1:1": {
+            "question": "Wat stelt het logo van de Koninklijke Marechaussee voor?",
+            "choices": {
+                "a": { "answer": "Een boom", "nextQuestionId": "1:2" },
+                "b": { "answer": "Een bezem", "nextQuestionId": "1:2" },
+                "c": { "answer": "Een springende granaat", "nextQuestionId": "1:2" },
+                "d": { "answer": "Een borstel", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "Een springende granaat"
+        },
+        "1:2": {
+            "question": "Wat is GEEN voordeel dat TOBS heeft voor medewerkers?",
+            "choices": {
+                "a": { "answer": "Medewerkers hoeven minder werk te doen", "nextQuestionId": "1:3" },
+                "b": { "answer": "Medewerkers krijgen werk dat bij hun past", "nextQuestionId": "1:3" },
+                "c": { "answer": "Makkelijker diensten ruilen", "nextQuestionId": "1:3" },
+                "d": { "answer": "Makkelijker verlof aanvragen", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "Medewerkers hoeven minder werk te doen"
+        },
+        "1:3": {
+            "question": "Hoe heet de Nederlandse F1-coureur?",
+            "choices": {
+                "a": { "answer": "Michael Schumacher", "nextQuestionId": "1:4" },
+                "b": { "answer": "Max Verstappen", "nextQuestionId": "1:4" },
+                "c": { "answer": "Max Vermeulen", "nextQuestionId": "1:4" },
+                "d": { "answer": "Marco Borsato", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "Max Verstappen"
+        },
+        "1:4": {
+            "question": "Wat is een bekende F1-sponsor?",
+            "choices": {
+                "a": { "answer": "Koninklijke Marechaussee", "nextQuestionId": "1:5" },
+                "b": { "answer": "Sony", "nextQuestionId": "1:5" },
+                "c": { "answer": "McDonald's", "nextQuestionId": "1:5" },
+                "d": { "answer": "Exact", "nextQuestionId": "1:5" }
+            },
+            "correctAnswer": "Exact"
+        },
+        "1:5": {
+            "question": "Waar staat de Frederikkazerne?",
+            "choices": {
+                "a": { "answer": "In Rotterdam", "nextQuestionId": "1:6" },
+                "b": { "answer": "In Den Dolder", "nextQuestionId": "1:6" },
+                "c": { "answer": "In Utrecht", "nextQuestionId": "1:6" },
+                "d": { "answer": "In Den Haag", "nextQuestionId": "1:6" }
+            },
+            "correctAnswer": "In Den Haag"
+        },
+        "1:6": {
+            "question": "Wat is GEEN Nederlands Krijgsmachtdeel?",
+            "choices": {
+                "a": { "answer": "Koninklijke Politie", "nextQuestionId": "1:7" },
+                "b": { "answer": "Koninklijke Marechaussee", "nextQuestionId": "1:7" },
+                "c": { "answer": "Koninklijke Marine", "nextQuestionId": "1:7" },
+                "d": { "answer": "Koninklijke Landmacht", "nextQuestionId": "1:7" }
+            },
+            "correctAnswer": "Koninklijke Politie"
+        },
+        "1:7": {
+            "question": "Hoeveel personen kunnen er in een F1-auto?",
+            "choices": {
+                "a": { "answer": "1", "nextQuestionId": "1:1" },
+                "b": { "answer": "2", "nextQuestionId": "1:1" },
+                "c": { "answer": "0", "nextQuestionId": "1:1" },
+                "d": { "answer": "9", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Koninklijke Politie"
+        }
+    },
+
+    "easy" : {
+        "1:1": {
+            "question": "Waar staat IGO voor?",
+            "choices": {
+                "a": { "answer": "Indirect gestuurde onderhoud", "nextQuestionId": "1:2" },
+                "b": { "answer": "Informatie gekregen operatie", "nextQuestionId": "1:2" },
+                "c": { "answer": "Informatie gestuurd optreden", "nextQuestionId": "1:2" },
+                "d": { "answer": "Informatie genomen oponthoud", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "Informatie gestuurd optreden"
+        },
+        "1:2": {
+            "question": "We willen over naar IGO, maar hoe werd er voorheen gewerkt?",
+            "choices": {
+                "a": { "answer": "Gebiedsgebonden aansturing", "nextQuestionId": "2:1" },
+                "b": { "answer": "Ongevallen gestuurd optreden", "nextQuestionId": "1:3" },
+                "c": { "answer": "Noodgevallen gebonden optreden", "nextQuestionId": "1:3" },
+                "d": { "answer": "Er was geen nog werksysteem", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "Gebiedsgebonden aansturing"
+        },
+        "2:1": {
+            "question": "Waarom is gebiedsgebonden werken geen goede manier van werken meer?",
+            "choices": {
+                "a": { "answer": "Het kost te veel geld", "nextQuestionId": "1:3" },
+                "b": { "answer": "Het duurt te lang voordat er actie wordt genomen", "nextQuestionId": "1:3" },
+                "c": { "answer": "Noodgevallen gebonden optreden", "nextQuestionId": "1:3" },
+                "d": { "answer": "Criminaliteit treden steeds vaker internationaal op", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "Criminaliteit treden steeds vaker internationaal op"
+        },
+        "1:3": {
+            "question": "Waar staat TOBS voor?",
+            "choices": {
+                "a": { "answer": "Trainingen Op Bijlessen Scholen", "nextQuestionId": "1:4" },
+                "b": { "answer": "Tomaat Op Boter Smeren", "nextQuestionId": "1:4" },
+                "c": { "answer": "Tactisch en Onderhoudend Belegeringssysteem ", "nextQuestionId": "1:4" },
+                "d": { "answer": "Tactisch en Operationeel Bevelvoering Systeem", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "Tactisch en Operationeel Bevelvoering Systeem"
+        },
+        "1:4": {
+            "question": "Waar gaat TOBS NIET voor zorgen?",
+            "choices": {
+                "a": { "answer": "Dat we beter kunnen sturen op effecten", "nextQuestionId": "1:5" },
+                "b": { "answer": "Dat we sneller optreden aan de hand van informatie", "nextQuestionId": "1:5" },
+                "c": { "answer": "Dat we sneller paspoorten kunnen identificeren", "nextQuestionId": "1:5" },
+                "d": { "answer": "Dat we slimmer samenwerken in ketens en netwerken", "nextQuestionId": "1:5" }
+            },
+            "correctAnswer": "Dat we sneller paspoorten kunnen identificeren"
+        },
+        "1:5": {
+            "question": "Waar staat LTC voor?",
+            "choices": {
+                "a": { "answer": "Land Tank Centrum", "nextQuestionId": "1:6" },
+                "b": { "answer": "Landelijk Tactisch Commando", "nextQuestionId": "1:6" },
+                "c": { "answer": "Leger Taken Centrum", "nextQuestionId": "1:6" },
+                "d": { "answer": "Landelijke Taken Commando", "nextQuestionId": "1:6" }
+            },
+            "correctAnswer": "Landelijk Tactisch Commando"
+        },        
+        "1:6": {
+            "question": "Waar in Nederland staat het LTC?",
+            "choices": {
+                "a": { "answer": "In Apeldoorn", "nextQuestionId": "1:7" },
+                "b": { "answer": "In Den Haag", "nextQuestionId": "1:7" },
+                "c": { "answer": "In Bilthoven", "nextQuestionId": "1:7" },
+                "d": { "answer": "In Soesterberg", "nextQuestionId": "1:7" }
+            },
+            "correctAnswer": "In Soesterberg"
+        },        
+        "1:7": {
+            "question": "Wat is GEEN kerntaak van de KMar?",
+            "choices": {
+                "a": { "answer": "Grenspolitietaak", "nextQuestionId": "1:8" },
+                "b": { "answer": "Bewaken en beveiligen", "nextQuestionId": "1:8" },
+                "c": { "answer": "Verkeer regelen", "nextQuestionId": "1:8" },
+                "d": { "answer": "Internationale en militaire politietaken", "nextQuestionId": "1:8" }
+            },
+            "correctAnswer": "Verkeer regelen"
+        },
+        "1:8": {
+            "question": "Waar wordt  de KMar onder andere voor ingezet?",
+            "choices": {
+                "a": { "answer": "Cyberveiligheid", "nextQuestionId": "1:9" },
+                "b": { "answer": "Tijdelijke forensisch onderzoek", "nextQuestionId": "1:9" },
+                "c": { "answer": "Bijdrage aan de bewaking van de EU buitengrens", "nextQuestionId": "1:9" },
+                "d": { "answer": "Alle eerder genoemde antwoorden", "nextQuestionId": "1:9" }
+            },
+            "correctAnswer": "Alle eerder genoemde antwoorden"
+        },
+        "1:9": {
+            "question": "Wat was de aanleiding van de oprichting van het LTC?",
+            "choices": {
+                "a": { "answer": "Het was tijd voor iets nieuws", "nextQuestionId": "1:10" },
+                "b": { "answer": "Het werken in districten veroorzaakte veel prioriteitsproblemen", "nextQuestionId": "1:10" },
+                "c": { "answer": "Het is veiliger", "nextQuestionId": "1:10" },
+                "d": { "answer": "19", "nextQuestionId": "1:10" }
+            },
+            "correctAnswer": "Het werken in districten veroorzaakte veel problemen"
+        },
+        "1:10": {
+            "question": "Wat is de betekenis van de geruite vlag bij de F1?",
+            "choices": {
+                "a": { "answer": "De laatste ronde begint", "nextQuestionId": "1:11" },
+                "b": { "answer": "Einde van de race", "nextQuestionId": "3:1" },
+                "c": { "answer": "Er is geen betekenis", "nextQuestionId": "1:11" },
+                "d": { "answer": "Start van de race", "nextQuestionId": "1:11" }
+            },
+            "correctAnswer": "Einde van de race"
+        },
+        "3:1": {
+            "question": "Wat is de betekenis van de gele vlag bij de F1?",
+            "choices": {
+                "a": { "answer": "Er ligt gevaar op of nabij de weg", "nextQuestionId": "1:11" },
+                "b": { "answer": "De coureur moet naar de pitstop rijden", "nextQuestionId": "1:11" },
+                "c": { "answer": "De weg is veilig van gevaar", "nextQuestionId": "1:11" },
+                "d": { "answer": "Start van de race", "nextQuestionId": "1:11" }
+            },
+            "correctAnswer": "Er ligt gevaar op of nabij de weg"
+        },
+        "1:11": {
+            "question": "Wat is GEEN locatie waar de Marechaussee-eenheden zijn gelokaliseerd?",
+            "choices": {
+                "a": { "answer": "Zuid-Holland", "nextQuestionId": "1:12" },
+                "b": { "answer": "Caribisch gebied", "nextQuestionId": "1:12" },
+                "c": { "answer": "Groningen", "nextQuestionId": "1:12" },
+                "d": { "answer": "Friesland", "nextQuestionId": "1:12" }
+            },
+            "correctAnswer": "Friesland"
+        },
+        "1:12": {
+            "question": "Wat is een bekende bandenfabrikant in de F1?",
+            "choices": {
+                "a": { "answer": "Peugeot", "nextQuestionId": "1:13" },
+                "b": { "answer": "Pirelli", "nextQuestionId": "1:13" },
+                "c": { "answer": "Bocelli", "nextQuestionId": "1:13" },
+                "d": { "answer": "KMar", "nextQuestionId": "1:13" }
+            },
+            "correctAnswer": "Pirelli"
+        },
+        "1:13": {
+            "question": "Wat heeft TOBS te maken met de Formule 1?",
+            "choices": {
+                "a": { "answer": "TOBS wordt een sponsor bij de Red Bull F1-team", "nextQuestionId": "1:1" },
+                "b": { "answer": "Het werken bij TOBS is net zo leuk als in een F1-team", "nextQuestionId": "1:1" },
+                "c": { "answer": "Het werken bij TOBS is vergelijkbaar met een F1-team", "nextQuestionId": "1:1" },
+                "d": { "answer": "Niks", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Het werken bij TOBS is vergelijkbaar met een F1-team"
+        }
+    },
+
+    "medium" : {
+        "1:1": {
+            "question": "Door wie werd de KMar opgericht?",
+            "choices": {
+                "a": { "answer": "Door Koning Willem I", "nextQuestionId": "1:2" },
+                "b": { "answer": "Door Koning Willem II", "nextQuestionId": "1:2" },
+                "c": { "answer": "Door Koningin Beatrix", "nextQuestionId": "1:2" },
+                "d": { "answer": "Door de KMar zelf", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "Door Koning Willem I"
+        },
+        "1:2": {
+            "question": "Wie is de huidige commandant van de Marechaussee?",
+            "choices": {
+                "a": { "answer": "H. van den Brink", "nextQuestionId": "1:3" },
+                "b": { "answer": "J.A.J. Leijtens", "nextQuestionId": "1:3" },
+                "c": { "answer": "Koning Willem-Alexander", "nextQuestionId": "1:3" },
+                "d": { "answer": "Niemand", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "J.A.J. Leijtens"
+        },
+        "1:3": {
+            "question": "Vallen er veel of weinig aambeelden in de benzinegame? (Hint: vraag het aan de speler die de benzine game speelt)",
+            "choices": {
+                "a": { "answer": "Veel", "nextQuestionId": "1:4" },
+                "b": { "answer": "Weinig", "nextQuestionId": "1:4" },
+                "c": { "answer": "Er vallen geen aambeelden", "nextQuestionId": "1:4" },
+                "d": { "answer": "Er valleen alleen maar aambeelden", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "Veel"
+        },
+        "1:4": {
+            "question": "Welke motorfabrikant doet mee bij de F1?",
+            "choices": {
+                "a": { "answer": "Ferrari", "nextQuestionId": "1:5" },
+                "b": { "answer": "Mercedes", "nextQuestionId": "1:5" },
+                "c": { "answer": "Renault", "nextQuestionId": "1:5" },
+                "d": { "answer": "Alle eerder genoemde antwoorden", "nextQuestionId": "1:5" }
+            },
+            "correctAnswer": "17"
+        },
+        "1:5": {
+            "question": "En hoe oud was hij toen hij voor het eerst een Grand-Prix won?",
+            "choices": {
+                "a": { "answer": "18", "nextQuestionId": "1:6" },
+                "b": { "answer": "17", "nextQuestionId": "1:6" },
+                "c": { "answer": "16", "nextQuestionId": "1:6" },
+                "d": { "answer": "19", "nextQuestionId": "1:6" }
+            },
+            "correctAnswer": "18"
+        },
+        "1:6": {
+            "question": "Welke kleuren heeft de F1-raceauto van de coureurgame?",
+            "choices": {
+                "a": { "answer": "Groen met gele en roze strepen", "nextQuestionId": "1:7" },
+                "b": { "answer": "Rood met blauwe en witte strepen", "nextQuestionId": "1:7" },
+                "c": { "answer": "Wit met blauwe en rode strepen", "nextQuestionId": "1:7" },
+                "d": { "answer": "Roze met oranje en groene strepen", "nextQuestionId": "1:7" }
+            },
+            "correctAnswer": "Wit met blauwe en rode strepen"
+        },
+        "1:7": {
+            "question": "Welke kleur heeft de helm van de coureur in de coureurgame?",
+            "choices": {
+                "a": { "answer": "Lichtgrijs", "nextQuestionId": "1:2" },
+                "b": { "answer": "Felrood", "nextQuestionId": "1:1" },
+                "c": { "answer": "Donkerblauw", "nextQuestionId": "1:1" },
+                "d": { "answer": "Roze", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Lichtgrijs"
+        },
+        "1:8": {
+            "question": "Waarvoor dienen de wings en spoilers op een F1-auto?",
+            "choices": {
+                "b": { "answer": "Zodat de auto harder geluid kan maken", "nextQuestionId": "1:9" },
+                "a": { "answer": "Zodat de auto scherpere bochten kan maken", "nextQuestionId": "1:9" },
+                "c": { "answer": "Zodat de auto niet van de grond gaat", "nextQuestionId": "1:9" },
+                "d": { "answer": "Zodat de auto sneller door de bocht kan rijden", "nextQuestionId": "1:9" }
+            },
+            "correctAnswer": "Zodat de auto niet van de grond gaat"
+        },
+        "1:9": {
+            "question": "Wat is GEEN materieel van de Koninklijke Marechaussee?",
+            "choices": {
+                "b": { "answer": "Patrouillemotoren", "nextQuestionId": "1:10" },
+                "a": { "answer": "Gepantserde Toyota Landcruisers", "nextQuestionId": "1:10" },
+                "c": { "answer": "Patrouillevaartuigen", "nextQuestionId": "1:10" },
+                "d": { "answer": "Gepantserde Gazellefietsen", "nextQuestionId": "1:10" }
+            },
+            "correctAnswer": "Gepantserde Gazellefietsen"
+        },
+        "1:10": {
+            "question": "Waar zijn de Marechaussee-eenheden niet gelokaliseerd?",
+            "choices": {
+                "a": { "answer": "Zuid-Holland", "nextQuestionId": "1:11" },
+                "b": { "answer": "Caribisch gebied", "nextQuestionId": "1:11" },
+                "c": { "answer": "Groningen", "nextQuestionId": "1:11" },
+                "d": { "answer": "Friesland", "nextQuestionId": "1:11" }
+            },
+            "correctAnswer": "Friesland"
+        },
+        "1:11": {
+            "question": "Waar zijn de algemene taken van de Marechaussee vastgelegd?",
+            "choices": {
+                "a": { "answer": "In de grondwet", "nextQuestionId": "1:12" },
+                "b": { "answer": "In artikel 4 van de Politiewet 2012", "nextQuestionId": "1:12" },
+                "c": { "answer": "In artikel 3 van de Veiligheidswet BES", "nextQuestionId": "1:12" },
+                "d": { "answer": "Ze zijn nergens vastgelegd", "nextQuestionId": "1:12" }
+            },
+            "correctAnswer": "In artikel 4 van de Politiewet 2012"
+        },
+        "1:12": {
+            "question": "Hoeveel beleidspunten heeft het IGO?",
+            "choices": {
+                "a": { "answer": "5", "nextQuestionId": "1:13" },
+                "b": { "answer": "6", "nextQuestionId": "1:13" },
+                "c": { "answer": "7", "nextQuestionId": "1:13" },
+                "d": { "answer": "8", "nextQuestionId": "4:1" }
+            },
+            "correctAnswer": "8"
+        },
+        "4:1": {
+            "question": "Wat is niet 1 van de 8 beleidspunten van IGO?",
+            "choices": {
+                "a": { "answer": "Ruimte voor nieuw vakmanschap", "nextQuestionId": "1:13" },
+                "b": { "answer": "De komst van het LTC", "nextQuestionId": "1:13" },
+                "c": { "answer": "Werken vanuit meerdere districten", "nextQuestionId": "1:13" },
+                "d": { "answer": "Van gebiedsgebonden naar informatiegestuurd", "nextQuestionId": "1:13" }
+            },
+            "correctAnswer": "Werken vanuit meerdere districten"
+        },
+        "1:13": {
+            "question": "Waar wordt dit type beleid al toegepast?",
+            "choices": {
+                "a": { "answer": "In het Verenigd Koninkrijk", "nextQuestionId": "5:1" },
+                "b": { "answer": "In de Verenigde Staten", "nextQuestionId": "1:14" },
+                "c": { "answer": "In Duitsland", "nextQuestionId": "1:14" },
+                "d": { "answer": "In Noord-Korea", "nextQuestionId": "1:14" }
+            },
+            "correctAnswer": "In het Verenigd Koninkrijk"
+        },
+        "5:1": {
+            "question": "Hoe wordt dat beleid daar genoemd?",
+            "choices": {
+                "a": { "answer": "Information-Driven performance", "nextQuestionId": "5:2" },
+                "b": { "answer": "Intelligence-Driven performance", "nextQuestionId": "5:2" },
+                "c": { "answer": "Incel-Led Policing", "nextQuestionId": "5:2" },
+                "d": { "answer": "Intelligence-Led Policing", "nextQuestionId": "5:2" }
+            },
+            "correctAnswer": "Intelligence-Led Policing"
+        },
+        "5:2": {
+            "question": "Waar wordt dit type beleid nog meer gebruikt?",
+            "choices": {
+                "a": { "answer": "Bij de F1", "nextQuestionId": "1:14" },
+                "b": { "answer": "FBI", "nextQuestionId": "1:14" },
+                "c": { "answer": "Koninklijke Marine", "nextQuestionId": "1:14" },
+                "d": { "answer": "Nationale Politie", "nextQuestionId": "5:3" }
+            },
+            "correctAnswer": "Nationale Politie"
+        },
+        "5:3": {
+            "question": "Hoe wordt dit bij de Nationale Politie genoemd?",
+            "choices": {
+                "a": { "answer": "Informatiegestuurd politiewerk", "nextQuestionId": "1:14" },
+                "b": { "answer": "Informatiegestuurd optreden", "nextQuestionId": "1:14" },
+                "c": { "answer": "Gebiedsgebonden aansturing", "nextQuestionId": "1:14" },
+                "d": { "answer": "Intelligentiegestuurd politiewerk", "nextQuestionId": "1:14" }
+            },
+            "correctAnswer": "Informatiegestuurd politiewerk"
+        },
+        "1:14": {
+            "question": "Welke F1-coureur klokte de meeste snelste rondes tijdens een Grand Prix?",
+            "choices": {
+                "a": { "answer": "Fernando Alonso", "nextQuestionId": "1:15" },
+                "b": { "answer": "Lewis Hamilton", "nextQuestionId": "1:15" },
+                "c": { "answer": "Max Verstappen", "nextQuestionId": "1:15" },
+                "d": { "answer": "Michael Schumacher", "nextQuestionId": "1:15" }
+            },
+            "correctAnswer": "Informatiegestuurd politiewerk"
+        },
+        "1:15": {
+            "question": "En welke F1-coureur heeft als enige 9 races achter elkaar gewonnen?",
+            "choices": {
+                "a": { "answer": "Michael Schumacher", "nextQuestionId": "1:16" },
+                "b": { "answer": "Nico Rosberg", "nextQuestionId": "1:16" },
+                "c": { "answer": "Sebastian Vettel", "nextQuestionId": "1:16" },
+                "d": { "answer": "Jos Verstappen", "nextQuestionId": "1:16" }
+            },
+            "correctAnswer": "Informatiegestuurd politiewerk"
+        },
+        "1:16": {
+            "question": "In welke maand beginnen seizoenen bij de F1?",
+            "choices": {
+                "a": { "answer": "Maart", "nextQuestionId": "1:17" },
+                "b": { "answer": "September", "nextQuestionId": "1:17" },
+                "c": { "answer": "Januari", "nextQuestionId": "1:17" },
+                "d": { "answer": "December", "nextQuestionId": "1:17" }
+            },
+            "correctAnswer": "Maart"
+        },
+        "1:17": {
+            "question": "In welke maand eindigen seizoenen bij de F1?",
+            "choices": {
+                "a": { "answer": "Juni", "nextQuestionId": "1:18" },
+                "b": { "answer": "Oktober", "nextQuestionId": "1:18" },
+                "c": { "answer": "Januari", "nextQuestionId": "1:18" },
+                "d": { "answer": "December", "nextQuestionId": "1:18" }
+            },
+            "correctAnswer": "December"
+        },
+        "1:18": {
+            "question": "Hoeveel auto's moeten er deelnemen aan een seizoen bij de F1?",
+            "choices": {
+                "a": { "answer": "Minimaal 18", "nextQuestionId": "1:19" },
+                "b": { "answer": "Minimaal 20", "nextQuestionId": "1:19" },
+                "c": { "answer": "Minmaal 23", "nextQuestionId": "1:19" },
+                "d": { "answer": "Minimaal 1", "nextQuestionId": "1:19" }
+            },
+            "correctAnswer": "Minimaal 18"
+        },
+        "1:19": {
+            "question": "Hoeveel kilometer moet er worden afgelegd bij een race bij de F1?",
+            "choices": {
+                "a": { "answer": "Minimaal 300", "nextQuestionId": "1:20" },
+                "b": { "answer": "Minimaal 250", "nextQuestionId": "1:20" },
+                "c": { "answer": "Minmaal 200", "nextQuestionId": "1:20" },
+                "d": { "answer": "Meer dan 9000!", "nextQuestionId": "1:20" }
+            },
+            "correctAnswer": "Minimaal 300"
+        },
+        "1:20": {
+            "question": "Wanneer is een uitzondering hierop?",
+            "choices": {
+                "a": { "answer": "Bij regen en crashes", "nextQuestionId": "1:1" },
+                "b": { "answer": "Bij een te weinig aantal deelnemers", "nextQuestionId": "1:1" },
+                "c": { "answer": "Bij een te groot aantal deelnemers", "nextQuestionId": "1:1" },
+                "d": { "answer": "Bij te warm weer", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Minimaal 300"
+        }
+
+    },
+
+    "hard" : {
+        "1:1": {
+            "question": "Op welke datum werd de Marechaussee opgericht?",
+            "choices": {
+                "a": { "answer": "31 februari 1969", "nextQuestionId": "1:2" },
+                "b": { "answer": "28 augustus 1814", "nextQuestionId": "1:2" },
+                "c": { "answer": "26 oktober 1814", "nextQuestionId": "1:2" },
+                "d": { "answer": "16 november 1994", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "26 oktober 1814"
+        },
+        "1:2": {
+            "question": "Wie wees de beveiligingstaak van de koninklijke paleizen toe aan de KMar?",
+            "choices": {
+                "a": { "answer": "Koningin Beatrix", "nextQuestionId": "1:3" },
+                "b": { "answer": "Koningin Wilhelmina", "nextQuestionId": "1:3" },
+                "c": { "answer": "Koning Willem-Alexander", "nextQuestionId": "1:3" },
+                "d": { "answer": "Koning Willem II", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "Koningin Wilhelmina"
+        },
+        "1:3": {
+            "question": "Wat is de hoogste snelheid dat ooit werd gehaald in een F1-race?",
+            "choices": {
+                "a": { "answer": "289 km/u", "nextQuestionId": "1:4" },
+                "b": { "answer": "378 km/u", "nextQuestionId": "1:4" },
+                "c": { "answer": "399 km/u", "nextQuestionId": "1:4" },
+                "d": { "answer": "369 km/u", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "378 km/u"
+        },
+        "1:4": {
+            "question": "Waar staat het Museum der Koninklijke Marechaussee?",
+            "choices": {
+                "a": { "answer": "In Rotterdam", "nextQuestionId": "1:5" },
+                "b": { "answer": "In Apeldoorn", "nextQuestionId": "1:5" },
+                "c": { "answer": "In Amsterdam", "nextQuestionId": "1:5" },
+                "d": { "answer": "In Buren", "nextQuestionId": "1:5" }
+            },
+            "correctAnswer": "In Buren"
+        },
+        "1:5": {
+            "question": "Hoeveel races heeft Max Verstappen gewonnen in 2017?",
+            "choices": {
+                "a": { "answer": "1", "nextQuestionId": "1:6" },
+                "b": { "answer": "2", "nextQuestionId": "1:6" },
+                "c": { "answer": "3", "nextQuestionId": "1:6" },
+                "d": { "answer": "0", "nextQuestionId": "1:6" }
+            },
+            "correctAnswer": "2"
+        },
+        "1:6": {
+            "question": "Wie heeft de meeste kampioenschappen gewonnen in de F1 Grand Prix?",
+            "choices": {
+                "b": { "answer": "Michael Schumacher", "nextQuestionId": "1:7" },
+                "a": { "answer": "Max Verstappen", "nextQuestionId": "1:7" },
+                "c": { "answer": "Lewis Hamilton", "nextQuestionId": "1:7" },
+                "d": { "answer": "Ayrton Senna", "nextQuestionId": "1:7" }
+            },
+            "correctAnswer": "Michael Schumacher"
+        },
+        "1:7": {
+            "question": "Wie was wereldkampioen in 2018 in de F1?",
+            "choices": {
+                "b": { "answer": "Lewis Hamilton", "nextQuestionId": "1:8" },
+                "a": { "answer": "Michael Schumacher", "nextQuestionId": "1:8" },
+                "c": { "answer": "Kimi Räikkönen", "nextQuestionId": "1:8" },
+                "d": { "answer": "Valtteri Bottas", "nextQuestionId": "1:8" }
+            },
+            "correctAnswer": "Lewis Hamilton"
+        },
+        "1:8": {
+            "question": "Waar verwijst het woord FORMULE in Formule 1 naar?",
+            "choices": {
+                "b": { "answer": "Een geheim", "nextQuestionId": "1:9" },
+                "a": { "answer": "Een set van regels", "nextQuestionId": "1:9" },
+                "c": { "answer": "Naar de auto's", "nextQuestionId": "1:9" },
+                "d": { "answer": "Nergens naar", "nextQuestionId": "1:9" }
+            },
+            "correctAnswer": "Een set van regels"
+        },
+        "1:9": {
+            "question": "Hoeveel militairen werken er bij de KMar?",
+            "choices": {
+                "b": { "answer": "Ongeveer 5000", "nextQuestionId": "1:10" },
+                "a": { "answer": "Ongeveer 6000", "nextQuestionId": "1:10" },
+                "c": { "answer": "Ongeveer 7000", "nextQuestionId": "1:10" },
+                "d": { "answer": "Over de 9000!", "nextQuestionId": "1:10" }
+            },
+            "correctAnswer": "Ongeveer 6000"
+        },
+        "1:10": {
+            "question": "En hoeveel burgers werken er bij de KMar?",
+            "choices": {
+                "b": { "answer": "Ongeveer 470", "nextQuestionId": "1:11" },
+                "a": { "answer": "Ongeveer 500", "nextQuestionId": "1:11" },
+                "c": { "answer": "Ongeveer 560", "nextQuestionId": "1:11" },
+                "d": { "answer": "Over de 9000!", "nextQuestionId": "1:11" }
+            },
+            "correctAnswer": "Ongeveer 560"
+        },
+        "1:11": {
+            "question": "Hoeveel verschillende teams zijn er bij de F1 actief?",
+            "choices": {
+                "b": { "answer": "20", "nextQuestionId": "1:12" },
+                "a": { "answer": "15", "nextQuestionId": "1:12" },
+                "c": { "answer": "12", "nextQuestionId": "1:12" },
+                "d": { "answer": "10", "nextQuestionId": "1:12" }
+            },
+            "correctAnswer": "10"
+        },
+        "1:12": {
+            "question": "En hoeveel verschillende coureurs zijn er in totaal actief in de F1?",
+            "choices": {
+                "b": { "answer": "10", "nextQuestionId": "1:13" },
+                "a": { "answer": "15", "nextQuestionId": "1:13" },
+                "c": { "answer": "20", "nextQuestionId": "1:13" },
+                "d": { "answer": "30", "nextQuestionId": "1:13" }
+            },
+            "correctAnswer": "20"
+        },
+        "1:13": {
+            "question": "Welke F1-coureur heeft de meeste Grand Prix achter zijn naam staan?",
+            "choices": {
+                "b": { "answer": "Fernando Alonso", "nextQuestionId": "1:14" },
+                "a": { "answer": "Rubens Barrichello", "nextQuestionId": "1:14" },
+                "c": { "answer": "Jenson Button", "nextQuestionId": "1:14" },
+                "d": { "answer": "Michael Schumacher", "nextQuestionId": "1:14" }
+            },
+            "correctAnswer": "Rubens Barrichello"
+        },
+        "1:14": {
+            "question": "Welke rentsal leverde de eerste wereldkampioen in de F1?",
+            "choices": {
+                "b": { "answer": "Mercedes", "nextQuestionId": "1:15" },
+                "a": { "answer": "Alfa Romeo", "nextQuestionId": "1:15" },
+                "c": { "answer": "Maserati", "nextQuestionId": "1:15" },
+                "d": { "answer": "Lamborghini", "nextQuestionId": "1:15" }
+            },
+            "correctAnswer": "Alfa Romeo"
+        },
+        "1:15": {
+            "question": "Welke F1-coureur heeft het vaakst op het podium gestaan zonder ook maar 1 race te winnen?",
+            "choices": {
+                "b": { "answer": "Romain Grosjaen", "nextQuestionId": "1:16" },
+                "a": { "answer": "Sergio Perez", "nextQuestionId": "1:16" },
+                "c": { "answer": "Nick Heidfeld", "nextQuestionId": "1:16" },
+                "d": { "answer": "Jos Verstappen", "nextQuestionId": "1:16" }
+            },
+            "correctAnswer": "Nick Heidfeld"
+        },
+        "1:16": {
+            "question": "Welk circuit heeft de snelste rondetijd?",
+            "choices": {
+                "b": { "answer": "Indianapolis Motor Speedway", "nextQuestionId": "1:17" },
+                "a": { "answer": "Nürburgring", "nextQuestionId": "1:17" },
+                "c": { "answer": "Bahrain International Circuit", "nextQuestionId": "1:17" },
+                "d": { "answer": "Circuit de Monaco", "nextQuestionId": "1:17" }
+            },
+            "correctAnswer": "Indianapolis Motor Speedway"
+        },
+        "1:17": {
+            "question": "Waar wordt traditioneel de openings Grand Prix gereden?",
+            "choices": {
+                "b": { "answer": "Maleisië", "nextQuestionId": "1:18" },
+                "a": { "answer": "Australië", "nextQuestionId": "1:18" },
+                "c": { "answer": "Nederland", "nextQuestionId": "1:18" },
+                "d": { "answer": "Monaco", "nextQuestionId": "1:18" }
+            },
+            "correctAnswer": "Australië"
+        },
+        "1:18": {
+            "question": "Welke heeft de grootste bezoekerscapaciteit?",
+            "choices": {
+                "b": { "answer": "Imola", "nextQuestionId": "1:19" },
+                "a": { "answer": "Monte Carlo", "nextQuestionId": "1:19" },
+                "c": { "answer": "Sakhir", "nextQuestionId": "1:19" },
+                "d": { "answer": "Spa-Francordchamps", "nextQuestionId": "1:19" }
+            },
+            "correctAnswer": "Spa-Francordchamps"
+        },
+        "1:19": {
+            "question": "Op welke circuit worden de meeste rondes gereden?",
+            "choices": {
+                "b": { "answer": "Circuit Gilles-Villeneuve", "nextQuestionId": "1:1" },
+                "a": { "answer": "Shanghai International Circuit", "nextQuestionId": "1:1" },
+                "c": { "answer": "Hockenheimring", "nextQuestionId": "1:1" },
+                "d": { "answer": "Op de A2", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Circuit Gilles-Villeneuve"
+        }
+    },
+
+    "very hard" : {
+        "1:1": {
+            "question": "In welk jaar werd tot oprichting van de nieuwe Formule 1-klasse besloten?",
+            "choices": {
+                "a": { "answer": "In 1956", "nextQuestionId": "1:2" },
+                "b": { "answer": "In 1841", "nextQuestionId": "1:2" },
+                "c": { "answer": "In 1994", "nextQuestionId": "1:2" },
+                "d": { "answer": "In 1946", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "In 1946"
+        },
+        "1:2": {
+            "question": "In welk jaar werd World Drivers' Championsship pas officieel?",
+            "choices": {
+                "a": { "answer": "In 1841", "nextQuestionId": "1:3" },
+                "b": { "answer": "In 1950", "nextQuestionId": "1:3" },
+                "c": { "answer": "In 1947", "nextQuestionId": "1:3" },
+                "d": { "answer": "In 1946", "nextQuestionId": "1:3" }
+            },
+            "correctAnswer": "In 1947"
+        },
+        "1:3": {
+            "question": "Wie won het eerste wereldkampioenschap Formule 1?",
+            "choices": {
+                "a": { "answer": "Michael Schumacher", "nextQuestionId": "1:4" },
+                "b": { "answer": "Giuseppe Farina", "nextQuestionId": "2:4" },
+                "c": { "answer": "Giorgio Bocelli", "nextQuestionId": "1:4" },
+                "d": { "answer": "Enzo Ferrari", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "Giuseppe Farina"
+        },
+        "2:1": {
+            "question": "In welk jaar was dat?",
+            "choices": {
+                "a": { "answer": "In 1950", "nextQuestionId": "2:2" },
+                "b": { "answer": "In 1947", "nextQuestionId": "2:2" },
+                "c": { "answer": "In 1949", "nextQuestionId": "2:2" },
+                "d": { "answer": "In 1946", "nextQuestionId": "2:2" }
+            },
+            "correctAnswer": "In 1950"
+        },
+        "2:2": {
+            "question": "Met welke auto won hij?",
+            "choices": {
+                "a": { "answer": "Renault RS01", "nextQuestionId": "1:4" },
+                "b": { "answer": "Alfa Romeo Alfetta 159", "nextQuestionId": "1:4" },
+                "c": { "answer": "Ferrari 250 GTO", "nextQuestionId": "1:4" },
+                "d": { "answer": "Peugeot 208", "nextQuestionId": "1:4" }
+            },
+            "correctAnswer": "Alfa Romeo Alfetta 159"
+        },
+        "1:4": {
+            "question": "Hoeveel actieve jaren heeft de F1 tot nu toe?",
+            "choices": {
+                "a": { "answer": "80", "nextQuestionId": "1:5" },
+                "b": { "answer": "50", "nextQuestionId": "1:5" },
+                "c": { "answer": "69", "nextQuestionId": "1:5" },
+                "d": { "answer": "70", "nextQuestionId": "1:5" }
+            },
+            "correctAnswer": "70"
+        },
+        "1:5": {
+            "question": "Welke constructeur is kampioen in 2019 bij de F1?",
+            "choices": {
+                "a": { "answer": "Mercedes", "nextQuestionId": "1:1" },
+                "b": { "answer": "Ferrari", "nextQuestionId": "1:1" },
+                "c": { "answer": "Honda", "nextQuestionId": "1:1" },
+                "d": { "answer": "Renault", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Mercedes"
+        }
+
+    },
+
+    "extreme" : {
+        "1:1": {
+            "question": "Welk kampioenschap heeft Ericsson vóór de F1 gewonnen?",
+            "choices": {
+                "a": { "answer": "Geen", "nextQuestionId": "1:2" },
+                "b": { "answer": "Japanse F3", "nextQuestionId": "1:2" },
+                "c": { "answer": "Grand Prix 2", "nextQuestionId": "1:2" },
+                "d": { "answer": "Japanse F2", "nextQuestionId": "1:2" }
+            },
+            "correctAnswer": "Grand Prix 2"
+        },
+        "1:2": {
+            "question": "Wat is het doel van het leven?",
+            "choices": {
+                "a": { "answer": "Leven", "nextQuestionId": "1:1" },
+                "b": { "answer": "Rijk worden", "nextQuestionId": "1:1" },
+                "c": { "answer": "Zo veel mogelijk leren", "nextQuestionId": "1:1" },
+                "d": { "answer": "TOBS", "nextQuestionId": "1:1" }
+            },
+            "correctAnswer": "Leven"
+        }
+    }
+}
