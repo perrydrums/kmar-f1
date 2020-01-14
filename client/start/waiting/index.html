@@ -128,11 +128,12 @@
     const entries = Object.entries(data.uuids);
 
     for (const [uuid, ready] of entries) {
-      if (ready) {
-        document.getElementById(uuid).classList.add('ready');
+      const element = document.getElementById(uuid);
+      if (ready && element) {
+        element.classList.add('ready');
       }
-      else {
-        document.getElementById(uuid).classList.remove('ready');
+      else if (element) {
+        element.classList.remove('ready');
       }
     }
   });

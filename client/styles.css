@@ -1,24 +1,23 @@
 @font-face {
-    src: url('../resources/f1.ttf');
+    src: url('./resources/f1.ttf');
     font-family: 'F1';
 }
 
 @font-face {
-    src: url('../resources/f1bold.ttf');
+    src: url('./resources/f1bold.ttf');
     font-family: 'F1';
     font-weight: bold;
 }
 
 body {
-    background-image: url('../resources/bg2.jpg');
+    background-image: url('./resources/bg2.jpg');
     background-size: cover;
 }
 
 .right {
     position: absolute;
-    background: url('../resources/bgright.jpg');
     background-size: cover;
-    background-position: center;
+    background: url('./resources/bgright.jpg') center;
     width: 50%;
     height: 100%;
     top: 0;
@@ -28,9 +27,8 @@ body {
 .left {
     display: block;
     position: absolute;
-    background: url('../resources/bgleft.jpg');
     background-size: cover;
-    background-position: right center;
+    background: url('./resources/bgleft.jpg') right center;
     width: 50%;
     height: 100%;
     top: 0;
@@ -86,7 +84,7 @@ body {
 }
 
 #start-link {
-    font-family: 'F1';
+    font-family: 'F1', sans-serif;
     color: white;
     text-decoration: none;
     font-size: 32px;

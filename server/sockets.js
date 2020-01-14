@@ -50,11 +50,12 @@ const initializeSockets = (http) => {
 
                 // Pick a random game for the player.
                 gameList.sort(() => Math.random() - 0.5);
-                gameList.forEach(game => {
-                    if (!uuids[game]) {
-                        setUUID(game, data.uuid);
+                for (let i = 0; i < gameList.length; i ++) {
+                    if (!uuids[gameList[i]]) {
+                        setUUID(gameList[i], data.uuid);
+                        break;
                     }
-                });
+                }
             }
 
             const names = await getStat('names');
