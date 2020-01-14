@@ -10,7 +10,7 @@ export class Game {
     private upgrade: UpgradeScreen;
     private puzzle: Puzzle;
     private socket: SocketIOClient.Socket;
-    private tokens: number;
+    private tokens: number = 1;
     public completed: any = {};
 
     /**

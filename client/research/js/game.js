@@ -3,6 +3,7 @@ import { UpgradeScreen } from './upgradeScreen.js';
 import { Puzzle } from './puzzle.js';
 export class Game {
     constructor() {
+        this.tokens = 1;
         this.completed = {};
         this.upgrade = UpgradeScreen.getInstance();
         this.upgrade.show();
