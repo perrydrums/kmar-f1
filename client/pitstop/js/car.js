@@ -37,7 +37,7 @@ export class Car {
         else {
             this.leave();
         }
-        this.gasmeterElementInner.style.height = this.gas + 'px';
+        this.gasmeterElementInner.style.height = (this.gas * (50 / 80)) + 'px';
         const red = 100;
         const green = this.gas * 5;
         this.gasmeterElementInner.style.backgroundColor = `rgba(${red}, ${green}, 0, 1)`;
