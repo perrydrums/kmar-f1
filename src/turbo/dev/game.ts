@@ -11,7 +11,6 @@ export class Game implements Observer {
 
     public vehicle: Vehicle [] = [];
     private static instance: Game;
-    private extraSpeedElement: HTMLElement;
     private speedSubject: Subject;
     private dialog: Dialog;
     private running: boolean = false;
@@ -36,7 +35,6 @@ export class Game implements Observer {
         this.speedSubject = new Speed();
         this.speedSubject.subscribe(this);
         this.showWord();
-        this.showSpeed();
         this.vehicle = [new Truck(this.speedSubject), new Car()];
         this.gameLoop();
     }
@@ -63,12 +61,6 @@ export class Game implements Observer {
         document.body.appendChild(word);
     }
 
-    private showSpeed(): void {
-        this.extraSpeedElement = document.createElement("speed");
-        this.extraSpeedElement.setAttribute("id", "extraSpeed");
-        document.body.appendChild(this.extraSpeedElement);
-    }
-
     public setWord(word: string): void {
         const splitted = word.split('');
         let addToHTML = '';
@@ -87,7 +79,7 @@ export class Game implements Observer {
     }
 
     public turbo(): void {
-        if(this.turboCount == 0){
+        if (this.turboCount == 0){
             this.socket.emit('turbo:turbo');
             this.turboCount = 1;
         }
@@ -143,11 +135,6 @@ export class Game implements Observer {
         }
     }
 
-    public notify(p: number): void {
-        let speed = Math.floor(p * 2) + 90;
-        this.extraSpeedElement.innerHTML = speed.toString() + " km/u";
-    }
-
     /**
      * Get cookie by name.
      *
@@ -158,6 +145,10 @@ export class Game implements Observer {
         const parts = value.split("; " + name + "=");
         if (parts.length == 2) return parts.pop().split(";").shift();
         return null;
+    }
+
+    notify(p: number): void {
+        // Leeg.
     }
 
 }
