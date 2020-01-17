@@ -20,7 +20,7 @@ const database = fb.database();
  * Save a statistic of the current game.
  *
  * @param {string} name
- * @param {any} value
+ * @param value
  */
 const setStat = (name, value) => {
     database.ref('/stats/' + name).set(value);

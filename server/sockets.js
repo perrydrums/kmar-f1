@@ -112,6 +112,10 @@ const initializeSockets = (http) => {
                         // Start Game!
                         setStat('started', true);
 
+                        if (amountOfPlayers === 6) {
+                            setStat('tokens', 10)
+                        }
+
                         socket.emit('server:waiting:startCountdown');
                         socket.broadcast.emit('server:waiting:startCountdown');
                     }
