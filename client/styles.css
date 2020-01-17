@@ -91,6 +91,7 @@ body {
     padding: 20px;
     border-radius: 20px;
     border: 5px solid white;
+    background-color: #000;
     z-index: 1;
     transition: border .1s ease-in-out, font-size .1s ease-in-out, color .1s ease-in-out;
 }
@@ -99,4 +100,15 @@ body {
     font-size: 36px;
     color: #CCC;
     border: 8px solid #CCC;
+}
+
+#start-link:hover:disabled {
+    font-size: 32px;
+    border: 5px solid grey;
+    color: white;
+}
+
+#start-link:disabled {
+    background-color: grey;
+    border-color: grey;
 }

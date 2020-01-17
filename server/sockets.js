@@ -21,7 +21,13 @@ const initializeSockets = (http) => {
          */
         socket.on('client:start', async data => {
             const running = await getStat('running');
-            socket.emit('server:client:checkGame', {running});
+            let firstPlayer = await getStat('firstPlayer');
+            if (!firstPlayer) {
+                firstPlayer = data.uuid;
+                setStat('firstPlayer', data.uuid);
+            }
+
+            socket.emit('server:client:checkGame', {running, firstPlayer});
         });
 
         socket.on('game:finish', async data => {
