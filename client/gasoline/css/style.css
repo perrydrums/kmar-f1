@@ -146,7 +146,7 @@ foreground {
 
 fuel {
     width:170px; height:120px;
-    background-image: url(../images/jerrycan1.png);
+    background-image: url(../images/jerrycan11.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -157,26 +157,26 @@ fuel {
 
 .fuel1 {
     width:170px; height:120px;
-    background-image: url(../images/jerrycan1.png);
+    background-image: url(../images/jerrycan11.png);
     z-index: 999;
 }
 
 .fuel2 {
     width:140px; height:90px;
-    background-image: url(../images/jerrycan2.png);
+    background-image: url(../images/jerrycan22.png);
     z-index: 998;
 }
 
 .fuel3 {
     width:110px; height:70px;
-    background-image: url(../images/jerrycan3.png);
+    background-image: url(../images/jerrycan33.png);
     z-index: 997;
 }
 
 
 tire {
     width:130px; height:130px;
-    background-image: url(../images/wheel1.png);
+    background-image: url(../images/wheel11.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -187,24 +187,24 @@ tire {
 
 .tire1 {
     width:130px; height:130px;
-    background-image: url(../images/wheel1.png);
+    background-image: url(../images/wheel11.png);
 }
 
 .tire2 {
     width:120px; height:120px;
-    background-image: url(../images/wheel2.png);
+    background-image: url(../images/wheel22.png);
     z-index: 998;
 }
 
 .tire3 {
     width:110px; height:110px;
-    background-image: url(../images/wheel3.png);
+    background-image: url(../images/wheel33.png);
     z-index: 997;
 }
 
 rain-tire {
     width:130px; height:130px;
-    background-image: url(../images/wheel_rain1.png);
+    background-image: url(../images/wheel_rain11.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -215,24 +215,24 @@ rain-tire {
 
 .rain-tire1 {
     width:130px; height:130px;
-    background-image: url(../images/wheel_rain1.png);
+    background-image: url(../images/wheel_rain11.png);
 }
 
 .rain-tire2 {
     width:120px; height:120px;
-    background-image: url(../images/wheel_rain2.png);
+    background-image: url(../images/wheel_rain22.png);
     z-index: 998;
 }
 
 .rain-tire3 {
     width:110px; height:110px;
-    background-image: url(../images/wheel_rain3.png);
+    background-image: url(../images/wheel_rain33.png);
     z-index: 997;
 }
 
 anvil {
     width:150px; height:115px;
-    background-image: url(../images/anvil-lane1.png);
+    background-image: url(../images/anvil11.png);
     background-size:contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -243,19 +243,19 @@ anvil {
 
 .anvil1 {
     width:150px; height:115px;
-    background-image: url(../images/anvil-lane1.png);
+    background-image: url(../images/anvil11.png);
     z-index: 999;
 }
 
 .anvil2 {
     width:130px; height:95px;
-    background-image: url(../images/anvil-lane2.png);
+    background-image: url(../images/anvil22.png);
     z-index: 998;
 }
 
 .anvil3 {
     width:110px; height:75px;
-    background-image: url(../images/anvil-lane3.png);
+    background-image: url(../images/anvil33.png);
     z-index: 997;
 }
 
