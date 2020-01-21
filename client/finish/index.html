@@ -29,6 +29,12 @@
   const socket = io();
   const uuid = Cookies.get('uuid');
 
+  let scores = [];
+
   socket.emit('client:finish', {uuid});
+
+  socket.on('server:client:finish', data => {
+      scores = data.scores;
+  })
 
 </script>
