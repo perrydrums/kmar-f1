@@ -1,5 +1,5 @@
 const socketIO = require('socket.io');
-const {setStat, getStat, setUUID, getUUIDs} = require('./db');
+const {setStat, getStat, setUUID, getUUIDs, saveScore, getScores, getMostRecentScore} = require('./db');
 const {addUpgrade} = require('./upgrades');
 
 // Contains all available games, sorted on priority.
@@ -30,8 +30,15 @@ const initializeSockets = (http) => {
             socket.emit('server:client:checkGame', {running, firstPlayer});
         });
 
-        socket.on('game:finish', async data => {
+        socket.on('finish', async data => {
+            saveScore();
+        });
 
+        socket.on('client:finish', async data => {
+            socket.emit('server:client:finish', {
+                scores: await getScores(),
+                currentScore: await getMostRecentScore(),
+            })
         });
 
         socket.on('client:waiting', async data => {

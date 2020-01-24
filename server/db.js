@@ -1,6 +1,7 @@
 const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
+require('firebase/firestore');
 require('dotenv').config();
 
 const firebaseConfig = {
@@ -15,6 +16,7 @@ const firebaseConfig = {
 
 const fb = firebase.initializeApp(firebaseConfig);
 const database = fb.database();
+const firestore = fb.firestore();
 
 /**
  * Save a statistic of the current game.
@@ -87,4 +89,77 @@ const isRunning = async () => {
     return !! await getStat('running');
 };
 
-module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs, resetStats, isRunning};
+/**
+ * Save highscore.
+ *
+ * @returns {Promise<void>}
+ */
+const saveScore = async () => {
+    const teamName = await getStat('teamName');
+    const names = await getStat('names');
+    const lapTimes = await getStat('lapTimes');
+    const pitstopTimes = await getStat('pitstopTimes');
+
+    const nameValues = Object.values(names);
+
+    let times = [];
+    for (let i = 1; i < lapTimes.length; i ++) {
+        if (lapTimes[i + 1] && pitstopTimes[i]) {
+            times.push(lapTimes[i + 1] + pitstopTimes[i]);
+        }
+    }
+
+    firestore.collection('scores').doc().set({
+        team: teamName,
+        names: nameValues,
+        fastestRound: times.sort((a, b) => a - b)[0],
+        times,
+        created: Date.now(),
+    });
+};
+
+const getScores = async () => {
+    const ref = firestore.collection('scores');
+    const snapshot = await ref
+        .orderBy('fastestRound')
+        .limit(10)
+        .get();
+
+    let values = [];
+    if (!snapshot.empty) {
+        snapshot.forEach(doc => {
+            values.push({
+                team: doc.get('team'),
+                names: doc.get('names'),
+                fastestRound: doc.get('fastestRound'),
+                times: doc.get('times'),
+            })
+        })
+    }
+
+    return values;
+};
+
+const getMostRecentScore = async () => {
+    const ref = firestore.collection('scores');
+    const snapshot = await ref
+        .orderBy('created', 'desc')
+        .limit(1)
+        .get();
+
+    let value = null;
+    if (!snapshot.empty) {
+        snapshot.forEach(doc => {
+            value = {
+                team: doc.get('team'),
+                names: doc.get('names'),
+                fastestRound: doc.get('fastestRound'),
+                times: doc.get('times'),
+            };
+        })
+    }
+
+    return value;
+};
+
+module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs, resetStats, isRunning, saveScore, getScores, getMostRecentScore};
