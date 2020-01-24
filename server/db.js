@@ -142,21 +142,20 @@ const getScores = async () => {
 const getMostRecentScore = async () => {
     const ref = firestore.collection('scores');
     const snapshot = await ref
-        .orderBy('created')
+        .orderBy('created', 'desc')
         .limit(1)
         .get();
 
     let value = null;
     if (!snapshot.empty) {
         snapshot.forEach(doc => {
-            value =  {
+            value = {
                 team: doc.get('team'),
                 names: doc.get('names'),
                 fastestRound: doc.get('fastestRound'),
                 times: doc.get('times'),
             };
         })
-
     }
 
     return value;
