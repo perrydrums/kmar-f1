@@ -139,4 +139,27 @@ const getScores = async () => {
     return values;
 };
 
-module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs, resetStats, isRunning, saveScore, getScores};
+const getMostRecentScore = async () => {
+    const ref = firestore.collection('scores');
+    const snapshot = await ref
+        .orderBy('created')
+        .limit(1)
+        .get();
+
+    let value = null;
+    if (!snapshot.empty) {
+        snapshot.forEach(doc => {
+            value =  {
+                team: doc.get('team'),
+                names: doc.get('names'),
+                fastestRound: doc.get('fastestRound'),
+                times: doc.get('times'),
+            };
+        })
+
+    }
+
+    return value;
+};
+
+module.exports = {setStat, getStat, setUUID, getUUIDs, resetUUIDs, resetStats, isRunning, saveScore, getScores, getMostRecentScore};
