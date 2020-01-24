@@ -18,6 +18,7 @@
         <div class="title">
             De race is afgelopen!
         </div>
+        <h1 class="scores"></h1>
     </div>
 
 
@@ -29,12 +30,21 @@
   const socket = io();
   const uuid = Cookies.get('uuid');
 
-  let scores = [];
-
   socket.emit('client:finish', {uuid});
 
   socket.on('server:client:finish', data => {
       scores = data.scores;
+      render(scores)
   })
+
+  const render = scores => {
+    console.log(scores);
+    scores.forEach(score => {
+        console.log(score);
+        console.log('Team:' + score['team']);
+        console.log('Teamleden:' + score['names']);
+        console.log('Fastest Round:' + score['fastestRound']);
+    });
+  }
 
 </script>
