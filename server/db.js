@@ -114,6 +114,7 @@ const saveScore = async () => {
         names: nameValues,
         fastestRound: times.sort((a, b) => a - b)[0],
         times,
+        created: Date.now(),
     });
 };
 
