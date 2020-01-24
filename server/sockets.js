@@ -251,6 +251,21 @@ const initializeSockets = (http) => {
                 tokens: data.tokens,
             });
         });
+
+        /**
+         * Overview
+         */
+        socket.on('client:overview', async data => {
+            const overviewData = {
+                time: await getStat('lapTimes'),
+                lap: await getStat('currentLap'),
+                pitstopTimes: await getStat('pitstopTimes'),
+                tokens: await getStat('tokens'),
+                upgrades: await getStat('upgrades'),
+            };
+            socket.broadcast.emit('server:overview', overviewData);
+            socket.emit('server:overview', overviewData);
+        })
     });
 };
 

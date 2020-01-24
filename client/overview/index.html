@@ -36,16 +36,16 @@
             <div class="rightTopContainer">
                 <div class="gameContainer">
                     <h2>Ronde tijden</h2>
-                    <p>1. 01:34:04</p>
-                    <p>2. 01:34:04</p>
-                    <p>3. 01:34:04</p>
-                    <p>4. xx:xx:xx</p>
+                    <p id="lap-1">1. xx:xx:xx</p>
+                    <p id="lap-2">2. xx:xx:xx</p>
+                    <p id="lap-3">3. xx:xx:xx</p>
+                    <p id="lap-4">4. xx:xx:xx</p>
                 </div>
                 <div class="gameContainer">
                     <h2>Pitstop tijden</h2>
-                    <p>1. 01:34:04</p>
-                    <p>2. 01:34:04</p>
-                    <p>3. 01:34:04</p>
+                    <p id="pitstop-1">1. xx:xx:xx</p>
+                    <p id="pitstop-2">2. xx:xx:xx</p>
+                    <p id="pitstop-3">3. xx:xx:xx</p>
                 </div>
             </div>
 
@@ -53,8 +53,8 @@
                 <div class="listContainer">
                     <div class="gameListItem"><p>Verzamelaar: </p><span>75 L, 2 banden, 3 regenbanden</span></div>
                     <div class="gameListItem"><p>Turbo: </p><span>🔥 Turbo is geactiveerd</span></div>
-                    <div class="gameListItem"><p>Sponsor: </p><span>💰 4 credits verzameld</span></div>
-                    <div class="gameListItem"><p>R & D: </p><span>✅ Regenbanden, Super benzine</span></div>
+                    <div class="gameListItem"><p>Sponsor: </p><span>💰 <span id="tokens">x</span> tokens verzameld!</span></div>
+                    <div class="gameListItem"><p>R & D: </p><span>✅ <span id="upgrades"></span></span></div>
                 </div>
             </div>
         </div>
@@ -104,15 +104,78 @@
    */
   const socket = io();
 
+  socket.emit('client:overview');
+
+  // Update overview values.
+  socket.on('server:overview', data => {
+      updateTimes(data);
+      updateTokens(data.tokens);
+      updateUpgrades(data.upgrades);
+  });
+
   // Stop moving star on pitstop.
   socket.on('server:driver:pitstop', data => {
       counter = 0;
       speed = 0;
+
+      updateTimes(data);
   });
   // Start moving star after pitstop.
   socket.on('pitstop:done', data => {
       counter = 0;
       speed = 0.00055;
+
+      updateTimes(data);
   });
+
+  // Update lap and pitstop times.
+  const updateTimes = data => {
+      if (data.time) {
+          const lapEntries = Object.entries(data.time);
+          for (const [lap, time] of lapEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('lap-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '.' + formattedTime;
+          }
+      }
+
+      if (data.pitstopTimes) {
+          const pitstopEntries = Object.entries(data.pitstopTimes);
+          for (const [lap, time] of pitstopEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('pitstop-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '. ' + formattedTime;
+          }
+      }
+  };
+
+  // TODO: Update when tokens are updated.
+  const updateTokens = tokens => {
+      document.getElementById('tokens').innerText = tokens.toString();
+  };
+
+  // TODO: Update when upgrades are unlocked.
+  const updateUpgrades = upgrades => {
+      const upgradeElement = document.getElementById('upgrades');
+      const upgradeEntries = Object.entries(upgrades);
+
+      const upgradeTranslations = {
+          'rain-tires': 'Regenbanden',
+          'engine-upgrade': 'Motor Upgrade',
+          'fuel-upgrade': 'Super Brandstof',
+          'turbo-upgrade': 'Turbo Upgrade',
+          'aero-upgrade': 'Aero Upgrade',
+      };
+
+      for (const [upgrade, unlocked] of upgradeEntries) {
+          if (unlocked) {
+              upgradeElement.innerHTML += upgradeTranslations[upgrade] + ' | ';
+          }
+      }
+  };
 </script>
 
