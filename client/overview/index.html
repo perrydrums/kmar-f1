@@ -11,60 +11,56 @@
 <body>
 
     <div class="container">
+        <div class="leftContainer">
         <div class="outerWrapper" id="outerWrapper">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980.96 592.33"><title>track</title><path d="M426,511.29,35.46,298.75c-27.73-15.09-29.83-54.1-3.89-72.09L196.12,112.54a23.33,23.33,0,0,0,5.65-32.78h0a23.33,23.33,0,0,1,5.81-32.89L246.45,20.4a40.78,40.78,0,0,1,48.28,1.74L477.27,166.76a88.93,88.93,0,0,1,31.37,89.95h0a89.44,89.44,0,0,0,13.09,70.6l47.17,69.48a27.73,27.73,0,0,1-13.81,41.75L522.24,450c-11.08,3.87-10.41,19.75,1,22.67l65.87,16.92a46.15,46.15,0,0,0,46.62-14.78c53.66-63,205.14-240.78,217.06-253.7,14.51-15.72,13.3-54.4-18.14-54.4s-60.45-3.63-67.7-24.18C760.05,123.13,779,89.35,810.43,99s122.11,61.66,128.15,87,30.22,269.6,29,278.06-18.14,42.31-71.33,50.78-181.35,19.34-203.11,24.18-33.85,29-53.19,31.43-48.36-26.6-76.17-24.18S515.44,577.78,481.59,579,462.24,525.79,426,511.29Z" fill="none" stroke="#738c96" stroke-miterlimit="10" stroke-width="26.64"/>
                 <polygon points="15,0 18.541,11.459 30,11.459 20.729,18.541 24.271,30 15,22.918 5.729,30 9.271,18.541 0,11.459 11.459,11.459 	"/>
             </svg>
+        </div>
+            <div class="leftTextContainer">
+                <div class="leftCurrentWeather">
+                    <h2>Het weer</h2>
+                    <p>Op dit moment is het lekker zonnig en ligt er dus ook geen regen op de baan! </p>
+                </div>
 
+                <div class="leftForecast">
+                    <h3>Verwachting</h3>
+                     <div class="leftForecastInner">
+                        <img src="https://cdn0.iconfinder.com/data/icons/ecology-111/1022/clouds-512.png" width="15%" />
+                        <p>Pak je paraplu maar want in ronde 3 gaat het regenen! </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="game-container">
-            <h1>Coureur</h1>
-            <p>Hallo game</p>
+        <div class="rightContainer">
+            <div class="rightTopContainer">
+                <div class="gameContainer">
+                    <h2>Ronde tijden</h2>
+                    <p>1. 01:34:04</p>
+                    <p>2. 01:34:04</p>
+                    <p>3. 01:34:04</p>
+                    <p>4. xx:xx:xx</p>
+                </div>
+                <div class="gameContainer">
+                    <h2>Pitstop tijden</h2>
+                    <p>1. 01:34:04</p>
+                    <p>2. 01:34:04</p>
+                    <p>3. 01:34:04</p>
+                </div>
+            </div>
+
+            <div class="rightGameList">
+                <div class="listContainer">
+                    <div class="gameListItem"><p>Verzamelaar: </p><span>75 L, 2 banden, 3 regenbanden</span></div>
+                    <div class="gameListItem"><p>Turbo: </p><span>🔥 Turbo is geactiveerd</span></div>
+                    <div class="gameListItem"><p>Sponsor: </p><span>💰 4 credits verzameld</span></div>
+                    <div class="gameListItem"><p>R & D: </p><span>✅ Regenbanden, Super benzine</span></div>
+                </div>
+            </div>
         </div>
 
-        <div class="game-container">
-            <h1>Pitstop</h1>
-            <p>13 sec</p>
-            <p>15 sec</p>
-            <p>11 sec</p>
-        </div>
 
-        <div class="game-container">
-            <h1>Gasoline</h1>
-            <p>Brandstof: xx L</p>
-            <p>Banden: 3 x</p>
-            <p>Regenbanden: 1 x</p>
-        </div>
-
-        <div class="game-container">
-            <h1>Turbo</h1>
-            <p>Turbo is nog niet geactiveerd</p>
-        </div>
-
-        <div class="game-container">
-            <h1>Aero</h1>
-            <p>Hallo game</p>
-        </div>
-
-        <div class="game-container">
-            <h1>Sponsor</h1>
-            <p>Hallo game</p>
-        </div>
-
-        <div class="game-container">
-            <h1>Research</h1>
-            <p>Regenbanden ✅</p>
-            <p>Motor ✅</p>
-            <p>Turbo</p>
-            <p>Aerodynamica</p>
-            <p>Super brandstof</p>
-        </div>
-
-        <div class="game-container">
-            <h1>8e game</h1>
-            <p>Hallo game</p>
-        </div>
     </div>
 
 
@@ -102,7 +98,8 @@
         what direction they should be travelling in */
     if (parseInt(counter,10) === 1) {
       /* we've hit the end! */
-      direction = false;
+      direction = true;
+      counter = 0;
     } else if (parseInt(counter,10) < 0) {
       /* we're back at the start! */
       direction = true;

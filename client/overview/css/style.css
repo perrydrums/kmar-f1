@@ -10,35 +10,67 @@
 
 body {
     margin: 0;
-    background: #565279;
+    background-color: #30303d;
     font-family: 'F1';
+    color: #e2e2e2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
 }
 
 .container {
-    /*background-color: grey;*/
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
-    position: relative;
+    height: 100%;
+    position: absolute;
     width: 100%;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
 
-.game-container {
-    padding: 15px;
-    width: 20%;
-}
-
-.outerWrapper {
+.leftContainer {
     width: 50%;
-    height: 250px;
-    position: relative;
+    /*margin: 10px;*/
+    background-color: #373744;
+}
+
+.leftTextContainer {
+    /*padding: 20px;*/
+    /*background-color: #373744;*/
+    margin: 20px;
+    display: flex;
+}
+
+.leftCurrentWeather {
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.15);*/
+    /*margin-bottom: 16px;*/
+    background-color: #30303d;
     padding: 20px;
 }
 
+.leftForecast {
+    background-color: #30303d;
+    padding: 20px;
+}
+
+.leftForecastInner {
+    display: flex;
+}
+
+.leftForecast p {
+    margin-left: 10px;
+}
+
+.outerWrapper {
+    /*width: 50%;*/
+    /*height: 250px;*/
+    position: relative;
+    /*padding: 20px;*/
+    margin: 30px;
+}
+
 .outerWrapper svg {
-    /*position: absolute;*/
     width: 100%;
     height: 100%;
 }
@@ -52,4 +84,60 @@ body {
 
 .outerWrapper svg polygon {
     fill:orange;
+}
+
+.rightContainer {
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.rightTopContainer {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    /*height: 50%;*/
+    margin: 20px;
+    margin-bottom: 50px;
+    justify-content: space-between;
+}
+
+.gameContainer {
+    padding: 20px;
+    background-color: #373744;
+    /*margin: 10px;*/
+    width: 42%;
+}
+
+.rightGameList {
+    /*height: 50%;*/
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 20px;
+    position: relative;
+    /*width: 100%;*/
+}
+
+.listContainer {
+    width: 100%;
+}
+
+.gameListItem {
+    padding: 20px;
+    background-color: #373744;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.gameListItem:last-child {
+    border-bottom: 0;
+}
+
+.gameListItem p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.gameListItem span {
+    font-size: 18px;
 }
