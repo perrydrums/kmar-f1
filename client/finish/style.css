@@ -1,0 +1,210 @@
+@font-face {
+    src: url('../../resources/f1.ttf');
+    font-family: 'F1';
+}
+
+* {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('../../resources/bg2.jpg');
+    background-size: cover;
+    color: white;
+    font-family: F1, sans-serif;
+}
+
+.title {
+    font-size: 42px;
+    z-index: 1;
+}
+
+.right {
+    position: absolute;
+    background: url('../resources/bgright.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+}
+
+.left {
+    display: block;
+    position: absolute;
+    background: url('../resources/bgleft.jpg');
+    background-size: cover;
+    background-position: right center;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.left:before {
+    background: linear-gradient(to right, rgba(0,0,0,0.2) 0%,rgba(0,0,0,1) 90%);
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.right:before {
+    background: linear-gradient(to left, rgba(0,0,0,0.2) 0%,rgba(0,0,0,1) 90%);
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+.form {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+p {
+    margin-bottom: 16px;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.container-left {
+    flex: 1;
+}
+
+.container-right {
+    flex: 2;
+}
+
+.button-container {
+    display: flex;
+}
+
+.link {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 20px;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin-right: 20px;
+    background: #555555;
+    text-shadow: 1px 1px black;
+    box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.5);
+    transition: 0.1s padding ease-in-out, 0.1s border ease-in-out, 0.2s background ease-in-out;
+}
+
+.link:hover {
+    padding: 23px;
+    border: 2px solid white;
+    background: #676767;
+}
+
+.block {
+    border: 2px solid white;
+    padding: 20px;
+    margin: 20px;
+}
+
+input[type='text'] {
+    width: 300px;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 20px;
+    background-color: rgba(50, 50, 50, 0.5);
+    margin: 20px 0;
+    font-family: F1, sans-serif;
+    display: block;
+    outline: none;
+}
+
+.ready {
+    color: limegreen;
+}
+
+#team-name {
+    color: limegreen;
+}
+
+#ready-button {
+    width: 100px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    color: white;
+    font-size: 16px;
+}
+
+#ready-button:disabled {
+    opacity: 50%;
+}
+
+#ready-button.ready {
+    color: white;
+    opacity: 100% !important;
+    background-color: rgba(74, 255, 0, 0.5);
+    border: 2px solid limegreen;
+}
+
+.justify-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#player-list {
+    margin-top: 10px;
+}
+
+#countdown {
+    height: 300px;
+    width: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+
+    font-size: 200px;
+}

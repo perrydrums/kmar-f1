@@ -6,20 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <link rel="stylesheet" href="./style.css">
     <title>F1 - Start</title>
 </head>
 <body>
 
 <div class="container">
-    <h1>KMar Formule 1 Game</h1>
-    <label for="team-name">Onze team naam is:</label>
-    <input type="text" name="teamName" id="team-name" oninput="updateName()"/>
-    <p>Met hoeveel spelers wordt het spel gespeeld?</p>
-    <div class="button-container">
-        <a class="link" href="/new?players=4">4</a>
-        <a class="link" href="/new?players=5">5</a>
-        <a class="link" href="/new?players=6">6</a>
-        <a class="link" href="/new?players=7">7</a>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="form">
+        <h1 class="title">KMar Formule 1 Game</h1>
+        <label for="team-name">Onze team naam is:</label>
+        <input type="text" name="teamName" id="team-name" oninput="updateName()"/>
+        <p>Met hoeveel spelers wordt het spel gespeeld?</p>
+        <div class="button-container">
+            <a class="link" href="/new?players=4">4</a>
+            <a class="link" href="/new?players=5">5</a>
+            <a class="link" href="/new?players=6">6</a>
+            <a class="link" href="/new?players=7">7</a>
+        </div>
     </div>
 </div>
 

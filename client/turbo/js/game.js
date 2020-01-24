@@ -22,7 +22,6 @@ export class Game {
         this.speedSubject = new Speed();
         this.speedSubject.subscribe(this);
         this.showWord();
-        this.showSpeed();
         this.vehicle = [new Truck(this.speedSubject), new Car()];
         this.gameLoop();
     }
@@ -43,11 +42,6 @@ export class Game {
         let word = document.createElement("div");
         word.setAttribute("id", "word");
         document.body.appendChild(word);
-    }
-    showSpeed() {
-        this.extraSpeedElement = document.createElement("speed");
-        this.extraSpeedElement.setAttribute("id", "extraSpeed");
-        document.body.appendChild(this.extraSpeedElement);
     }
     setWord(word) {
         const splitted = word.split('');
@@ -113,16 +107,14 @@ export class Game {
             event.preventDefault();
         }
     }
-    notify(p) {
-        let speed = Math.floor(p * 2) + 90;
-        this.extraSpeedElement.innerHTML = speed.toString() + " km/u";
-    }
     getCookie(name) {
         const value = "; " + document.cookie;
         const parts = value.split("; " + name + "=");
         if (parts.length == 2)
             return parts.pop().split(";").shift();
         return null;
+    }
+    notify(p) {
     }
 }
 window.addEventListener("load", () => {

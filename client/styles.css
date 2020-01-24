@@ -1,24 +1,23 @@
 @font-face {
-    src: url('../resources/f1.ttf');
+    src: url('./resources/f1.ttf');
     font-family: 'F1';
 }
 
 @font-face {
-    src: url('../resources/f1bold.ttf');
+    src: url('./resources/f1bold.ttf');
     font-family: 'F1';
     font-weight: bold;
 }
 
 body {
-    background-image: url('../resources/bg2.jpg');
+    background-image: url('./resources/bg2.jpg');
     background-size: cover;
 }
 
 .right {
     position: absolute;
-    background: url('../resources/bgright.jpg');
     background-size: cover;
-    background-position: center;
+    background: url('./resources/bgright.jpg') center;
     width: 50%;
     height: 100%;
     top: 0;
@@ -28,9 +27,8 @@ body {
 .left {
     display: block;
     position: absolute;
-    background: url('../resources/bgleft.jpg');
     background-size: cover;
-    background-position: right center;
+    background: url('./resources/bgleft.jpg') right center;
     width: 50%;
     height: 100%;
     top: 0;
@@ -77,28 +75,40 @@ body {
 }
 
 .title {
-    font-size: 132px;
+    font-size: 86px;
 }
 
 .subtitle {
-    font-size: 42px;
+    font-size: 32px;
     font-style: italic;
 }
 
 #start-link {
-    font-family: 'F1';
+    font-family: 'F1', sans-serif;
     color: white;
     text-decoration: none;
-    font-size: 48px;
+    font-size: 32px;
     padding: 20px;
     border-radius: 20px;
     border: 5px solid white;
+    background-color: #000;
     z-index: 1;
     transition: border .1s ease-in-out, font-size .1s ease-in-out, color .1s ease-in-out;
 }
 
 #start-link:hover {
-    font-size: 52px;
+    font-size: 36px;
     color: #CCC;
     border: 8px solid #CCC;
+}
+
+#start-link:hover:disabled {
+    font-size: 32px;
+    border: 5px solid grey;
+    color: white;
+}
+
+#start-link:disabled {
+    background-color: grey;
+    border-color: grey;
 }

@@ -74,6 +74,7 @@ app.get('/reset', async (req, res) => {
     await resetStats();
     await resetUUIDs();
     await resetUpgrades();
+    await setStat('tokens', 0);
     return res.json({message: 'Game reset!'});
 });
 

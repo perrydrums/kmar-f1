@@ -41,6 +41,9 @@ body {
     margin-left: -100px;
 
     top: -300px;
+
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .tirerack {
@@ -163,6 +166,20 @@ body {
 
     position: absolute;
     bottom: 0;
+}
+
+.checkmark-0,.checkmark-1,.checkmark-2,.checkmark-3 {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+
+.checkmark-0,.checkmark-2 {
+    flex: 50%;
+}
+
+.checkmark-2,.checkmark-3 {
+    margin-top: 40px;
 }
 
 #timer {

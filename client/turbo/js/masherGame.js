@@ -22,7 +22,17 @@ export class MasherGame {
             this.button = document.createElement('button');
             this.button.classList.add('turbo-button');
             this.button.innerText = 'TURBO';
-            this.button.addEventListener('click', () => Game.getInstance().turbo());
+            this.button.addEventListener('click', () => {
+                Game.getInstance().turbo();
+                this.element.style.background = null;
+                this.element.style.backgroundImage = 'url(./images/flames.gif)';
+                this.element.style.backgroundSize = 'cover';
+                this.element.style.backgroundRepeat = 'no-repeat';
+            });
+            this.textElement = document.createElement('p');
+            this.textElement.classList.add('turbo-text');
+            this.textElement.innerText = 'Klik op de knop om een boost te geven aan de bestuurder!';
+            MasherGame.getInstance().getElement().appendChild(this.textElement);
             MasherGame.getInstance().getElement().appendChild(this.button);
             return true;
         }

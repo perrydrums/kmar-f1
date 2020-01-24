@@ -21,7 +21,13 @@ const initializeSockets = (http) => {
          */
         socket.on('client:start', async data => {
             const running = await getStat('running');
-            socket.emit('server:client:checkGame', {running});
+            let firstPlayer = await getStat('firstPlayer');
+            if (!firstPlayer) {
+                firstPlayer = data.uuid;
+                setStat('firstPlayer', data.uuid);
+            }
+
+            socket.emit('server:client:checkGame', {running, firstPlayer});
         });
 
         socket.on('game:finish', async data => {
@@ -50,11 +56,12 @@ const initializeSockets = (http) => {
 
                 // Pick a random game for the player.
                 gameList.sort(() => Math.random() - 0.5);
-                gameList.forEach(game => {
-                    if (!uuids[game]) {
-                        setUUID(game, data.uuid);
+                for (let i = 0; i < gameList.length; i ++) {
+                    if (!uuids[gameList[i]]) {
+                        setUUID(gameList[i], data.uuid);
+                        break;
                     }
-                });
+                }
             }
 
             const names = await getStat('names');
@@ -110,6 +117,10 @@ const initializeSockets = (http) => {
                     if (readyPlayers === amountOfPlayers) {
                         // Start Game!
                         setStat('started', true);
+
+                        if (amountOfPlayers === 6) {
+                            setStat('tokens', 10)
+                        }
 
                         socket.emit('server:waiting:startCountdown');
                         socket.broadcast.emit('server:waiting:startCountdown');

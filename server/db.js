@@ -1,15 +1,16 @@
 const firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
+require('dotenv').config();
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBMtcl-BpKIc0z8Cd_KVdw4HGimL0IvasI",
-    authDomain: "kmar-f1.firebaseapp.com",
-    databaseURL: "https://kmar-f1.firebaseio.com",
-    projectId: "kmar-f1",
-    storageBucket: "kmar-f1.appspot.com",
-    messagingSenderId: "530594781173",
-    appId: "1:530594781173:web:dc000f4a5391ff98b9f2bc",
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSENGER_ID,
+    appId: process.env.FIREBASE_APP_IDD,
 };
 
 const fb = firebase.initializeApp(firebaseConfig);
@@ -19,7 +20,7 @@ const database = fb.database();
  * Save a statistic of the current game.
  *
  * @param {string} name
- * @param {any} value
+ * @param value
  */
 const setStat = (name, value) => {
     database.ref('/stats/' + name).set(value);

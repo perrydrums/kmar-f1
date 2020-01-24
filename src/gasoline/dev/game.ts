@@ -12,7 +12,6 @@ export class Game {
     private static instance: Game;
     public character: Character;
     private score: number = 0;
-    private scoreElement: HTMLElement;
     public food:Food[] = [];
     public powerup:boolean = false;
     public subject:Subject = new DeleteNotifier();
@@ -31,9 +30,6 @@ export class Game {
     private constructor() {}
 
     public initialize(){
-        // this.scoreElement = document.createElement('div');
-        // this.scoreElement.classList.add('score');
-        // document.body.appendChild(this.scoreElement);
         Start.getInstance().show();
         this.socket = io({ timeout: 60000 });
 
@@ -76,12 +72,9 @@ export class Game {
 
         if (amount === 0) {
             this.score = Math.round(this.score / 2);
-            // this.scoreElement.classList.remove("fullScore");
         } else if(this.score >= 150) {
                 this.score = 150;
-                // this.scoreElement.classList.add("fullScore");
         } else {
-            // this.scoreElement.classList.remove("fullScore");
             Math.round(this.score += amount);
         }
     }
@@ -92,10 +85,6 @@ export class Game {
       } else {
         this.socket.emit('gasoline:update', {tire: true});
       }
-    }
-
-    private showScore() {
-        // this.scoreElement.innerHTML = "Benzine: " + this.score.toString() + "L";
     }
 
     private gameLoop() {
