@@ -17,6 +17,8 @@ body {
 }
 
 .title {
+    position: absolute;
+    top: 20px;
     font-size: 42px;
     z-index: 1;
 }
@@ -95,13 +97,8 @@ p {
 }
 
 .container {
-    width: 100%;
     display: flex;
-    position: absolute;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
 }
 
 .container-left {
@@ -207,4 +204,60 @@ input[type='text'] {
     align-items: center;
 
     font-size: 200px;
+}
+
+table {
+    padding: 6px;
+    background: black;
+    border-collapse: separate;
+    border-spacing: 6px;
+    position: relative;
+}
+
+thead {
+    font-size: 24px;
+}
+
+td:not(:last-child) {
+    padding-right: 18px;
+}
+
+th:not(:last-child) {
+    padding-right: 18px;
+}
+
+tr {
+    padding-bottom: 16px;
+}
+
+th {
+    text-align: left;
+}
+
+.green {
+    color: limegreen;
+}
+
+.table-middle {
+    flex-direction: column;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-right {
+    flex-direction: column;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+}
+
+h3 {
+    margin-bottom: 6px;
 }
