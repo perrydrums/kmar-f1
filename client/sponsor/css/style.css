@@ -19,7 +19,7 @@ body {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    top: 0;
+    top: 20px;
     position: absolute;
     height: 70%;
     width: 100%;
