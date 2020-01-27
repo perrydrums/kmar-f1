@@ -25,26 +25,20 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     position: absolute;
     width: 100%;
-    /*justify-content: center;*/
-    /*align-items: center;*/
 }
 
 .leftContainer {
     width: 50%;
-    /*margin: 10px;*/
     background-color: #373744;
 }
 
 .leftTextContainer {
-    /*padding: 20px;*/
-    /*background-color: #373744;*/
     margin: 20px;
     display: flex;
 }
 
 .leftCurrentWeather {
-    /*border-bottom: 1px solid rgba(255, 255, 255, 0.15);*/
-    /*margin-bottom: 16px;*/
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
     background-color: #30303d;
     padding: 20px;
 }
@@ -56,6 +50,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .leftForecastInner {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .leftForecast p {
@@ -63,10 +59,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .outerWrapper {
-    /*width: 50%;*/
-    /*height: 250px;*/
     position: relative;
-    /*padding: 20px;*/
     margin: 30px;
 }
 
@@ -96,7 +89,6 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    /*height: 50%;*/
     margin: 20px;
     margin-bottom: 50px;
     justify-content: space-between;
@@ -105,18 +97,15 @@ h1, h2, h3, h4, h5, h6 {
 .gameContainer {
     padding: 20px;
     background-color: #373744;
-    /*margin: 10px;*/
     width: 42%;
 }
 
 .rightGameList {
-    /*height: 50%;*/
     display: flex;
     justify-content: center;
     align-content: center;
     margin: 20px;
     position: relative;
-    /*width: 100%;*/
 }
 
 .listContainer {
