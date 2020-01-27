@@ -18,8 +18,35 @@
         <div class="title">
             De race is afgelopen!
         </div>
+        <h1 class="scores"></h1>
+    </div>
+    <div class="table-middle">
+        <h1>Leaderboard</h1>
+        <table class="highscore-table">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Spelers</th>
+                    <th>Tijd</th>
+                </tr>
+            </thead>
+            <tbody class="highscore-table-body"></tbody>
+        </table>
+    
     </div>
 
+    <div class="table-right">
+        <h3>Jullie tijden</h3>
+        <table class="own-score-table">
+            <thead>
+                <tr>
+                    <th>Ronde</th>
+                    <th>Tijd</th>
+                </tr>
+            </thead>
+            <tbody class="own-score-table-body"></tbody>
+        </table>
+    </div>
 
 </body>
 </html>
@@ -29,13 +56,63 @@
   const socket = io();
   const uuid = Cookies.get('uuid');
 
-  let scores = [];
-
   socket.emit('client:finish', {uuid});
 
+  let highscores = [];
+
   socket.on('server:client:finish', data => {
-      scores = data.scores;
-      console.log(data.currentScore);
+      highscores = data.scores;
+      currentScore = data.currentScore;
+      renderHighscore(highscores, currentScore);
+      renderOwnScore(currentScore['times']);
   })
+
+  const convertMillis = millis => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
+
+  const renderHighscore = (highscores, currentScore) => {
+    const tableBody = document.querySelector('.highscore-table-body');
+    highscores.forEach(highscore => {
+        const tableRow = document.createElement('tr');
+        if(currentScore['fastestRound'] === highscore['fastestRound']) {
+            tableRow.classList.add('green');
+        }
+        const tableCell1 = document.createElement('td');
+        const tableCell2 = document.createElement('td');
+        const tableCell3 = document.createElement('td');
+        tableCell1.innerHTML = highscore['team'];
+        tableRow.appendChild(tableCell1);
+        tableCell2.innerHTML = highscore['names'];
+        tableRow.appendChild(tableCell2);
+        const time = convertMillis(highscore['fastestRound'])
+        tableCell3.innerHTML = time;
+        tableRow.appendChild(tableCell3);
+        tableBody.appendChild(tableRow);
+    });
+    
+  }
+
+  const renderOwnScore = laptimes => {
+    const tableBody = document.querySelector('.own-score-table-body');
+    let lapcount = 1;
+    let fastest = Math.min(...laptimes);
+    laptimes.forEach(laptime => {
+        const tableRow = document.createElement('tr');
+        if(laptime === fastest) {
+            tableRow.classList.add('green');
+        }
+        const tableCell1 = document.createElement('td');
+        tableCell1.innerHTML = lapcount;
+        tableRow.appendChild(tableCell1);
+        const tableCell2 = document.createElement('td');
+        tableCell2.innerHTML = convertMillis(laptime);
+        tableRow.appendChild(tableCell2);
+        tableBody.appendChild(tableRow);
+        lapcount++;
+    })
+  }
 
 </script>
