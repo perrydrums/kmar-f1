@@ -9,7 +9,6 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-
     <div class="container">
         <div class="leftContainer">
         <div class="outerWrapper" id="outerWrapper">
@@ -37,16 +36,16 @@
             <div class="rightTopContainer">
                 <div class="gameContainer">
                     <h2>Ronde tijden</h2>
-                    <p>1. 01:34:04</p>
-                    <p>2. 01:34:04</p>
-                    <p>3. 01:34:04</p>
-                    <p>4. xx:xx:xx</p>
+                    <p id="lap-1">1. xx:xx:xx</p>
+                    <p id="lap-2">2. xx:xx:xx</p>
+                    <p id="lap-3">3. xx:xx:xx</p>
+                    <p id="lap-4">4. xx:xx:xx</p>
                 </div>
                 <div class="gameContainer">
                     <h2>Pitstop tijden</h2>
-                    <p>1. 01:34:04</p>
-                    <p>2. 01:34:04</p>
-                    <p>3. 01:34:04</p>
+                    <p id="pitstop-1">1. xx:xx:xx</p>
+                    <p id="pitstop-2">2. xx:xx:xx</p>
+                    <p id="pitstop-3">3. xx:xx:xx</p>
                 </div>
             </div>
 
@@ -54,73 +53,129 @@
                 <div class="listContainer">
                     <div class="gameListItem"><p>Verzamelaar: </p><span>75 L, 2 banden, 3 regenbanden</span></div>
                     <div class="gameListItem"><p>Turbo: </p><span>🔥 Turbo is geactiveerd</span></div>
-                    <div class="gameListItem"><p>Sponsor: </p><span>💰 4 credits verzameld</span></div>
-                    <div class="gameListItem"><p>R & D: </p><span>✅ Regenbanden, Super benzine</span></div>
+                    <div class="gameListItem"><p>Sponsor: </p><span>💰 <span id="tokens">x</span> tokens verzameld!</span></div>
+                    <div class="gameListItem"><p>R & D: </p><span>✅ <span id="upgrades"></span></span></div>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
-<!-- <script src="./js/game.js" type="module"></script> -->
-
 </body>
 </html>
 
 <script>
   /*	A variable to keep track of where we are on the line
   0 = start, 1 = end */
-  var counter = 0;
-
-  /*	A boolean variable to keep track of the direction we want to travel in
-      true = move to the left, false move to the right */
-  var direction = true;
+  let counter = 0;
+  let speed = 0.00055;
 
   /*	First get a reference to the enclosing div and then to
       the 2 svg paths */
-  var svgContainer = document.getElementById("outerWrapper");
-  var ns = "http://www.w3.org/2000/svg";
-  var svg = svgContainer.getElementsByTagNameNS(ns, "path");
+  const svgContainer = document.getElementById("outerWrapper");
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = svgContainer.getElementsByTagNameNS(ns, "path");
   /*	the var 'svg' contains a reference to two paths so svg.length = 2
       svg[0] is the straight line and svg[1] is the curved lines */
 
   /*	Now get the length of those two paths */
-  var straightLength = svg[0].getTotalLength();
+  const straightLength = svg[0].getTotalLength();
   // var curveLength = svg[1].getTotalLength();
 
   /*	Also get a reference to the two star polygons */
-  var stars = svgContainer.getElementsByTagName("polygon");
+  const stars = svgContainer.getElementsByTagName("polygon");
 
   function moveStar() {
     /*	Check to see where the stars are journeys to determine
         what direction they should be travelling in */
     if (parseInt(counter,10) === 1) {
       /* we've hit the end! */
-      direction = true;
       counter = 0;
-    } else if (parseInt(counter,10) < 0) {
-      /* we're back at the start! */
-      direction = true;
     }
 
-    /*	Based on the direction variable either increase or decrease the counter */
-    if (direction) {
-      counter += 0.003;
-    } else {
-      counter -= 0.003;
-    }
-
-    /*	Now the magic part. We are able to call .getPointAtLength on the tow paths to return
-        the coordinates at any point along their lengths. We then simply set the stars to be positioned
-        at these coordinates, incrementing along the lengths of the paths */
+    // Speed of the star.
+    counter += speed;
     stars[0].setAttribute("transform","translate("+ (svg[0].getPointAtLength(counter * straightLength).x -15)  + "," + (svg[0].getPointAtLength(counter * straightLength).y -15) + ")");
-    // stars[1].setAttribute("transform","translate("+ (svg[1].getPointAtLength(counter * curveLength).x -15)  + "," + (svg[1].getPointAtLength(counter * curveLength).y -15) + ")");
-
-    /*	Use requestAnimationFrame to recursively call moveStar() 60 times a second
-        to create the illusion of movement */
     requestAnimationFrame(moveStar);
   }
   requestAnimationFrame(moveStar);
+
+
+  /**
+   * SOCKETS.
+   */
+  const socket = io();
+
+  socket.emit('client:overview');
+
+  // Update overview values.
+  socket.on('server:overview', data => {
+      updateTimes(data);
+      updateTokens(data.tokens);
+      updateUpgrades(data.upgrades);
+  });
+
+  // Stop moving star on pitstop.
+  socket.on('server:driver:pitstop', data => {
+      counter = 0;
+      speed = 0;
+
+      updateTimes(data);
+  });
+  // Start moving star after pitstop.
+  socket.on('pitstop:done', data => {
+      counter = 0;
+      speed = 0.00055;
+
+      updateTimes(data);
+  });
+
+  // Update lap and pitstop times.
+  const updateTimes = data => {
+      if (data.time) {
+          const lapEntries = Object.entries(data.time);
+          for (const [lap, time] of lapEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('lap-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '.' + formattedTime;
+          }
+      }
+
+      if (data.pitstopTimes) {
+          const pitstopEntries = Object.entries(data.pitstopTimes);
+          for (const [lap, time] of pitstopEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('pitstop-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '. ' + formattedTime;
+          }
+      }
+  };
+
+  // TODO: Update when tokens are updated.
+  const updateTokens = tokens => {
+      document.getElementById('tokens').innerText = tokens.toString();
+  };
+
+  // TODO: Update when upgrades are unlocked.
+  const updateUpgrades = upgrades => {
+      const upgradeElement = document.getElementById('upgrades');
+      const upgradeEntries = Object.entries(upgrades);
+
+      const upgradeTranslations = {
+          'rain-tires': 'Regenbanden',
+          'engine-upgrade': 'Motor Upgrade',
+          'fuel-upgrade': 'Super Brandstof',
+          'turbo-upgrade': 'Turbo Upgrade',
+          'aero-upgrade': 'Aero Upgrade',
+      };
+
+      for (const [upgrade, unlocked] of upgradeEntries) {
+          if (unlocked) {
+              upgradeElement.innerHTML += upgradeTranslations[upgrade] + ' | ';
+          }
+      }
+  };
 </script>
+
