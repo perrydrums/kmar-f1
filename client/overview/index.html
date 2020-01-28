@@ -9,36 +9,173 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-
     <div class="container">
-        <div class="container-left">
-            <div class="race"></div>
-            <div class="container-weather">
-                <p>het weer</p>
+        <div class="leftContainer">
+        <div class="outerWrapper" id="outerWrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980.96 592.33"><title>track</title><path d="M426,511.29,35.46,298.75c-27.73-15.09-29.83-54.1-3.89-72.09L196.12,112.54a23.33,23.33,0,0,0,5.65-32.78h0a23.33,23.33,0,0,1,5.81-32.89L246.45,20.4a40.78,40.78,0,0,1,48.28,1.74L477.27,166.76a88.93,88.93,0,0,1,31.37,89.95h0a89.44,89.44,0,0,0,13.09,70.6l47.17,69.48a27.73,27.73,0,0,1-13.81,41.75L522.24,450c-11.08,3.87-10.41,19.75,1,22.67l65.87,16.92a46.15,46.15,0,0,0,46.62-14.78c53.66-63,205.14-240.78,217.06-253.7,14.51-15.72,13.3-54.4-18.14-54.4s-60.45-3.63-67.7-24.18C760.05,123.13,779,89.35,810.43,99s122.11,61.66,128.15,87,30.22,269.6,29,278.06-18.14,42.31-71.33,50.78-181.35,19.34-203.11,24.18-33.85,29-53.19,31.43-48.36-26.6-76.17-24.18S515.44,577.78,481.59,579,462.24,525.79,426,511.29Z" fill="none" stroke="#738c96" stroke-miterlimit="10" stroke-width="26.64"/>
+                <polygon points="15,0 18.541,11.459 30,11.459 20.729,18.541 24.271,30 15,22.918 5.729,30 9.271,18.541 0,11.459 11.459,11.459 	"/>
+            </svg>
+        </div>
+            <div class="leftTextContainer">
+                <div class="leftCurrentWeather">
+                    <h2>Het weer</h2>
+                    <p>Op dit moment is het lekker zonnig en ligt er dus ook geen regen op de baan! </p>
+                </div>
+
+                <div class="leftForecast">
+                    <h3>Verwachting</h3>
+                     <div class="leftForecastInner">
+                        <img src="https://cdn0.iconfinder.com/data/icons/ecology-111/1022/clouds-512.png" width="15%" height="100%"/>
+                        <p>Pak je paraplu maar want in ronde 3 gaat het regenen! </p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="container-right">
-            <div class="container-right__block">
-                <div class="container-right__inner">
-                    <p>Pitstop lorem ipsum</p>
+        <div class="rightContainer">
+            <div class="rightTopContainer">
+                <div class="gameContainer">
+                    <h2>Ronde tijden</h2>
+                    <p id="lap-1">1. xx:xx:xx</p>
+                    <p id="lap-2">2. xx:xx:xx</p>
+                    <p id="lap-3">3. xx:xx:xx</p>
+                    <p id="lap-4">4. xx:xx:xx</p>
+                </div>
+                <div class="gameContainer">
+                    <h2>Pitstop tijden</h2>
+                    <p id="pitstop-1">1. xx:xx:xx</p>
+                    <p id="pitstop-2">2. xx:xx:xx</p>
+                    <p id="pitstop-3">3. xx:xx:xx</p>
                 </div>
             </div>
 
-            <div class="container-right__block">
-                <div class="container-right__inner">
-                    <p>Fuel lorem ipsum</p>
+            <div class="rightGameList">
+                <div class="listContainer">
+                    <div class="gameListItem"><p>Verzamelaar: </p><span>75 L, 2 banden, 3 regenbanden</span></div>
+                    <div class="gameListItem"><p>Turbo: </p><span>🔥 Turbo is geactiveerd</span></div>
+                    <div class="gameListItem"><p>Sponsor: </p><span>💰 <span id="tokens">x</span> tokens verzameld!</span></div>
+                    <div class="gameListItem"><p>R & D: </p><span>✅ <span id="upgrades"></span></span></div>
                 </div>
-            </div>
-
-            <div class="container-right__bottom-block">
-                <p style="padding: 15px">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
             </div>
         </div>
     </div>
-
-
-<!-- <script src="./js/game.js" type="module"></script> -->
-
 </body>
 </html>
+
+<script>
+  /*	A variable to keep track of where we are on the line
+  0 = start, 1 = end */
+  let counter = 0;
+  let speed = 0.00055;
+
+  /*	First get a reference to the enclosing div and then to
+      the 2 svg paths */
+  const svgContainer = document.getElementById("outerWrapper");
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = svgContainer.getElementsByTagNameNS(ns, "path");
+  /*	the var 'svg' contains a reference to two paths so svg.length = 2
+      svg[0] is the straight line and svg[1] is the curved lines */
+
+  /*	Now get the length of those two paths */
+  const straightLength = svg[0].getTotalLength();
+  // var curveLength = svg[1].getTotalLength();
+
+  /*	Also get a reference to the two star polygons */
+  const stars = svgContainer.getElementsByTagName("polygon");
+
+  function moveStar() {
+    /*	Check to see where the stars are journeys to determine
+        what direction they should be travelling in */
+    if (parseInt(counter,10) === 1) {
+      /* we've hit the end! */
+      counter = 0;
+    }
+
+    // Speed of the star.
+    counter += speed;
+    stars[0].setAttribute("transform","translate("+ (svg[0].getPointAtLength(counter * straightLength).x -15)  + "," + (svg[0].getPointAtLength(counter * straightLength).y -15) + ")");
+    requestAnimationFrame(moveStar);
+  }
+  requestAnimationFrame(moveStar);
+
+
+  /**
+   * SOCKETS.
+   */
+  const socket = io();
+
+  socket.emit('client:overview');
+
+  // Update overview values.
+  socket.on('server:overview', data => {
+      updateTimes(data);
+      updateTokens(data.tokens);
+      updateUpgrades(data.upgrades);
+  });
+
+  // Stop moving star on pitstop.
+  socket.on('server:driver:pitstop', data => {
+      counter = 0;
+      speed = 0;
+
+      updateTimes(data);
+  });
+  // Start moving star after pitstop.
+  socket.on('pitstop:done', data => {
+      counter = 0;
+      speed = 0.00055;
+
+      updateTimes(data);
+  });
+
+  // Update lap and pitstop times.
+  const updateTimes = data => {
+      if (data.time) {
+          const lapEntries = Object.entries(data.time);
+          for (const [lap, time] of lapEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('lap-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '.' + formattedTime;
+          }
+      }
+
+      if (data.pitstopTimes) {
+          const pitstopEntries = Object.entries(data.pitstopTimes);
+          for (const [lap, time] of pitstopEntries) {
+              if (lap === '0' || !time) continue;
+              const element = document.getElementById('pitstop-' + lap.toString());
+              const date = new Date(time);
+              const formattedTime = date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds();
+              element.innerText = lap.toString() + '. ' + formattedTime;
+          }
+      }
+  };
+
+  // TODO: Update when tokens are updated.
+  const updateTokens = tokens => {
+      document.getElementById('tokens').innerText = tokens.toString();
+  };
+
+  // TODO: Update when upgrades are unlocked.
+  const updateUpgrades = upgrades => {
+      const upgradeElement = document.getElementById('upgrades');
+      const upgradeEntries = Object.entries(upgrades);
+
+      const upgradeTranslations = {
+          'rain-tires': 'Regenbanden',
+          'engine-upgrade': 'Motor Upgrade',
+          'fuel-upgrade': 'Super Brandstof',
+          'turbo-upgrade': 'Turbo Upgrade',
+          'aero-upgrade': 'Aero Upgrade',
+      };
+
+      for (const [upgrade, unlocked] of upgradeEntries) {
+          if (unlocked) {
+              upgradeElement.innerHTML += upgradeTranslations[upgrade] + ' | ';
+          }
+      }
+  };
+</script>
+
